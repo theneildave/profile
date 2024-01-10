@@ -260,3 +260,27 @@
   new PureCounter();
 
 })()
+
+// Custom code for circle
+document.addEventListener('DOMContentLoaded', function () {
+  // Get all progressbar elements
+  var progressbars = document.querySelectorAll('.progressbar');
+
+  // Iterate over each progressbar and set the stroke-dashoffset based on the data-percentage attribute
+  progressbars.forEach(function (progressbar) {
+      var percentage = progressbar.getAttribute('data-percentage');
+      var circle = progressbar.querySelector('.progressbar__svg-circle');
+      var radius = circle.r.baseVal.value;
+      var circumference = 2 * Math.PI * radius;
+      var offset = circumference * (1 - percentage / 100);
+      
+      // Set the stroke-dasharray and stroke-dashoffset to the circumference of the circle
+      circle.style.strokeDasharray = `${circumference}`;
+      circle.style.strokeDashoffset = `${offset}`;
+      
+      // Optionally, you can animate the stroke-dashoffset here
+      // For example:
+      // circle.style.transition = 'stroke-dashoffset 1s ease-in-out';
+      // circle.style.strokeDashoffset = `${offset}`;
+  });
+});

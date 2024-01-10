@@ -79,7 +79,9 @@ h6 {
   z-index: 9997;
   transition: all 0.5s;
   padding: 0 15px;
-  background: #040b14;
+  /* background: #040b14; */
+  /* background: #75a5e3; */
+  background: #149ddd;
   overflow-y: auto;
 }
 
@@ -109,7 +111,8 @@ h6 {
 #header .profile .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: #212431;
+  /* background: #212431; */
+  background: #4f577d;
   color: #fff;
   line-height: 1;
   padding: 8px 0;
@@ -202,7 +205,8 @@ h6 {
 .nav-menu .active i,
 .nav-menu .active:focus i,
 .nav-menu li:hover>a i {
-  color: #149ddd;
+  color: #03010d;
+  /* color: #149ddd; */
 }
 
 /* Mobile Navigation */
@@ -1075,7 +1079,7 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  padding: 15px;
+  padding: 10px;
   color: #f4f6fd;
   font-size: 14px;
   position: fixed;
@@ -1103,4 +1107,170 @@ section {
     width: auto;
     padding-right: 20px 15px;
   }
+}
+
+/*--------------------------------------------------------------
+Custom made
+--------------------------------------------------------------*/
+/* a {
+    text-decoration: none;
+}
+ 
+.made {
+    display: block;
+    color: #f2f2f2;
+    font-size: 0.75rem;
+    text-align: center;
+}
+ 
+* {
+    box-sizing: border-box;
+}
+ 
+/* .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #0d0d0d;
+} */
+ 
+/* .container__progressbars {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    min-width: 270px;
+    width: 100%;
+    min-height: 100%;
+}
+ 
+.progressbar {
+    position: relative;
+    width: 170px;
+    height: 170px;
+    margin: 1em;
+    transform: rotate(-90deg);
+}
+ 
+.progressbar__svg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+ 
+.progressbar__svg-circle {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke-width: 10;
+    stroke-dasharray: 440;
+    stroke-dashoffset: 40;
+    stroke: rgb(240, 91, 220);
+    stroke-linecap: round;
+    transform: translate(5px, 5px);
+} */
+ 
+/* .shadow-html {
+    filter: drop-shadow(0 0 5px #ff6633);
+} */
+ 
+/* .circle-html {
+    -webkit-animation: anim_circle-html 1s ease-in-out forwards;
+            animation: anim_circle-html 1s ease-in-out forwards;
+}
+ 
+.progressbar__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 0.25em 0.5em;
+    color: rgb(23, 2, 2);
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 0.25em;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+ 
+@-webkit-keyframes anim_circle-html {
+    to {
+        stroke-dashoffset: 110;
+    }
+}
+ 
+@keyframes anim_circle-html {
+    to {
+        stroke-dashoffset: 110;
+    }
+} */ 
+
+a {
+  text-decoration: none;
+}
+
+.made {
+  display: block;
+  color: #f2f2f2;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #0d0d0d;
+} */
+
+.container__progressbars {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  min-width: 270px;
+  width: 100%;
+  min-height: 100%;
+}
+
+.progressbar {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  margin: 1em;
+  transform: rotate(-90deg);
+}
+
+.progressbar__svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.progressbar__svg-circle {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke-width: 10;
+  stroke: rgb(83, 39, 241);
+  stroke-linecap: round;
+  transform: translate(5px, 5px);
+}
+
+.shadow-html {
+  filter: drop-shadow(0 0 5px #f3f3f3);
+}
+
+.progressbar__text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0.25em 0.5em;
+  color: rgb(8, 8, 8);
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 0.25em;
+  transform: translate(-50%, -50%) rotate(90deg);
 }
