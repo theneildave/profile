@@ -65,7 +65,7 @@
           <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
           <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
           <li><a href="#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
-          <li><a href="#blog" class="nav-link scrollto"><i class="bx bx-blogger"></i> <span>Blog</span></a></li>
+          <li><a href="#blog" class="nav-link scrollto"><i class='bx bxl-blogger'></i><span>Blog</span></a></li>
           <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
           <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
         </ul>
@@ -77,7 +77,7 @@
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="hero-container" data-aos="fade-in">
       <h1>Neil Dave</h1>
-      <p>I'm <span class="typed" data-typed-items="Data Scientist, ML Engineer, Freelancer, Photographer"></span></p>
+      <p>I'm <span class="typed" data-typed-items="Data Scientist, ML Engineer, Gen AI Engineer, Freelancer, Photographer"></span></p>
     </div>
   </section><!-- End Hero -->
 
@@ -496,6 +496,27 @@
       <div class="container">
         <div class="section-title">
           <h2>Blog</h2>
+          <script>
+            const mediumRssFeed = "https://medium.com/feed/@theneildave";
+            const mediumJsonFeedUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(mediumRssFeed)}`;
+            
+            fetch(mediumJsonFeedUrl)
+              .then(response => response.json())
+              .then(data => {
+                let output = '<h2>My Medium Posts</h2>';
+                data.items.forEach(item => {
+                  output += `
+                    <div class="post">
+                      <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
+                      <p>${item.pubDate}</p>
+                      <p>${item.description}</p>
+                    </div>
+                  `;
+                });
+                document.getElementById('medium-posts').innerHTML = output;
+              })
+              .catch(error => console.error('Error loading Medium posts:', error));
+            </script>
           <div id="retainable-rss-embed" 
           data-rss="https://medium.com/feed/retainable,
           https://medium.com/feed/js-dojo,                https://medium.com/feed/vue-mastery" 
