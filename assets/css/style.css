@@ -104,7 +104,8 @@ h6 {
 
 #header .profile h1 a,
 #header .profile h1 a:hover {
-  color: #fff;
+  /* color: #fff; */
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -179,7 +180,8 @@ h6 {
 .nav-menu a:focus {
   display: flex;
   align-items: center;
-  color: #a8a9b4;
+  /* color: #a8a9b4; */
+  color: #c2c2c5;
   padding: 12px 15px;
   margin-bottom: 8px;
   transition: 0.3s;
@@ -190,7 +192,8 @@ h6 {
 .nav-menu a:focus i {
   font-size: 24px;
   padding-right: 8px;
-  color: #6f7180;
+  /* color: #6f7180; */
+  color: #c2c2c5;
 }
 
 .nav-menu a:hover,
@@ -198,7 +201,7 @@ h6 {
 .nav-menu .active:focus,
 .nav-menu li:hover>a {
   text-decoration: none;
-  color: #fff;
+  color: #000000;
 }
 
 .nav-menu a:hover i,
@@ -245,7 +248,8 @@ h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/hero-bg.jpg") top center;
+  /* background: url("../img/hero-bg.jpg") right center; */
+  background: url("../img/bg.png") right center;
   background-size: cover;
 }
 
@@ -275,14 +279,14 @@ h6 {
 }
 
 #hero p {
-  color: #fff;
+  color: #ffffff;
   margin-bottom: 50px;
   font-size: 26px;
   font-family: "Poppins", sans-serif;
 }
 
 #hero p span {
-  color: #fff;
+  color: #cdf30c;
   padding-bottom: 4px;
   letter-spacing: 1px;
   border-bottom: 3px solid #149ddd;
