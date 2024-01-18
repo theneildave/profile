@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lead Generation Page</title>
+  <style>
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+    }
+
+    .container h1 {
+      text-align: center;
+    }
+
+    .container form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container form input[type="text"],
+    .container form input[type="phone"],
+    .container form input[type="email"] {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .container form input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .container form input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Get Your Free Resume Template</h1>
+    <form id="leadForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="phone" id="phone" placeholder="Your Phone" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('leadForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var phone = document.getElementById('phone').value;
+      // Do something with the lead data (e.g., send it to a server or save it to a database)
+      console.log('Name:', name);
+      console.log('Phone:', phone);
+      console.log('Email:', email);
+      // Clear the form inputs
+      document.getElementById('name').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('email').value = '';
+    });
+  </script>
+</body>
+</html>
