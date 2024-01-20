@@ -22,7 +22,7 @@
     }
 
     .container form input[type="text"],
-    .container form input[type="phone"],
+    .container form input[type="tel"],
     .container form input[type="email"] {
       margin-bottom: 10px;
       padding: 10px;
@@ -41,6 +41,10 @@
     .container form input[type="submit"]:hover {
       background-color: #45a049;
     }
+    .container form input[type="tel"]:invalid {
+    border-color: red;
+}
+
   </style>
 </head>
 <body>
@@ -48,8 +52,9 @@
     <h1>Get Your Free Resume Template</h1>
     <form id="leadForm">
       <input type="text" id="name" placeholder="Your Name" required>
-      <input type="phone" id="phone" placeholder="Your Phone" required>
+      <input type="tel" id="phone" pattern="\d{10}" placeholder="Phone Number" required>
       <input type="email" id="email" placeholder="Your Email" required>
+      <p> By clicking on submit, you are allowing to contact on the shared details.</p>
       <input type="submit" value="Submit">
     </form>
   </div>
