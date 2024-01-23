@@ -65,10 +65,11 @@
           <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
           <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Experience</span></a></li>
           <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
-          <li><a href="#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
           <li><a href="#blog" class="nav-link scrollto"><i class='bx bxl-blogger'></i><span>Blog</span></a></li>
-          <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
+          <li><a href="#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
+          <!-- <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li> -->
           <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+          <li><a href="news.html" class="nav-link scrollto"><i class="bx bx-server"></i> <span>AI NEWS</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
     </div>
@@ -78,7 +79,7 @@
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="hero-container" data-aos="fade-in">
       <h1>Neil Dave</h1>
-      <p>I'm <span class="typed" data-typed-items="Data Scientist, ML Engineer, Gen AI Engineer, Problem Solver, Foodie"></span></p>
+      <p>I'm <span class="typed" data-typed-items="Data Scientist, ML Engineer, Gen AI Engineer,Mentor, Problem Solver, Foodie"></span></p>
       <a href="https://topmate.io/theneildave/470856">
       <!-- <button class="favorite styled" type="button"> -->
       <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill"type="button">LinkedIn Mentorship</button></a>
@@ -203,8 +204,8 @@
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="count-box">
               <i class="bi bi-journal-richtext"></i>
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Projects</strong> adipisci atque cum quia aut</p>
+              <span data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Projects</strong> End-to-end deployed</p>
             </div>
           </div>
 
@@ -520,32 +521,16 @@
 
       </div>
     </section><!-- End Portfolio Section -->
-    <!-- ======= Appointment Section ======= -->
-    <section id="appointment" class="appointment">
-      <div class="container">
-        <div class="section-title">
-          <h2>Appointment</h2>
-          <!-- Calendly inline widget begin -->
-          <!-- <div class="calendly-inline-widget" data-url="https://calendly.com/theneildave/30min" style="min-width:320px;height:630px;"></div> -->
-          <div class="calendly-inline-widget"style="min-width:320px;height:630px;">
-          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" style="min-width:320px;height:630px;"></script>
-          <script>
-            Calendly.initInlineWidget({
-            url: 'https://calendly.com/theneildave',
-            parentElement: document.getElementById('calendly-embed')
-            });
-            </script>
-            </div>
-          <!-- Calendly inline widget end -->
-        </div>
-      </div>
-    </section>
-    <!-- ======= Appointment Ends Section ======= -->
+
     <!-- ======= Blog Section ======= -->
     <section id="blog" class="blog">
       <div class="container">
         <div class="section-title">
           <h2>Blog</h2>
+          <!-- <script async src="https://static.medium.com/embed.js"></script><a class="m-story" href="https://theneildave.medium.com/most-frequent-questions-asked-in-deep-learning-interviews-7c03ce861a1c">Most Frequent questions asked in Deep Learning interviews</a> -->
+          <script async src="https://static.medium.com/embed.js" ></script><a class="m-story" href="https://theneildave.medium.com/most-frequent-questions-asked-in-deep-learning-interviews-7c03ce861a1c"  >Most Frequent questions asked in Deep Learning interviews</a>
+          <script async src="https://static.medium.com/embed.js" ></script><a class="m-story" href="https://theneildave.medium.com/most-frequent-questions-asked-in-deep-learning-interviews-7c03ce861a1c?card=small"  >Most Frequent questions asked in Deep Learning interviews</a>
+          <!-- https://medium.com/@theneildave/most-frequent-questions-asked-in-deep-learning-interviews-7c03ce861a1c?card=small -->
           <!-- <script>
           const token = '2b4839f4d64c6fae20f9c86ac3080b7fc9b3245ebed9e3e3aabe728974fdc6520';
           const userId = 'theneildave';
@@ -558,29 +543,8 @@
           })
             .then(response => response.json())
           </script> -->
-          <iframe src="https://medium.com/@theneildave/understanding-cross-encoders-revolutionizing-textual-relationships-in-nlp-86b6925a4e08" name="page" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+          <!-- <iframe src="https://medium.com/@theneildave/understanding-cross-encoders-revolutionizing-textual-relationships-in-nlp-86b6925a4e08" name="page" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
           <script>
-            // const mediumRssFeed = "https://medium.com/feed/@theneildave";
-            // const mediumJsonFeedUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(mediumRssFeed)}`;
-            
-            // fetch(mediumJsonFeedUrl)
-            //   .then(response => response.json())
-            //   .then(data => {
-            //     let output = '<h2>My Medium Posts</h2>';
-            //     data.items.forEach(item => {
-            //       output += `
-            //         <div class="post">
-            //           <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
-            //           <p>${item.pubDate}</p>
-            //           <p>${item.description}</p>
-            //         </div>
-            //       `;
-            //     });
-            //     document.getElementById('medium-posts').innerHTML = output;
-            //   })
-            //   .catch(error => console.error('Error loading Medium posts:', error));/
-            // const mediumUserId = 'YOUR_MEDIUM_USER_ID';
-            // const token = 'YOUR_MEDIUM_TOKEN';
             const token = '2b4839f4d64c6fae20f9c86ac3080b7fc9b3245ebed9e3e3aabe728974fdc6520';
             const mediumUserId = 'theneildave';
             const mediumApiUrl = `https://api.medium.com/v1/users/${mediumUserId}/posts`;
@@ -607,7 +571,7 @@
                 document.getElementById('medium-posts').innerHTML = output;
               })
               .catch(error => console.error('Error loading Medium posts:', error));
-            </script>
+            </script> -->
           <div id="retainable-rss-embed" 
           data-rss="https://medium.com/feed/retainable,
           https://medium.com/feed/js-dojo,                https://medium.com/feed/vue-mastery" 
@@ -653,8 +617,29 @@
       </div>
     </section>
     <!-- ======= Blog ends Section ======= -->
+    <!-- ======= Appointment Section ======= -->
+    <section id="appointment" class="appointment">
+      <div class="container">
+        <div class="section-title">
+          <h2>Appointment</h2>
+          <!-- Calendly inline widget begin -->
+          <!-- <div class="calendly-inline-widget" data-url="https://calendly.com/theneildave/30min" style="min-width:320px;height:630px;"></div> -->
+          <div class="calendly-inline-widget"style="min-width:320px;height:630px;">
+          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" style="min-width:320px;height:630px;"></script>
+          <script>
+            Calendly.initInlineWidget({
+            url: 'https://calendly.com/theneildave',
+            parentElement: document.getElementById('calendly-embed')
+            });
+            </script>
+            </div>
+          <!-- Calendly inline widget end -->
+        </div>
+      </div>
+    </section>
+    <!-- ======= Appointment Ends Section ======= -->
     <!-- ======= Services Section ======= -->
-    <section id="services" class="services">
+    <!-- <section id="services" class="services">
       <div class="container">
 
         <div class="section-title">
@@ -696,7 +681,7 @@
         </div>
 
       </div>
-    </section><!-- End Services Section -->
+    </section>End Services Section -->
 
     <!-- ======= Testimonials Section ======= -->
     <!-- <section id="testimonials" class="testimonials section-bg">
