@@ -71,6 +71,29 @@
           <li><a href="index.html#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
+      <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f2f2f2;
+            padding: 10px;
+        }
+        .tab {
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab-content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 0 0 5px 5px;
+        }
+    </style>
     </div>
   </header><!-- End Header -->
 
@@ -111,16 +134,46 @@
               </ul> -->
             </div>
           </div>
+        
             <div class="portfolio-description">
-              <article>
-                <h2>Article Title 1</h2>
-                <p>Published on: <time datetime="2024-01-24">January 24, 2024</time>
-                  <a href="#">This is a brief summary of the AI news article. Provide relevant information and insights.</p>
-                </a>
-                <p>Published on: <time datetime="2024-01-24">January 24, 2024</time>
-                  <a href="#">This is a brief summary of the AI news article. Provide relevant information and insights.</p>
-                </a>
-              </article>
+              <div class="tabs">
+                <div class="tab" onclick="openTab('tab1')">AI</div>
+                <div class="tab" onclick="openTab('tab2')">Green Hydrogen</div>
+            </div>
+        
+            <div class="tab-content" id="tab1">
+                <h2>Content for AI News</h2>
+                <!-- <p>This is the content of the first tab.</p> -->
+                <article>
+                  <p><time datetime="2024-01-24">January 24, 2024</time>
+                    <a href="#">This is a brief summary of the AI news article. Provide relevant information and insights.</p>
+                  </a>
+                  <p> <time datetime="2024-01-24">January 24, 2024</time>
+                    <a href="#">This is a brief summary of the AI news article. Provide relevant information and insights.</p>
+                  </a>
+                </article>
+            </div>
+        
+            <div class="tab-content" id="tab2">
+                <h2>Content for Tab 2</h2>
+                <p>This is the content of the second tab.</p>
+            </div>
+        
+            <script>
+                document.getElementById('tab1').style.display = 'block';
+                function openTab(tabId) {
+                    // Hide all tab content
+                    var tabContents = document.getElementsByClassName('tab-content');
+                    for (var i = 0; i < tabContents.length; i++) {
+                        tabContents[i].style.display = 'none';
+                    }
+        
+                    // Show the selected tab content
+                    document.getElementById(tabId).style.display = 'block';
+                }
+            </script>
+        
+
             </div>
           </div>
 
