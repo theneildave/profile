@@ -1,0 +1,7 @@
+# robots.txt for theneildave.com
+# allow all crawlers full access
+User-agent: *
+Disallow:
+
+# sitemap (if available)
+Sitemap: https://theneildave.com/sitemap.xml
