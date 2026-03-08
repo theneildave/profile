@@ -1,7 +1,41 @@
-# robots.txt for theneildave.com
-# allow all crawlers full access
+# robots.txt for theneildave.com - Optimized for AI SEO, GEO, and AEO visibility
+# Allow all major search engine crawlers full access for maximum visibility
+# This helps with AI-powered search features, geographic indexing, and answer engine optimization
+
+# Google (primary for AI SEO and AEO)
+User-agent: Googlebot
+Disallow:
+
+# Google Images (important for visual portfolio)
+User-agent: Googlebot-Image
+Disallow:
+
+# Bing (supports AI features and GEO)
+User-agent: Bingbot
+Disallow:
+
+# Bing Images
+User-agent: Bingbot-Image
+Disallow:
+
+# DuckDuckGo (privacy-focused, AI-enhanced)
+User-agent: DuckDuckBot
+Disallow:
+
+# Baidu (for international GEO visibility)
+User-agent: Baiduspider
+Disallow:
+
+# Yandex (AI and GEO support)
+User-agent: YandexBot
+Disallow:
+
+# Allow all other crawlers
 User-agent: *
 Disallow:
 
-# sitemap (if available)
+# Sitemap for better indexing and AI/GEO/AEO discovery
 Sitemap: https://theneildave.com/sitemap.xml
+
+# Crawl delay to be respectful (optional, remove if causing issues)
+Crawl-delay: 1
