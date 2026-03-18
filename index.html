@@ -70,7 +70,8 @@
     "sameAs": [
       "https://www.linkedin.com/in/neil-dave/",
       "https://github.com/theneildave/",
-      "https://medium.com/@theneildave"
+      "https://medium.com/@theneildave",
+      "https://theneildave.substack.com"
     ],
     "jobTitle": "AI Solution Architect",
     "description": "AI Solution Architect with 7+ years of expertise in Machine Learning, Deep Learning, NLP/LLM Engineering, and Computer Vision. Delivers AI projects across healthcare, sports analytics, and enterprise tech. Mentors 120+ professionals on LinkedIn.",
@@ -126,9 +127,10 @@
           <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
           <a href="https://github.com/theneildave/" class="facebook"><i class="bx bxl-github"></i></a>
           <a href="https://medium.com/@theneildave" class="google-plus"><i class="bx bxl-medium"></i></a>
-          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>          
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener" title="Neil Dave on Substack"><i class="bx bx-envelope-open"></i></a>
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
           <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-          
+
         </div>
       </div>
 
@@ -139,6 +141,7 @@
           <!-- <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Experience</span></a></li> -->
           <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
           <li><a href="#blog" class="nav-link scrollto"><i class='bx bxl-blogger'></i><span>Blog</span></a></li>
+          <li><a href="#substack" class="nav-link scrollto"><i class="bx bx-envelope-open"></i><span>Newsletter</span></a></li>
           <li><a href="#tndtalks" class="nav-link scrollto"><i class="bx bx-podcast"></i> <span>TND Talks</span></a></li>
           <li><a href="#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
           <!-- <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li> -->
@@ -172,9 +175,9 @@
 
         <div class="section-title">
           <h2>About</h2>
-          <p>Welcome to my personal website!
-            <br><br>I am a seasoned professional with more than half decade years of experience in the dynamic field of Artificial Intelligence, Deep Learning, Machine Learning and Gen AI. I have been helping businesses to turn data into gold (pure profit) with expertise of the Technology. As a current Data Scientist, I have successfully led and executed numerous data-driven projects, leveraging cutting-edge technologies to drive innovation and deliver results for <b>Mumbai Indians</b>.
-            <br><br></p>
+          <p><strong>Neil Dave is a Bangalore-based AI Solution Architect with 7+ years of experience in Machine Learning, Deep Learning, Generative AI, and Computer Vision.</strong> He has delivered end-to-end AI solutions across healthcare, sports analytics, and enterprise tech — including projects for <b>Mumbai Indians</b>. He mentors 120+ professionals on LinkedIn and consults SMBs on AI adoption and strategy.
+            <br><br>He has helped businesses leverage data-driven AI to drive measurable growth — from building custom LLMs and computer vision pipelines to deploying production ML systems with MLOps/LLMOps practices.
+            <br><br><em>Last updated: March 2026</em></p>
         </div>
 
         <div class="row">
@@ -692,6 +695,70 @@
       </div>
     </section>
     <!-- ======= Blog ends Section ======= -->
+
+    <!-- ======= Substack Newsletter Section ======= -->
+    <section id="substack" class="facts section-bg">
+      <div class="container">
+        <div class="section-title">
+          <h2>Newsletter</h2>
+          <p>Get actionable insights on AI, Machine Learning, and Generative AI — straight to your inbox. No fluff, just practical knowledge from real-world AI projects.</p>
+        </div>
+
+        <!-- Latest Posts -->
+        <div class="row mb-4" data-aos="fade-up">
+          <div class="col-lg-12">
+            <div id="substack-posts" class="row">
+              <div class="col-12 text-center text-muted"><small>Loading latest posts...</small></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subscribe embed -->
+        <div class="row" data-aos="fade-up">
+          <div class="col-lg-8 mx-auto text-center">
+            <p>I write about LLMs, MLOps, AI career growth, and the intersection of AI and business. Join professionals already reading <strong>TND Talks on Substack</strong>.</p>
+            <br>
+            <iframe src="https://theneildave.substack.com/embed" width="100%" height="150" style="border:1px solid #EEE; background:white; border-radius:8px;" frameborder="0" scrolling="no" loading="lazy"></iframe>
+            <br><br>
+            <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-primary btn-lg px-4 rounded-pill">Read on Substack</a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Substack Newsletter Section -->
+
+    <script>
+    (function () {
+      var FEED = 'https://theneildave.substack.com/feed';
+      var PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+      fetch(PROXY + encodeURIComponent(FEED))
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var posts = (data.items || []).slice(0, 3);
+          if (!posts.length) return;
+          var html = posts.map(function (p) {
+            var date = p.pubDate ? new Date(p.pubDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+            var thumb = p.thumbnail || p.enclosure && p.enclosure.link || '';
+            var desc = p.description ? p.description.replace(/<[^>]+>/g, '').substring(0, 120) + '…' : '';
+            return '<div class="col-lg-4 col-md-6 mb-4">'
+              + '<div class="card h-100 shadow-sm" style="border-radius:10px;overflow:hidden;">'
+              + (thumb ? '<img src="' + thumb + '" class="card-img-top" alt="' + p.title + '" style="height:160px;object-fit:cover;" loading="lazy">' : '')
+              + '<div class="card-body d-flex flex-column">'
+              + '<small class="text-muted mb-1">' + date + '</small>'
+              + '<h5 class="card-title" style="font-size:1rem;">' + p.title + '</h5>'
+              + '<p class="card-text text-muted" style="font-size:0.85rem;flex-grow:1;">' + desc + '</p>'
+              + '<a href="' + p.link + '" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm mt-2 rounded-pill">Read post</a>'
+              + '</div></div></div>';
+          }).join('');
+          document.getElementById('substack-posts').innerHTML = html;
+        })
+        .catch(function () {
+          document.getElementById('substack-posts').innerHTML =
+            '<div class="col-12 text-center"><a href="https://theneildave.substack.com" target="_blank" rel="noopener">View all posts on Substack →</a></div>';
+        });
+    })();
+    </script>
+
      <!-- ======= TND Talks ends Section ======= -->
      <section id="tndtalks" class="tndtalks">
       <div class="container">
@@ -855,6 +922,148 @@
       </div>
     </section> -->
     <!-- End Testimonials Section -->
+
+    <!-- ======= FAQ Section ======= -->
+    <section id="faq" class="facts">
+      <div class="container">
+        <div class="section-title">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="row">
+          <div class="col-lg-12" data-aos="fade-up">
+
+            <div class="accordion" id="faqAccordion">
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq1-heading">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
+                    Who is Neil Dave?
+                  </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse" aria-labelledby="faq1-heading" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Neil Dave is an AI Solution Architect and Data Scientist based in Bangalore, India, with 7+ years of experience in Machine Learning, Deep Learning, Generative AI (LLMs), and Computer Vision. He has built and deployed production AI systems for sports analytics, healthcare, and enterprise clients, including Mumbai Indians. He is also an active LinkedIn mentor with 120+ mentees.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq2-heading">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                    What AI services does Neil Dave offer?
+                  </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Neil Dave offers AI consulting and solution architecture services including: custom ML model development, LLM/RAG pipeline engineering, computer vision system design, MLOps and LLMOps deployment, responsible AI audits, and AI strategy consulting for small and medium businesses (SMBs).</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq3-heading">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                    What industries has Neil Dave worked in?
+                  </button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3-heading" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Neil Dave has delivered AI projects across healthcare (early sepsis detection, breast cancer detection via thermal imaging), sports analytics (cricket run prediction, CricketGPT LLM), financial services (credit card default prediction with Responsible AI), and enterprise technology.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq4-heading">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                    How can I hire Neil Dave as an AI consultant?
+                  </button>
+                </h2>
+                <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4-heading" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">You can book a consultation directly via the Appointment section on this website (powered by Calendly), connect on LinkedIn at linkedin.com/in/neil-dave/, or reach out by email at hello@theneildave.in. Neil is open to both short-term consulting engagements and long-term advisory roles.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq5-heading">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                    What technologies and frameworks does Neil Dave specialize in?
+                  </button>
+                </h2>
+                <div id="faq5" class="accordion-collapse collapse" aria-labelledby="faq5-heading" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Neil Dave's core stack includes Python, PyTorch, TensorFlow, Hugging Face Transformers, OpenAI APIs, LangChain, FastAPI, Azure ML, H2O.ai, OpenCV, and Streamlit. He has expertise in classical ML, deep learning, NLP/LLM engineering, computer vision, and MLOps/LLMOps pipelines.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq6-heading">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6">
+                    Does Neil Dave mentor professionals in AI and data science?
+                  </button>
+                </h2>
+                <div id="faq6" class="accordion-collapse collapse" aria-labelledby="faq6-heading" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Yes. Neil Dave actively mentors professionals on LinkedIn, helping 120+ individuals navigate AI career transitions, interview preparation, and skill development in Machine Learning, Deep Learning, and Generative AI. Mentorship sessions can be booked via Topmate.</div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section><!-- End FAQ Section -->
+
+    <!-- FAQPage Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Who is Neil Dave?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Neil Dave is an AI Solution Architect and Data Scientist based in Bangalore, India, with 7+ years of experience in Machine Learning, Deep Learning, Generative AI (LLMs), and Computer Vision. He has built and deployed production AI systems for sports analytics, healthcare, and enterprise clients, including Mumbai Indians. He is also an active LinkedIn mentor with 120+ mentees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What AI services does Neil Dave offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Neil Dave offers AI consulting and solution architecture services including: custom ML model development, LLM/RAG pipeline engineering, computer vision system design, MLOps and LLMOps deployment, responsible AI audits, and AI strategy consulting for small and medium businesses (SMBs)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What industries has Neil Dave worked in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Neil Dave has delivered AI projects across healthcare (early sepsis detection, breast cancer detection via thermal imaging), sports analytics (cricket run prediction, CricketGPT LLM), financial services (credit card default prediction with Responsible AI), and enterprise technology."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I hire Neil Dave as an AI consultant?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can book a consultation directly via the Appointment section on this website (powered by Calendly), connect on LinkedIn at linkedin.com/in/neil-dave/, or reach out by email at hello@theneildave.in. Neil is open to both short-term consulting engagements and long-term advisory roles."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What technologies and frameworks does Neil Dave specialize in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Neil Dave's core stack includes Python, PyTorch, TensorFlow, Hugging Face Transformers, OpenAI APIs, LangChain, FastAPI, Azure ML, H2O.ai, OpenCV, and Streamlit. He has expertise in classical ML, deep learning, NLP/LLM engineering, computer vision, and MLOps/LLMOps pipelines."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Neil Dave mentor professionals in AI and data science?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Neil Dave actively mentors professionals on LinkedIn, helping 120+ individuals with AI career transitions, interview preparation, and skill development in Machine Learning, Deep Learning, and Generative AI. Mentorship sessions can be booked via Topmate."
+          }
+        }
+      ]
+    }
+    </script>
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
