@@ -1,4 +1,4 @@
-# robots.txt for theneildave.com - Optimized for AI SEO, GEO, and AEO visibility
+# robots.txt for theneildave.in - Optimized for AI SEO, GEO, and AEO visibility
 # Allow all major search engine crawlers full access for maximum visibility
 # This helps with AI-powered search features, geographic indexing, and answer engine optimization
 
@@ -30,12 +30,28 @@ Disallow:
 User-agent: YandexBot
 Disallow:
 
+# AI Search Crawlers — explicitly allowed for citation visibility
+User-agent: GPTBot
+Disallow:
+
+User-agent: ChatGPT-User
+Disallow:
+
+User-agent: PerplexityBot
+Disallow:
+
+User-agent: ClaudeBot
+Disallow:
+
+User-agent: anthropic-ai
+Disallow:
+
+User-agent: Google-Extended
+Disallow:
+
 # Allow all other crawlers
 User-agent: *
 Disallow:
 
 # Sitemap for better indexing and AI/GEO/AEO discovery
-Sitemap: https://theneildave.com/sitemap.xml
-
-# Crawl delay to be respectful (optional, remove if causing issues)
-Crawl-delay: 1
+Sitemap: https://theneildave.in/sitemap.xml
