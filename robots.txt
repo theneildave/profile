@@ -31,6 +31,9 @@ User-agent: YandexBot
 Disallow:
 
 # AI Search Crawlers — explicitly allowed for citation visibility
+User-agent: BraveBotCrawler
+Disallow:
+
 User-agent: GPTBot
 Disallow:
 

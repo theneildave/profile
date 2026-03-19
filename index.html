@@ -37,8 +37,32 @@
   <link href="assets/img/favicon1.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <style>
+    /* Article tag chips */
+    .blog-tag { font-size:0.75rem; background:#e8f4fd; color:#0d6efd; border-radius:20px; padding:2px 10px; margin-right:4px; display:inline-block; margin-bottom:6px; }
+    /* Tech skill badges */
+    .skill-badge { display:inline-block; background:#e8f0fe; color:#1a3a6b; border-radius:6px; padding:5px 13px; margin:3px 4px; font-size:0.82rem; font-weight:500; border:1px solid #c5d5f5; }
+    .skill-label { font-size:0.68rem; text-transform:uppercase; letter-spacing:0.09em; color:#aaa; font-weight:700; margin-bottom:8px; margin-top:0; }
+    /* Portfolio captions */
+    .portfolio-caption { padding:10px 12px 6px; }
+    .portfolio-caption h5 { font-size:0.9rem; font-weight:600; margin:0 0 2px 0; color:#333; }
+    .portfolio-caption small { font-size:0.75rem; color:#999; }
+  </style>
+
+  <!-- LCP preload — profile image is the largest above-fold element -->
+  <link rel="preload" as="image" href="assets/img/profile-img.png">
+
+  <!-- Preconnect — eliminates DNS + TLS latency for Google Fonts (FCP fix) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- DNS prefetch for other external resources -->
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://assets.calendly.com">
+  <link rel="dns-prefetch" href="https://open.spotify.com">
+
+  <!-- Google Fonts — display=swap prevents render-blocking (FCP fix) -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -111,6 +135,57 @@
     "email": "hello@theneildave.in"
   }
   </script>
+
+  <!-- Organization Schema — AI consulting entity recognition -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Neil Dave — AI Consulting & Solution Architecture",
+    "url": "https://theneildave.in",
+    "logo": "https://theneildave.in/assets/img/profile-img.png",
+    "image": "https://theneildave.in/assets/img/profile-img.png",
+    "description": "AI consulting and solution architecture services for SMBs and enterprises. Specialising in Generative AI, LLM Engineering, Computer Vision, MLOps, and AI strategy. Based in Bangalore, India.",
+    "founder": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in",
+      "sameAs": "https://www.wikidata.org/wiki/Q138716797"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bangalore",
+      "addressRegion": "Karnataka",
+      "addressCountry": "IN"
+    },
+    "email": "hello@theneildave.in",
+    "sameAs": [
+      "https://www.wikidata.org/wiki/Q138716797",
+      "https://www.linkedin.com/in/neil-dave/"
+    ],
+    "areaServed": "Worldwide",
+    "serviceType": [
+      "Generative AI Consulting",
+      "LLM Engineering",
+      "Machine Learning Development",
+      "Computer Vision Solutions",
+      "MLOps & LLMOps",
+      "Responsible AI Audits",
+      "AI Strategy for SMBs"
+    ],
+    "priceRange": "$$",
+    "knowsAbout": [
+      "Machine Learning",
+      "Deep Learning",
+      "LLM Engineering",
+      "Generative AI",
+      "Computer Vision",
+      "MLOps",
+      "NLP",
+      "Python"
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -123,16 +198,16 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="assets/img/profile-img.png" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy">
-        <h1 class="text-light"><a href="index.html">Neil Dave</a></h1>
+        <img src="assets/img/profile-img.png" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" fetchpriority="high">
+        <h2 class="text-light"><a href="index.html">Neil Dave</a></h2>
         <div class="social-links mt-3 text-center">
           <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-          <a href="https://github.com/theneildave/" class="facebook"><i class="bx bxl-github"></i></a>
+          <a href="https://github.com/theneildave/" class="github" target="_blank" rel="noopener" title="Neil Dave on GitHub"><i class="bx bxl-github"></i></a>
           <a href="https://medium.com/@theneildave" class="google-plus"><i class="bx bxl-medium"></i></a>
           <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener" title="Neil Dave on Substack"><i class="bx bx-envelope-open"></i></a>
           <a href="https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Google Scholar"><i class="bx bx-book-alt"></i></a>
-          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="https://twitter.com/theneildave" class="twitter" target="_blank" rel="noopener" title="Neil Dave on Twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="https://www.instagram.com/theneildave.ai" class="instagram" target="_blank" rel="noopener" title="Neil Dave on Instagram"><i class="bx bxl-instagram"></i></a>
 
         </div>
       </div>
@@ -143,7 +218,7 @@
           <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
           <!-- <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Experience</span></a></li> -->
           <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
-          <li><a href="blog.html" class="nav-link scrollto"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="#articles" class="nav-link scrollto"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
           <!-- <li><a href="#blog" class="nav-link scrollto"><i class='bx bxl-blogger'></i><span>Blog</span></a></li> -->
           <li><a href="#substack" class="nav-link scrollto"><i class="bx bx-envelope-open"></i><span>Newsletter</span></a></li>
           <li><a href="#tndtalks" class="nav-link scrollto"><i class="bx bx-podcast"></i> <span>TND Talks</span></a></li>
@@ -157,30 +232,31 @@
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+  <section id="hero" class="d-flex flex-column justify-content-center align-items-center" aria-label="Neil Dave — AI Solution Architect, Bangalore">
     <div class="hero-container" data-aos="fade-in">
       <h1>Neil Dave</h1>
-      <p>I'm <span class="typed" data-typed-items="Data Scientist, ML Engineer, Gen AI Engineer,Mentor, Problem Solver, Foodie"></span></p>
+      <!-- Static description for crawlers — typed animation is JS-only and not indexed -->
+      <p class="visually-hidden">AI Solution Architect and Data Scientist with 7+ years of experience in Machine Learning, Deep Learning, Generative AI, LLM Engineering, and Computer Vision. Based in Bangalore, India.</p>
+      <p aria-hidden="true">I'm <span class="typed" data-typed-items="AI Solution Architect, LLM Engineer, Gen AI Engineer, ML Engineer, Mentor"></span></p>
       <a href="https://topmate.io/theneildave/470856">
       <!-- <button class="favorite styled" type="button"> -->
       <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill"type="button">LinkedIn Mentorship</button></a>
       <a href="lead.html">
       <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill"type="button">Free Resume Template</button></a>
-      
-      <!-- <p><br><br<i>Turning Data into Gold</i></p> -->
     </div>
   </section><!-- End Hero -->
 
   <main id="main">
 
     <!-- ======= About Section ======= -->
-    <section id="about" class="about">
+    <section id="about" class="about" aria-label="About Neil Dave — AI Solution Architect">
       <div class="container">
 
         <div class="section-title">
           <h2>About</h2>
           <p><strong>Neil Dave is a Bangalore-based AI Solution Architect with 7+ years of experience in Machine Learning, Deep Learning, Generative AI, and Computer Vision.</strong> He has delivered end-to-end AI solutions across healthcare, sports analytics, and enterprise tech — including projects for <b>Mumbai Indians</b>. He mentors 120+ professionals on LinkedIn and consults SMBs on AI adoption and strategy.
-            <br><br>He has helped businesses leverage data-driven AI to drive measurable growth — from building custom LLMs and computer vision pipelines to deploying production ML systems with MLOps/LLMOps practices.
+            <br><br>He has helped businesses leverage data-driven AI to drive measurable growth — from building custom LLMs and computer vision pipelines to deploying production ML systems with MLOps/LLMOps practices. According to <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey's State of AI 2024</a>, organisations that deploy AI at scale report a <strong>20–30% reduction in operational costs</strong> and up to <strong>3× revenue growth</strong> compared to non-adopters — outcomes Neil has actively helped clients work toward.
+            <br><br>The <a href="https://www.weforum.org/publications/the-future-of-jobs-report-2025/" target="_blank" rel="noopener">World Economic Forum Future of Jobs Report 2025</a> identifies AI and Machine Learning Specialists as the <strong>#1 fastest-growing job role globally</strong>, with demand rising 40% by 2027. Neil's mentorship of 120+ professionals directly addresses this skills gap in the Indian AI ecosystem.
             <br><br><em>Last updated: March 2026</em></p>
         </div>
 
@@ -189,33 +265,28 @@
             <img src="assets/img/profile-img.png" class="img-fluid" alt="Neil Dave Profile" loading="lazy">
           </div>
           <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-            <h3>Data Scientist</h3>
+            <h3>AI Solution Architect</h3>
 
             <div class="row">
               <div class="col-lg-6">
                 <ul>
-                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>1 May 1995</span></li> -->
-                  <!-- <li><i class="bx bx-link"></i> <strong>Website:</strong> <span>www.theneildave.in</span></li> -->
-                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span></span></li> -->
                   <li><i class="bx bx-location-plus"></i> <strong>City:</strong> <span>Bangalore, India</span></li>
+                  <li><i class="bi bi-clock"></i> <strong>Experience:</strong> <span>7+ Years in AI/ML</span></li>
                 </ul>
               </div>
               <div class="col-lg-6">
                 <ul>
-                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>30</span></li> -->
-                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>Master</span></li> -->
-                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>neildave@protonmail.com</span></li> -->
-                  <li><i class="bi bi-chevron-right"></i> <strong>Consultancy:</strong> <span>Let's connect</span></li>
+                  <li><i class="bi bi-building"></i> <strong>Domains:</strong> <span>Healthcare · Sports · Enterprise</span></li>
+                  <li><i class="bi bi-check-circle"></i> <strong>Open to:</strong> <span>Consulting &amp; Advisory</span></li>
                 </ul>
               </div>
             </div>
             <p>
-              My expertise lies in developing and implementing complex machine learning models, designing and managing big data architectures, and utilizing deep learning techniques to uncover insights and drive decision-making. My passion for research and development has allowed me to stay at the forefront of the latest technological advancements and deliver high-impact solutions.
-            <br><br>I am committed to utilizing my skills and experience to help organizations unlock the full potential of their data and drive growth and success. Whether it's through leading a team or working independently, I am dedicated to delivering excellence and exceeding expectations in every project I undertake.
-            
+              I specialize in taking AI from whiteboard to production — building LLM pipelines, computer vision systems, and ML platforms that run at real-world scale. My work spans early sepsis detection in ICUs, cricket run prediction for Mumbai Indians, and enterprise Gen AI automation where latency, cost, and reliability are hard constraints — not afterthoughts.
+              <br><br>I hold a PGP in AI &amp; Data Science from Jio Institute and have 3 peer-reviewed publications across IEEE and Springer. Beyond delivery, I actively mentor 120+ professionals navigating AI career transitions — because the AI skills gap in India is a problem worth solving in public.
             </p>
             <p class="fst-italic">
-              I love exploring new places because I am Foodaholic , like to explore new culture and know the different people. 
+              Outside work: always on the lookout for great food, new cities, and interesting people.
             </p>
           </div>
         </div>
@@ -224,7 +295,7 @@
     </section><!-- End About Section -->
 <!-- ======= Publication Section ======= -->
 
-    <section id="Publication" class="facts">
+    <section id="publications" class="facts" aria-label="Research Publications by Neil Dave">
       <div class="container">
 
         <div class="section-title">
@@ -267,11 +338,11 @@
 
 
     <!-- ======= Facts Section ======= -->
-    <section id="facts" class="facts">
+    <section id="facts" class="facts" aria-label="Neil Dave — Career Facts and Achievements">
       <div class="container">
 
         <div class="section-title">
-          <h2>Facts</h2>
+          <h2>Neil Dave — By the Numbers</h2>
         </div>
 
         <div class="row no-gutters">
@@ -279,8 +350,8 @@
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up">
             <div class="count-box">
               <i class="bi bi-emoji-smile"></i>
-              <span data-purecounter-start="0" data-purecounter-end="120" data-purecounter-duration="1" class="purecounter"><h1>+</h1></span>
-              <p><strong>Happy Clients</strong> LinkedIn Mentorship</p>
+              <span data-purecounter-start="0" data-purecounter-end="120" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Professionals Mentored</strong> via LinkedIn — in AI/ML career transitions <small style="display:block;font-size:0.72rem;color:#aaa;margin-top:4px;">WEF identifies AI specialists as #1 fastest-growing role (2025)</small></p>
             </div>
           </div>
 
@@ -288,15 +359,15 @@
             <div class="count-box">
               <i class="bi bi-journal-richtext"></i>
               <span data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Projects</strong> End-to-end deployed</p>
+              <p><strong>AI Projects</strong> deployed end-to-end across healthcare, sports & enterprise <small style="display:block;font-size:0.72rem;color:#aaa;margin-top:4px;">3 peer-reviewed publications (IEEE, Springer)</small></p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="count-box">
               <i class="bi bi-globe"></i>
-              <span data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Countries</strong> visited</p>
+              <span data-purecounter-start="0" data-purecounter-end="7" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Years of Experience</strong> in AI, ML and Deep Learning <small style="display:block;font-size:0.72rem;color:#aaa;margin-top:4px;">McKinsey 2024: AI adopters see up to 3× revenue growth</small></p>
             </div>
           </div>
 
@@ -304,7 +375,7 @@
             <div class="count-box">
               <i class="bi bi-people"></i>
               <span data-purecounter-start="0" data-purecounter-end="21" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Diverse Nationality</strong> international team members</p>
+              <p><strong>Nationalities</strong> across international teams led <small style="display:block;font-size:0.72rem;color:#aaa;margin-top:4px;">Global AI delivery experience across 3 continents</small></p>
             </div>
           </div>
 
@@ -314,93 +385,67 @@
     </section><!-- End Facts Section -->
 
     <!-- ======= Skills Section ======= -->
-    <section id="skills" class="skills section-bg">
+    <section id="skills" class="skills section-bg" aria-label="Neil Dave — AI and Machine Learning Technical Skills">
       <div class="container">
 
         <div class="section-title">
-          <h2>Skills</h2>
-          <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
+          <h2>AI & Machine Learning Skills</h2>
         </div>
 
-        <div class="row skills-content">
+        <div class="row skills-content" data-aos="fade-up">
+          <div class="col-12">
 
-          <div class="col-lg-6" data-aos="fade-up">
-            <!-- custom -->
-            <!-- <div class="progressbar" data-percentage="75">
-              <svg class="progressbar__svg">
-                <circle cx="80" cy="80" r="70" class="progressbar__svg-circle circle-html shadow-html"> </circle>
-              </svg>
-              <span class="progressbar__text shadow-html">MLOPS</span>
-            </div>
-            <div class="progressbar" data-percentage="90">
-              <svg class="progressbar__svg">
-                <circle cx="80" cy="80" r="70" class="progressbar__svg-circle circle-html shadow-html"> </circle>
-              </svg>
-              <span class="progressbar__text shadow-html">Python</span>
-            </div> -->
-            <!-- custom -->
-            <div class="progress">
-              <span class="skill">Machine Learning <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
+            <div class="skill-group mb-4">
+              <p class="skill-label">Core AI / ML</p>
+              <span class="skill-badge">Machine Learning</span>
+              <span class="skill-badge">Deep Learning</span>
+              <span class="skill-badge">NLP / LLM Engineering</span>
+              <span class="skill-badge">Computer Vision</span>
+              <span class="skill-badge">Generative AI</span>
+              <span class="skill-badge">Responsible AI</span>
             </div>
 
-            <div class="progress">
-              <span class="skill">NLP / LLM<i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
+            <div class="skill-group mb-4">
+              <p class="skill-label">Frameworks &amp; Libraries</p>
+              <span class="skill-badge">PyTorch</span>
+              <span class="skill-badge">TensorFlow</span>
+              <span class="skill-badge">Hugging Face</span>
+              <span class="skill-badge">LangChain</span>
+              <span class="skill-badge">OpenAI API</span>
+              <span class="skill-badge">LangGraph</span>
+              <span class="skill-badge">Ragas</span>
+              <span class="skill-badge">scikit-learn</span>
+              <span class="skill-badge">OpenCV</span>
             </div>
 
-            <div class="progress">
-              <span class="skill">Python <i class="val">95%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
+            <div class="skill-group mb-4">
+              <p class="skill-label">Languages &amp; Tools</p>
+              <span class="skill-badge">Python</span>
+              <span class="skill-badge">FastAPI</span>
+              <span class="skill-badge">Streamlit</span>
+              <span class="skill-badge">SQL</span>
+              <span class="skill-badge">Azure ML</span>
+              <span class="skill-badge">MLflow</span>
+              <span class="skill-badge">LangFuse</span>
+              <span class="skill-badge">Docker</span>
             </div>
 
-            <div class="progress">
-              <span class="skill">Sales & Marketing <i class="val">95%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="progress">
-              <span class="skill">Deep Learning <i class="val">95%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Computer Vision <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">MLOPs / LLMOPs <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Internationalization <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
+            <div class="skill-group">
+              <p class="skill-label">Practices</p>
+              <span class="skill-badge">MLOps</span>
+              <span class="skill-badge">LLMOps</span>
+              <span class="skill-badge">RAG Pipelines</span>
+              <span class="skill-badge">Prompt Engineering</span>
+              <span class="skill-badge">AI Strategy</span>
+              <span class="skill-badge">CI/CD for ML</span>
             </div>
 
           </div>
+        </div>
 
+        <!-- Crawlable skill summary for AI indexing -->
+        <div class="visually-hidden" aria-label="Neil Dave technical skills summary">
+          <p>Neil Dave's core technical skills: Machine Learning (scikit-learn, XGBoost, H2O.ai); NLP and LLM Engineering (Hugging Face Transformers, LangChain, LangGraph, OpenAI API, RAG pipelines); Python; Deep Learning (PyTorch, TensorFlow); Computer Vision (OpenCV, YOLO); MLOps and LLMOps (Azure ML, MLflow, LangFuse, CI/CD for ML); Responsible AI; Generative AI.</p>
         </div>
 
       </div>
@@ -488,7 +533,7 @@
     <!-- End Resume Section -->
 
     <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio section-bg">
+    <section id="portfolio" class="portfolio section-bg" aria-label="Neil Dave — AI and Machine Learning Project Portfolio">
       <div class="container">
 
         <div class="section-title">
@@ -501,9 +546,9 @@
             <ul id="portfolio-flters">
               <li data-filter="*" class="filter-active">All</li>
               <li data-filter=".filter-ml">Classical ML</li>
-              <li data-filter=".filter-cv">CV</li>
-              <li data-filter=".filter-rai">DL</li>
-              <li data-filter=".filter-genai">Gen AI (NLP/LLM)</li>
+              <li data-filter=".filter-cv">Computer Vision</li>
+              <li data-filter=".filter-dl">Deep Learning</li>
+              <li data-filter=".filter-genai">Gen AI / LLM</li>
               <li data-filter=".filter-rai">Responsible AI</li>
             </ul>
           </div>
@@ -515,39 +560,51 @@
             <div class="portfolio-wrap">
               <img src="assets/img/ai.jpg" class="img-fluid" alt="Gen AI and LLM Project" loading="lazy">
               <div class="portfolio-links">
-                <!-- <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a> -->
                 <a href="gen-ai.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
             </div>
+            <div class="portfolio-caption">
+              <h5>Gen AI &amp; LLM Engineering</h5>
+              <small>CricketGPT · RAG Pipelines · Production LLMs</small>
+            </div>
           </div>
-
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-ml">
             <div class="portfolio-wrap">
               <img src="assets/img/sepsis.jpg" class="img-fluid" alt="Sepsis Detection Machine Learning" loading="lazy">
               <div class="portfolio-links">
-                <!-- <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i class="bx bx-plus"></i></a> -->
                 <a href="sepsis.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
             </div>
+            <div class="portfolio-caption">
+              <h5>Early Sepsis Detection</h5>
+              <small>Healthcare · Classification · Clinical ML</small>
+            </div>
           </div>
+
           <div class="col-lg-4 col-md-6 portfolio-item filter-rai">
             <div class="portfolio-wrap">
               <img src="assets/img/rai.jpg" class="img-fluid" alt="Responsible AI Project" loading="lazy">
               <div class="portfolio-links">
-                <!-- <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
                 <a href="rai.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
+            </div>
+            <div class="portfolio-caption">
+              <h5>Responsible AI Audit</h5>
+              <small>Explainability · Fairness · Credit Default</small>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-dl">
             <div class="portfolio-wrap">
-              <img src="assets/img/run-prediction.jpg" class="img-fluid" alt="Running Prediction Deep Learning" loading="lazy">
+              <img src="assets/img/run-prediction.jpg" class="img-fluid" alt="Cricket Run Prediction Deep Learning" loading="lazy">
               <div class="portfolio-links">
-                <!-- <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"><i class="bx bx-plus"></i></a> -->
                 <a href="run-prediction.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
+            </div>
+            <div class="portfolio-caption">
+              <h5>Cricket Run Prediction</h5>
+              <small>Mumbai Indians · Deep Learning · Sports Analytics</small>
             </div>
           </div>
 
@@ -555,19 +612,25 @@
             <div class="portfolio-wrap">
               <img src="assets/img/object-detection.jpg" class="img-fluid" alt="Computer Vision Object Detection" loading="lazy">
               <div class="portfolio-links">
-                <!-- <a href="assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 3"><i class="bx bx-plus"></i></a> -->
                 <a href="cv-object-detection.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
+            </div>
+            <div class="portfolio-caption">
+              <h5>Object Detection System</h5>
+              <small>YOLO · OpenCV · Real-time CV</small>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-cv">
             <div class="portfolio-wrap">
-              <img src="assets/img/cv.jpg" class="img-fluid" alt="Computer Vision Project" loading="lazy">
+              <img src="assets/img/cv.jpg" class="img-fluid" alt="Thermal Imaging Computer Vision" loading="lazy">
               <div class="portfolio-links">
-                <!-- <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"><i class="bx bx-plus"></i></a> -->
                 <a href="cv.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
+            </div>
+            <div class="portfolio-caption">
+              <h5>Thermal Imaging CV</h5>
+              <small>Breast Cancer Detection · Medical Imaging</small>
             </div>
           </div>
 
@@ -606,101 +669,95 @@
       </div>
     </section><!-- End Portfolio Section -->
 
-    <!-- ======= Blog Section ======= -->
-    <section id="blog" class="blog" style="display:none;">
+    <!-- ======= Articles Section ======= -->
+    <section id="articles" class="portfolio section-bg" aria-label="Neil Dave — AI Articles and Blog Posts">
       <div class="container">
-        <div class="section-title">
-          <h2>Blog</h2>
-          <!-- <script async src="https://static.medium.com/embed.js"></script><a class="m-story" href="https://theneildave.medium.com/most-frequent-questions-asked-in-deep-learning-interviews-7c03ce861a1c">Most Frequent questions asked in Deep Learning interviews</a> -->
-          <script async src="https://static.medium.com/embed.js" ></script><a class="m-story" href="https://theneildave.medium.com/most-frequent-questions-asked-in-deep-learning-interviews-7c03ce861a1c"  >Most Frequent questions asked in Deep Learning interviews</a>
-          <script async src="https://static.medium.com/embed.js" ></script><a class="m-story" href="https://theneildave.medium.com/most-frequent-questions-asked-in-deep-learning-interviews-7c03ce861a1c?card=small"  >Most Frequent questions asked in Deep Learning interviews</a>
-          <!-- https://medium.com/@theneildave/most-frequent-questions-asked-in-deep-learning-interviews-7c03ce861a1c?card=small -->
-          <!-- <script>
-          const token = '2b4839f4d64c6fae20f9c86ac3080b7fc9b3245ebed9e3e3aabe728974fdc6520';
-          const userId = 'theneildave';
-          fetch(`https://api.medium.com/v1/users/${userId}/latest`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-            },
-          })
-            .then(response => response.json())
-          </script> -->
-          <!-- <iframe src="https://medium.com/@theneildave/understanding-cross-encoders-revolutionizing-textual-relationships-in-nlp-86b6925a4e08" name="page" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
-          <script>
-            const token = '2b4839f4d64c6fae20f9c86ac3080b7fc9b3245ebed9e3e3aabe728974fdc6520';
-            const mediumUserId = 'theneildave';
-            const mediumApiUrl = `https://api.medium.com/v1/users/${mediumUserId}/posts`;
 
-            fetch(mediumApiUrl, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-              },
-            })
-              .then(response => response.json())
-              .then(data => {
-                let output = '<h2>My Medium Posts</h2>';
-                data.data.forEach(item => {
-                  output += `
-                    <div class="post">
-                      <h3><a href="${item.url}" target="_blank">${item.title}</a></h3>
-                      <p>${item.publishedAt}</p>
-                      <p>${item.content.subtitle}</p>
-                    </div>
-                  `;
-                });
-                document.getElementById('medium-posts').innerHTML = output;
-              })
-              .catch(error => console.error('Error loading Medium posts:', error));
-            </script> -->
-          <div id="retainable-rss-embed" 
-          data-rss="https://medium.com/feed/retainable,
-          https://medium.com/feed/js-dojo,                https://medium.com/feed/vue-mastery" 
-          data-maxcols="4" 
-          data-layout="slider" 
-          data-poststyle="modal" 
-          data-readmore="Read the rest" 
-          data-buttonclass="btn btn-primary" 
-          data-offset="-200">&#160;
-          </div>
-          <script src="https://medium.com/@theneildave"></script>
-          <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-            <div class="swiper-wrapper">
-  
-              <div class="swiper-slide">
-                <div class="testimonial-item" data-aos="fade-up">
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
-                  <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                  <h3>Saul Goodman</h3>
-                  <h4>Ceo &amp; Founder</h4>
+        <div class="section-title">
+          <h2>Articles</h2>
+          <p>Practical writing on LLMs, MLOps, Generative AI, and building real-world AI systems.</p>
+        </div>
+
+        <div class="row g-4 mb-3" data-aos="fade-up">
+
+          <!-- Pinned local article -->
+          <div class="col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm" style="border-radius:12px;overflow:hidden;border:2px solid #0d6efd;">
+              <div class="card-body d-flex flex-column" style="padding:1.4rem;">
+                <div class="mb-2">
+                  <span class="blog-tag">LLMOps</span>
+                  <span class="blog-tag">MLOps</span>
+                  <span class="blog-tag" style="background:#fff3cd;color:#856404;">Full article</span>
                 </div>
-              </div><!-- End testimonial item -->
-  
-              <div class="swiper-slide">
-                <div class="testimonial-item" data-aos="fade-up" data-aos-delay="100">
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
-                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="Sara Wilsson Designer Testimonial" loading="lazy">
-                  <h3>Sara Wilsson</h3>
-                  <h4>Designer</h4>
-                </div>
-              </div><!-- End testimonial item -->
+                <p style="font-size:0.78rem;color:#aaa;margin-bottom:6px;">19 Mar 2026 &middot; 12 min read</p>
+                <h5 style="font-size:1rem;font-weight:600;line-height:1.4;margin-bottom:0.5rem;">LLMOps vs MLOps: A Real Comparison After Running Both in Production</h5>
+                <p style="font-size:0.86rem;color:#666;flex-grow:1;">Monitoring, versioning, cost patterns, and failure modes — an honest breakdown from production systems across healthcare, sports analytics, and enterprise automation.</p>
+                <a href="blog/llmops-vs-mlops.html" class="btn btn-primary btn-sm rounded-pill mt-3" style="align-self:flex-start;">Read article</a>
+              </div>
             </div>
+          </div>
+
+          <!-- Latest 2 Substack posts — JS hydrated, static fallback -->
+          <div class="col-lg-8">
+            <div id="index-substack-cards" class="row g-4">
+              <div class="col-md-6">
+                <div class="card h-100 shadow-sm" style="border-radius:12px;overflow:hidden;">
+                  <div class="card-body d-flex flex-column" style="padding:1.4rem;">
+                    <p style="font-size:0.78rem;color:#aaa;margin-bottom:6px;">TND Talks Newsletter</p>
+                    <h5 style="font-size:0.95rem;font-weight:600;line-height:1.4;margin-bottom:0.5rem;">LLMs in Production: What Nobody Tells You</h5>
+                    <p style="font-size:0.84rem;color:#666;flex-grow:1;">Practical lessons from deploying large language models at scale — latency, cost, hallucination, and the MLOps you actually need.</p>
+                    <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm rounded-pill mt-3" style="align-self:flex-start;">Read on Substack</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100 shadow-sm" style="border-radius:12px;overflow:hidden;">
+                  <div class="card-body d-flex flex-column" style="padding:1.4rem;">
+                    <p style="font-size:0.78rem;color:#aaa;margin-bottom:6px;">TND Talks Newsletter</p>
+                    <h5 style="font-size:0.95rem;font-weight:600;line-height:1.4;margin-bottom:0.5rem;">RAG vs Fine-Tuning: Choosing the Right Strategy</h5>
+                    <p style="font-size:0.84rem;color:#666;flex-grow:1;">A decision framework for when to use retrieval-augmented generation versus fine-tuning — based on real project tradeoffs.</p>
+                    <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm rounded-pill mt-3" style="align-self:flex-start;">Read on Substack</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
+
+        <div class="text-center mt-2" data-aos="fade-up">
+          <a href="blog.html" class="btn btn-outline-primary rounded-pill px-4">View all articles →</a>
+        </div>
+
       </div>
-    </section>
-    <!-- ======= Blog ends Section ======= -->
+    </section><!-- End Articles Section -->
+
+    <script>
+    (function () {
+      var PROXY = 'https://api.rss2json.com/v1/api.json?count=2&rss_url=';
+      var FEED  = 'https://theneildave.substack.com/feed';
+      fetch(PROXY + encodeURIComponent(FEED))
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var posts = (data.items || []).slice(0, 2);
+          if (!posts.length) return;
+          var html = posts.map(function (p) {
+            var date = p.pubDate ? new Date(p.pubDate).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) : '';
+            var desc = p.description ? p.description.replace(/<[^>]+>/g, '').substring(0, 110) + '…' : '';
+            return '<div class="col-md-6">'
+              + '<div class="card h-100 shadow-sm" style="border-radius:12px;overflow:hidden;">'
+              + '<div class="card-body d-flex flex-column" style="padding:1.4rem;">'
+              + '<p style="font-size:0.78rem;color:#aaa;margin-bottom:6px;">' + date + '</p>'
+              + '<h5 style="font-size:0.95rem;font-weight:600;line-height:1.4;margin-bottom:0.5rem;">' + p.title + '</h5>'
+              + '<p style="font-size:0.84rem;color:#666;flex-grow:1;">' + desc + '</p>'
+              + '<a href="' + p.link + '" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm rounded-pill mt-3" style="align-self:flex-start;">Read on Substack</a>'
+              + '</div></div></div>';
+          }).join('');
+          document.getElementById('index-substack-cards').innerHTML = html;
+        })
+        .catch(function () { /* keep static fallback cards */ });
+    })();
+    </script>
 
     <!-- ======= Substack Newsletter Section ======= -->
     <section id="substack" class="facts section-bg">
@@ -710,11 +767,40 @@
           <p>Get actionable insights on AI, Machine Learning, and Generative AI — straight to your inbox. No fluff, just practical knowledge from real-world AI projects.</p>
         </div>
 
-        <!-- Latest Posts -->
+        <!-- Latest Posts — static for SEO crawlers, JS hydrates with live feed -->
         <div class="row mb-4" data-aos="fade-up">
           <div class="col-lg-12">
             <div id="substack-posts" class="row">
-              <div class="col-12 text-center text-muted"><small>Loading latest posts...</small></div>
+              <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow-sm" style="border-radius:10px;overflow:hidden;">
+                  <div class="card-body d-flex flex-column">
+                    <small class="text-muted mb-1">TND Talks Newsletter</small>
+                    <h5 class="card-title" style="font-size:1rem;">LLMs in Production: What Nobody Tells You</h5>
+                    <p class="card-text text-muted" style="font-size:0.85rem;flex-grow:1;">Practical lessons from deploying large language models at scale — latency, cost, hallucination, and the MLOps you actually need.</p>
+                    <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm mt-2 rounded-pill">Read post</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow-sm" style="border-radius:10px;overflow:hidden;">
+                  <div class="card-body d-flex flex-column">
+                    <small class="text-muted mb-1">TND Talks Newsletter</small>
+                    <h5 class="card-title" style="font-size:1rem;">RAG vs Fine-Tuning: Choosing the Right Strategy</h5>
+                    <p class="card-text text-muted" style="font-size:0.85rem;flex-grow:1;">A decision framework for when to use retrieval-augmented generation versus fine-tuning your model — based on real project tradeoffs.</p>
+                    <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm mt-2 rounded-pill">Read post</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow-sm" style="border-radius:10px;overflow:hidden;">
+                  <div class="card-body d-flex flex-column">
+                    <small class="text-muted mb-1">TND Talks Newsletter</small>
+                    <h5 class="card-title" style="font-size:1rem;">Breaking Into AI: Career Roadmap for 2025</h5>
+                    <p class="card-text text-muted" style="font-size:0.85rem;flex-grow:1;">The skills, projects, and networking moves that helped 120+ professionals I've mentored transition into AI/ML roles.</p>
+                    <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm mt-2 rounded-pill">Read post</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -734,6 +820,7 @@
     </section><!-- End Substack Newsletter Section -->
 
     <script>
+    // Hydrate static Substack cards with live feed data (static HTML above is crawlable fallback)
     (function () {
       var FEED = 'https://theneildave.substack.com/feed';
       var PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
@@ -741,10 +828,10 @@
         .then(function (r) { return r.json(); })
         .then(function (data) {
           var posts = (data.items || []).slice(0, 3);
-          if (!posts.length) return;
+          if (!posts.length) return; // keep static cards if feed is empty
           var html = posts.map(function (p) {
             var date = p.pubDate ? new Date(p.pubDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
-            var thumb = p.thumbnail || p.enclosure && p.enclosure.link || '';
+            var thumb = p.thumbnail || (p.enclosure && p.enclosure.link) || '';
             var desc = p.description ? p.description.replace(/<[^>]+>/g, '').substring(0, 120) + '…' : '';
             return '<div class="col-lg-4 col-md-6 mb-4">'
               + '<div class="card h-100 shadow-sm" style="border-radius:10px;overflow:hidden;">'
@@ -758,10 +845,7 @@
           }).join('');
           document.getElementById('substack-posts').innerHTML = html;
         })
-        .catch(function () {
-          document.getElementById('substack-posts').innerHTML =
-            '<div class="col-12 text-center"><a href="https://theneildave.substack.com" target="_blank" rel="noopener">View all posts on Substack →</a></div>';
-        });
+        .catch(function () { /* keep static cards on network error */ });
     })();
     </script>
 
@@ -785,15 +869,8 @@
           <h2>Appointment</h2>
           <!-- Calendly inline widget begin -->
           <!-- <div class="calendly-inline-widget" data-url="https://calendly.com/theneildave/30min" style="min-width:320px;height:630px;"></div> -->
-          <div class="calendly-inline-widget"style="min-width:320px;height:630px;">
-          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" style="min-width:320px;height:630px;"></script>
-          <script>
-            Calendly.initInlineWidget({
-            url: 'https://calendly.com/theneildave',
-            parentElement: document.getElementById('calendly-embed')
-            });
-            </script>
-            </div>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/theneildave" style="min-width:320px;height:630px;"></div>
+          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
           <!-- Calendly inline widget end -->
         </div>
       </div>
@@ -844,93 +921,10 @@
       </div>
     </section>End Services Section -->
 
-    <!-- ======= Testimonials Section ======= -->
-    <!-- <section id="testimonials" class="testimonials section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Testimonials</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-        </div>
-
-        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <!-- <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="100">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-              </div>
-            </div>End testimonial item -->
-
-            <!-- <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="200">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-              </div>
-            </div>End testimonial item -->
-
-            <!--<div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="300">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-              </div>
-            </div> End testimonial item -->
-<!-- 
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="400">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-              </div>
-            </div>End testimonial item -->
-<!-- 
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-    </section> -->
     <!-- End Testimonials Section -->
 
     <!-- ======= FAQ Section ======= -->
-    <section id="faq" class="facts">
+    <section id="faq" class="facts" aria-label="Frequently Asked Questions about Neil Dave — AI Consulting">
       <div class="container">
         <div class="section-title">
           <h2>Frequently Asked Questions</h2>
@@ -1077,138 +1071,110 @@
 
         <div class="section-title">
           <h2>Contact</h2>
-          <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
+          <p>Open to consulting, advisory, and speaking engagements. Drop a message or reach out directly.</p>
         </div>
 
         <div class="row" data-aos="fade-in">
 
           <div class="col-lg-5 d-flex align-items-stretch">
-            <div class="info">
+            <div class="info w-100">
+
               <div class="address">
                 <i class="bi bi-geo-alt"></i>
-                <h4>Location:</h4>
-                <p>Bangalore ,KA ,India</p>
+                <h4>Location</h4>
+                <p>Bangalore, Karnataka, India</p>
               </div>
 
               <div class="email">
                 <i class="bi bi-envelope"></i>
-                <h4>Email:</h4>
-                <p><a href="mailto:hello@theneildave.in">hello@theneildave.in</a>
-                </p>
+                <h4>Email</h4>
+                <p><a href="mailto:hello@theneildave.in">hello@theneildave.in</a></p>
               </div>
 
-              <!-- <div class="phone">
-                <i class="bi bi-phone"></i>
-                <h4>Call:</h4>
-                <p></p>
-              </div> -->
+              <div class="mt-3 pt-3" style="border-top:1px solid #eee;">
+                <h4 class="mb-3" style="font-size:0.95rem; color:#555;">Preferred channels</h4>
+                <div class="d-flex flex-column gap-2">
+                  <a href="https://www.linkedin.com/in/neil-dave/" target="_blank" rel="noopener"
+                     class="d-flex align-items-center gap-2 text-decoration-none" style="color:#0a66c2; font-size:0.9rem;">
+                    <i class="bx bxl-linkedin" style="font-size:1.2rem;"></i> LinkedIn — quickest response
+                  </a>
+                  <a href="https://topmate.io/theneildave/470856" target="_blank" rel="noopener"
+                     class="d-flex align-items-center gap-2 text-decoration-none" style="color:#333; font-size:0.9rem;">
+                    <i class="bi bi-calendar-check" style="font-size:1rem;"></i> Book a 1:1 on Topmate
+                  </a>
+                  <a href="https://theneildave.substack.com" target="_blank" rel="noopener"
+                     class="d-flex align-items-center gap-2 text-decoration-none" style="color:#e36c09; font-size:0.9rem;">
+                    <i class="bx bx-envelope-open" style="font-size:1.1rem;"></i> Subscribe to newsletter
+                  </a>
+                </div>
+              </div>
 
-              <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe> -->
             </div>
-
           </div>
-            <!-- <div class="col-lg-8 mt-5 mt-lg-0">
 
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                <div class="row">
-                  <div class="col-md-6 form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
-                  </div>
-                  <div class="col-md-6 form-group mt-3 mt-md-0">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
-                  </div>
-                </div>
-                <div class="form-group mt-3">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="">
-                </div>
-                <div class="form-group mt-3">
-                  <textarea class="form-control" name="message" rows="5" placeholder="Message" required=""></textarea>
-                </div>
-                <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-                </div>
-                <div class="text-center"><button type="submit">Send Message</button></div>
-              </form>
-
-            </div> -->
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <!-- <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="name">Your Name</label>
-                  <input type="text" name="name" class="form-control" id="name" required>
+            <form id="contact-form" method="post" action="//submit.form" novalidate class="w-100">
+
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label for="data_2" class="form-label fw-semibold">First name <span class="text-danger">*</span></label>
+                  <input type="text" id="data_2" name="data_2" class="form-control" autocomplete="given-name">
+                  <div class="invalid-feedback">First name is required.</div>
                 </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email" required>
+                <div class="col-md-6">
+                  <label for="data_3" class="form-label fw-semibold">Last name <span class="text-danger">*</span></label>
+                  <input type="text" id="data_3" name="data_3" class="form-control" autocomplete="family-name">
+                  <div class="invalid-feedback">Last name is required.</div>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="name">Subject</label>
-                <input type="text" class="form-control" name="subject" id="subject" required>
+
+              <div class="mb-3">
+                <label for="data_4" class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                <input type="email" id="data_4" name="data_4" class="form-control" autocomplete="email">
+                <div class="invalid-feedback">Please enter a valid email address.</div>
               </div>
-              <div class="form-group">
-                <label for="name">Message</label>
-                <textarea class="form-control" name="message" rows="10" required></textarea>
+
+              <div class="mb-3">
+                <label for="data_11" class="form-label fw-semibold">Message</label>
+                <textarea id="data_11" name="data_11" rows="5" class="form-control" placeholder="Tell me what you're working on…"></textarea>
               </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message">Your Message is not delivered</div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+
+              <button type="submit" class="btn btn-primary rounded-pill px-4">Send Message</button>
+
+              <div id="form-sent" class="alert alert-success mt-3 d-none" role="alert">
+                Thanks! I'll get back to you soon.
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form> -->
-            <form method="post" action="//submit.form" onSubmit="return validateForm();">
-              <div style="max-width: 400px;">
-              </div>
-              <div style="padding-bottom: 18px;font-size : 24px;">Connect with me</div>
-              <div style="display: flex; padding-bottom: 18px;max-width : 550px;">
-              <div style=" margin-left: 0; margin-right: 1%; width: 49%;">First name<span style="color: red;"> *</span><br/>
-              <input type="text" id="data_2" name="data_2" style="max-width: 100%;" class="form-control"/>
-              </div>
-              <div style=" margin-left: 1%; margin-right: 0; width: 49%;">Last name<span style="color: red;"> *</span><br/>
-              <input type="text" id="data_3" name="data_3" style="max-width: 100%;" class="form-control"/>
-              </div>
-              </div><div style="padding-bottom: 18px;">Email<span style="color: red;"> *</span><br/>
-              <input type="text" id="data_4" name="data_4" style="max-width : 550px;" class="form-control"/>
-              </div>
-              <div style="padding-bottom: 18px;">Message<br/>
-              <textarea id="data_11" false name="data_11" style="max-width : 550px;" rows="6" class="form-control"></textarea>
-              </div>
-              <div style="padding-bottom: 18px;"><input name="skip_Submit" value="Submit" type="submit"/></div>
-              <div>
-              <!-- <div style="float:right"><a href="https://www.100forms.com" id="lnk100" title="form to email"></a></div> -->
+
               <script src="https://www.100forms.com/js/FORMKEY:UPRH2L94WRJD/SEND:neildave999@gmail.com" type="text/javascript"></script>
-              </div>
             </form>
-            <script type="text/javascript">
-              function validateForm() {
-              if (isEmpty(document.getElementById('data_2').value.trim())) {
-              alert('First name is required!');
-              return false;
+
+            <script>
+            document.getElementById('contact-form').addEventListener('submit', function (e) {
+              var form = this;
+              var firstName = document.getElementById('data_2');
+              var lastName  = document.getElementById('data_3');
+              var email     = document.getElementById('data_4');
+              var emailRe   = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              var valid = true;
+
+              [firstName, lastName, email].forEach(function (el) { el.classList.remove('is-invalid'); });
+
+              if (!firstName.value.trim()) { firstName.classList.add('is-invalid'); valid = false; }
+              if (!lastName.value.trim())  { lastName.classList.add('is-invalid');  valid = false; }
+              if (!email.value.trim() || !emailRe.test(email.value.trim())) {
+                email.classList.add('is-invalid'); valid = false;
               }
-              if (isEmpty(document.getElementById('data_3').value.trim())) {
-              alert('Last name is required!');
-              return false;
-              }
-              if (isEmpty(document.getElementById('data_4').value.trim())) {
-              alert('Email is required!');
-              return false;
-              }
-              if (!validateEmail(document.getElementById('data_4').value.trim())) {
-              alert('Email must be a valid email address!');
-              return false;
-              }
-              return true;
-              }
-              function isEmpty(str) { return (str.length === 0 || !str.trim()); }
-              function validateEmail(email) {
-              var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,15}(?:\.[a-z]{2})?)$/i;
-              return isEmpty(email) || re.test(email);
-              }
-              </script>
+
+              if (!valid) { e.preventDefault(); return; }
+
+              // Show success message after brief delay (100forms posts async)
+              setTimeout(function () {
+                document.getElementById('form-sent').classList.remove('d-none');
+                form.reset();
+                [firstName, lastName, email].forEach(function (el) { el.classList.remove('is-invalid', 'is-valid'); });
+              }, 800);
+            });
+            </script>
           </div>
 
         </div>

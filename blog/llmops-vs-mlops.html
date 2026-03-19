@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>LLMOps vs MLOps: A Real Production Comparison | Neil Dave</title>
+  <meta name="description" content="After running both MLOps and LLMOps pipelines in production, here's an honest comparison — monitoring, versioning, cost, failure modes, and when to use each.">
+  <link rel="canonical" href="https://theneildave.in/blog/llmops-vs-mlops.html">
+  <meta name="author" content="Neil Dave">
+  <meta name="robots" content="index, follow">
+  <meta name="article:published_time" content="2026-03-19">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://theneildave.in/blog/llmops-vs-mlops.html">
+  <meta property="og:title" content="LLMOps vs MLOps: A Real Production Comparison | Neil Dave">
+  <meta property="og:description" content="After running both MLOps and LLMOps pipelines in production, here's an honest comparison — monitoring, versioning, cost, failure modes, and when to use each.">
+  <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
+  <meta name="twitter:title" content="LLMOps vs MLOps: A Real Production Comparison">
+  <meta name="twitter:description" content="After running both MLOps and LLMOps pipelines in production, here's the honest breakdown — monitoring, cost, versioning, and failure modes.">
+  <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.png">
+
+  <!-- BlogPosting Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "LLMOps vs MLOps: A Real Comparison After Running Both in Production",
+    "description": "After running both MLOps and LLMOps pipelines in production, here's an honest comparison — monitoring, versioning, cost, failure modes, and when to use each.",
+    "url": "https://theneildave.in/blog/llmops-vs-mlops.html",
+    "datePublished": "2026-03-19",
+    "dateModified": "2026-03-19",
+    "author": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in",
+      "jobTitle": "AI Solution Architect",
+      "sameAs": ["https://www.linkedin.com/in/neil-dave/", "https://www.wikidata.org/wiki/Q138716797"]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in"
+    },
+    "keywords": ["LLMOps", "MLOps", "LLMOps vs MLOps", "LLM production", "machine learning operations", "generative AI operations", "prompt drift", "hallucination monitoring"],
+    "mainEntityOfPage": "https://theneildave.in/blog/llmops-vs-mlops.html",
+    "wordCount": 2800,
+    "timeRequired": "PT12M"
+  }
+  </script>
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"},
+      {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://theneildave.in/blog.html"},
+      {"@type": "ListItem", "position": 3, "name": "LLMOps vs MLOps", "item": "https://theneildave.in/blog/llmops-vs-mlops.html"}
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema — for AI citation extraction -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between MLOps and LLMOps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MLOps (Machine Learning Operations) is the practice of deploying, monitoring, and maintaining traditional ML models in production. LLMOps (Large Language Model Operations) extends MLOps specifically for large language models — adding prompt version control, hallucination monitoring, token cost management, and human feedback loops that don't exist in classical ML pipelines."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need LLMOps if I already have MLOps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. MLOps tooling is insufficient for LLM production because LLMs have fundamentally different failure modes. Traditional ML models fail silently with degrading accuracy. LLMs fail loudly with confident wrong answers. You need hallucination detection, prompt drift monitoring, and token budget controls that MLOps frameworks don't provide."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is prompt drift in LLMOps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Prompt drift is the gradual degradation of LLM output quality over time without any change to the model. It occurs because the underlying LLM is updated by the provider (e.g. OpenAI silently deploys a new version of GPT-4), the distribution of user inputs shifts, or system prompt instructions interact with model changes in unexpected ways. Unlike data drift in classical ML, prompt drift can happen overnight."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What tools are used for LLMOps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Common LLMOps tools include: LangSmith and LangFuse for prompt tracing and evaluation, Weights & Biases or MLflow for experiment tracking, Azure AI Studio or AWS Bedrock for managed deployment, Ragas for RAG pipeline evaluation, and custom dashboards for token cost monitoring. For open-source stacks, PromptFlow and Helicone are also widely adopted."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is LLMOps harder than MLOps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "LLMOps is not necessarily harder, but it is different in ways that catch MLOps engineers off guard. The core challenge is that LLM quality is harder to quantify — there is no single accuracy metric. You need human-in-the-loop evaluations, LLM-as-a-judge pipelines, and qualitative monitoring alongside traditional operational metrics."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon1.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .post-content { font-size: 1.05rem; line-height: 1.85; color: #333; }
+    .post-content h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 0.8rem; color: #173b6c; }
+    .post-content h3 { font-size: 1.15rem; font-weight: 600; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #1e4d8c; }
+    .post-content p { margin-bottom: 1.2rem; }
+    .post-content ul, .post-content ol { margin-bottom: 1.2rem; padding-left: 1.5rem; }
+    .post-content li { margin-bottom: 0.5rem; }
+    .post-content pre { background: #f6f8fa; border-radius: 8px; padding: 1rem 1.2rem; overflow-x: auto; margin-bottom: 1.4rem; border: 1px solid #e1e4e8; }
+    .post-content code { font-size: 0.88rem; background: #f0f2f5; padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', monospace; }
+    .post-content pre code { background: none; padding: 0; font-size: 0.85rem; }
+    .post-content blockquote { border-left: 4px solid #0d6efd; padding: 0.8rem 1rem; color: #444; font-style: italic; margin: 1.5rem 0; background: #f8f9ff; border-radius: 0 8px 8px 0; }
+    .post-content a { color: #0d6efd; }
+    .post-content table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.93rem; }
+    .post-content table th { background: #173b6c; color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+    .post-content table td { padding: 9px 14px; border-bottom: 1px solid #e9ecef; vertical-align: top; }
+    .post-content table tr:nth-child(even) td { background: #f8f9fa; }
+    .post-content table tr:hover td { background: #eef2ff; }
+    .post-content .callout { background: #e8f4fd; border-left: 4px solid #0d6efd; border-radius: 0 8px 8px 0; padding: 1rem 1.2rem; margin: 1.5rem 0; }
+    .post-content .callout-warning { background: #fff8e1; border-left-color: #f59e0b; }
+    .post-content .callout-success { background: #e8f5e9; border-left-color: #22c55e; }
+    .blog-tag { font-size: 0.75rem; background: #e8f4fd; color: #0d6efd; border-radius: 20px; padding: 3px 12px; margin-right: 6px; display: inline-block; }
+    .author-box { background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1.5rem; margin-top: 3rem; display: flex; align-items: center; gap: 1rem; }
+    .author-box img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+    .substack-cta { background: linear-gradient(135deg, #ff6719 0%, #ff8c00 100%); color: white; border-radius: 12px; padding: 1.5rem 2rem; margin-top: 3rem; text-align: center; }
+    .substack-cta a { color: white; font-weight: 600; text-decoration: underline; }
+    .toc { background: #f8f9fa; border-radius: 10px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; border: 1px solid #e9ecef; }
+    .toc h4 { font-size: 0.9rem; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.8rem; }
+    .toc ol { margin: 0; padding-left: 1.2rem; }
+    .toc li { font-size: 0.92rem; margin-bottom: 0.3rem; }
+    .toc a { color: #0d6efd; text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .verdict-badge { display: inline-block; font-size: 0.78rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; margin-left: 6px; }
+    .badge-use { background: #d1fae5; color: #065f46; }
+    .badge-avoid { background: #fee2e2; color: #991b1b; }
+  </style>
+</head>
+
+<body>
+
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+      <div class="profile">
+        <img src="../assets/img/profile-img.png" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy">
+        <h1 class="text-light"><a href="../index.html">Neil Dave</a></h1>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="facebook"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener" title="Neil Dave on Substack"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Google Scholar"><i class="bx bx-book-alt"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="../index.html#hero" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="../index.html#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="../index.html#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="../blog.html" class="nav-link active"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="../index.html#substack" class="nav-link scrollto"><i class="bx bx-envelope-open"></i><span>Newsletter</span></a></li>
+          <li><a href="../index.html#tndtalks" class="nav-link scrollto"><i class="bx bx-podcast"></i> <span>TND Talks</span></a></li>
+          <li><a href="../index.html#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
+          <li><a href="../index.html#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Breadcrumbs -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Article</h2>
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../blog.html">Articles</a></li>
+            <li>LLMOps vs MLOps</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= Post Content ======= -->
+    <section class="portfolio-details" style="padding: 40px 0 60px;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+            <!-- Post Header -->
+            <div class="mb-4">
+              <span class="blog-tag">LLMOps</span>
+              <span class="blog-tag">MLOps</span>
+              <span class="blog-tag">Production AI</span>
+              <span class="blog-tag">Generative AI</span>
+            </div>
+
+            <h1 style="font-size:1.9rem; font-weight:700; line-height:1.3; margin-bottom:0.8rem;">
+              LLMOps vs MLOps: A Real Comparison After Running Both in Production
+            </h1>
+
+            <div class="d-flex align-items-center gap-3 mb-4" style="font-size:0.85rem; color:#888;">
+              <span><i class="bx bx-calendar"></i> 19 March 2026</span>
+              <span><i class="bx bx-time"></i> 12 min read</span>
+              <span><i class="bx bx-user"></i> Neil Dave, AI Solution Architect</span>
+            </div>
+
+            <hr class="mb-4">
+
+            <!-- Table of Contents -->
+            <nav class="toc" aria-label="Table of contents">
+              <h4>Contents</h4>
+              <ol>
+                <li><a href="#the-incident">The Incident That Started This Comparison</a></li>
+                <li><a href="#definitions">What MLOps and LLMOps Actually Mean</a></li>
+                <li><a href="#comparison-table">Side-by-Side: The Full Comparison</a></li>
+                <li><a href="#monitoring">Monitoring — The Biggest Difference</a></li>
+                <li><a href="#versioning">Versioning: Model Weights vs Prompt Versions</a></li>
+                <li><a href="#cost">Infrastructure Cost Patterns</a></li>
+                <li><a href="#evaluation">Evaluation: Metrics That Actually Work</a></li>
+                <li><a href="#cicd">CI/CD Pipelines for LLMs</a></li>
+                <li><a href="#failure-modes">Failure Modes in Production</a></li>
+                <li><a href="#stack">The Stack We Use</a></li>
+                <li><a href="#when-to-use">When to Use Each</a></li>
+                <li><a href="#faq">FAQ</a></li>
+              </ol>
+            </nav>
+
+            <!-- POST BODY -->
+            <div class="post-content">
+
+              <!-- 1. The Incident -->
+              <h2 id="the-incident">The Incident That Started This Comparison</h2>
+
+              <p>Three months after we shipped a document intelligence system for an enterprise client, their operations team flagged something odd. The system — which extracted structured data from legal contracts — had been quietly producing subtly wrong outputs for two weeks. Not wrong enough to fail validation. Wrong enough to matter.</p>
+
+              <p>The underlying model hadn't changed. Our code hadn't changed. The data pipeline was healthy. Every traditional MLOps metric — latency, error rate, throughput — was green.</p>
+
+              <p>The cause: OpenAI had silently rolled out a minor version update to GPT-4. Our prompts, which relied on a very specific output format, had started to drift against the new model behaviour.</p>
+
+              <blockquote>
+                Our MLOps stack had zero visibility into this. We had no prompt versioning, no output schema validation, no semantic drift detection. We were flying blind and didn't know it.
+              </blockquote>
+
+              <p>That incident forced us to rebuild our LLM production stack from scratch — and it's what gave me a first-hand understanding of exactly how LLMOps differs from MLOps. Not theoretically. In production, under real client pressure.</p>
+
+              <p>This post is what I wish I'd had before that happened.</p>
+
+              <!-- 2. Definitions -->
+              <h2 id="definitions">What MLOps and LLMOps Actually Mean</h2>
+
+              <p><strong>MLOps (Machine Learning Operations)</strong> is the discipline of deploying, monitoring, and maintaining traditional machine learning models in production. It covers the full lifecycle: data pipeline management, model training, experiment tracking, deployment automation, and performance monitoring. Tools like MLflow, Kubeflow, and SageMaker Pipelines are its backbone.</p>
+
+              <p><strong>LLMOps (Large Language Model Operations)</strong> extends MLOps specifically for systems built on large language models — whether using API-based models (OpenAI, Anthropic, Gemini) or open-source models (Llama, Mistral). It adds operational layers that don't exist in classical ML: prompt version control, hallucination rate monitoring, token cost management, human-in-the-loop feedback loops, and output schema enforcement.</p>
+
+              <div class="callout">
+                <strong>Key distinction:</strong> MLOps manages the model. LLMOps manages the model <em>and</em> the prompt <em>and</em> the context window <em>and</em> the output quality — all of which can degrade independently.
+              </div>
+
+              <!-- 3. Comparison Table -->
+              <h2 id="comparison-table">Side-by-Side: The Full Comparison</h2>
+
+              <p>After running both in production across healthcare, sports analytics, and enterprise automation projects, here is the honest breakdown:</p>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Dimension</th>
+                    <th>MLOps</th>
+                    <th>LLMOps</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Monitoring</strong></td>
+                    <td>Data drift, model accuracy decay</td>
+                    <td>Prompt drift, hallucination rate, output schema violations, token usage</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Versioning</strong></td>
+                    <td>Model weights, dataset versions</td>
+                    <td>Prompt versions, system message versions, RLHF/feedback datasets, model API versions</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Evaluation</strong></td>
+                    <td>Accuracy, F1, RMSE — deterministic metrics</td>
+                    <td>LLM-as-a-Judge, Ragas scores, human eval, task-specific rubrics — probabilistic</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Infrastructure cost</strong></td>
+                    <td>Predictable — scales with data volume</td>
+                    <td>Spiky — scales with token count and context length; can surge 10× on long docs</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Failure mode</strong></td>
+                    <td>Silent degradation (accuracy slowly worsens)</td>
+                    <td>Confident wrong answers; outputs that <em>look</em> correct but aren't</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Retraining trigger</strong></td>
+                    <td>Performance metric threshold breach</td>
+                    <td>Prompt update, model provider update, or feedback score drop</td>
+                  </tr>
+                  <tr>
+                    <td><strong>CI/CD</strong></td>
+                    <td>Unit tests + integration tests on pipeline</td>
+                    <td>Prompt regression tests + golden dataset evals + output format validation</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Data management</strong></td>
+                    <td>Feature stores, data versioning (DVC)</td>
+                    <td>Vector databases, embedding version control, retrieval quality tracking (for RAG)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Human-in-the-loop</strong></td>
+                    <td>Optional — model labelling pipelines</td>
+                    <td>Often mandatory — RLHF, preference data, output review queues</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Latency profile</strong></td>
+                    <td>Milliseconds (inference) to minutes (batch)</td>
+                    <td>Seconds per request; highly sensitive to prompt length and context window</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- 4. Monitoring -->
+              <h2 id="monitoring">Monitoring — The Biggest Difference</h2>
+
+              <p>In traditional MLOps, monitoring answers: <em>"Is the model still accurate?"</em> You track data drift (has the input distribution shifted?), concept drift (has the relationship between inputs and outputs changed?), and standard operational metrics like P95 latency and error rates.</p>
+
+              <p>In LLMOps, monitoring must answer five fundamentally different questions simultaneously:</p>
+
+              <ol>
+                <li><strong>Is the output semantically correct?</strong> — Not just formatted correctly, but actually right.</li>
+                <li><strong>Is the model hallucinating?</strong> — Are claims made in the output grounded in the retrieved context or training data?</li>
+                <li><strong>Has prompt behaviour drifted?</strong> — Did a provider model update change how our prompts are interpreted?</li>
+                <li><strong>Is token usage within budget?</strong> — Are long inputs causing cost overruns?</li>
+                <li><strong>Is the output schema still valid?</strong> — Are downstream systems receiving the expected JSON structure?</li>
+              </ol>
+
+              <p>Here's a minimal LangFuse-compatible logging wrapper we use to capture the signals that matter most:</p>
+
+<pre><code>import langfuse
+from langfuse.decorators import observe, langfuse_context
+
+lf = langfuse.Langfuse()
+
+@observe()
+def run_llm_call(prompt: str, system: str, model: str = "gpt-4o") -> dict:
+    """Runs LLM call with full observability tracing."""
+    response = openai_client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user",   "content": prompt}
+        ]
+    )
+
+    output_text = response.choices[0].message.content
+    usage       = response.usage
+
+    # Log token usage and output for drift detection
+    langfuse_context.update_current_observation(
+        input=prompt,
+        output=output_text,
+        usage={
+            "input":  usage.prompt_tokens,
+            "output": usage.completion_tokens,
+            "total":  usage.total_tokens
+        },
+        metadata={
+            "model":         model,
+            "system_prompt": system[:100],   # fingerprint only
+            "output_length": len(output_text)
+        }
+    )
+
+    return {"output": output_text, "tokens": usage.total_tokens}
+</code></pre>
+
+              <p>What this gives you: a per-request trace with token counts, output lengths, and prompt fingerprints — enough to detect prompt drift before it becomes a client incident.</p>
+
+              <h3>Hallucination Detection in Practice</h3>
+
+              <p>For RAG-based systems, we run a lightweight faithfulness check on every response using <a href="https://docs.ragas.io" target="_blank" rel="noopener">Ragas</a>. A faithfulness score below 0.75 on any production request triggers an alert to Slack and quarantines the response for human review before it reaches the user.</p>
+
+<pre><code>from ragas.metrics import faithfulness
+from ragas import evaluate
+from datasets import Dataset
+
+def check_faithfulness(question: str, answer: str, contexts: list[str]) -> float:
+    """Returns faithfulness score (0-1). Below 0.75 = hallucination risk."""
+    data = Dataset.from_dict({
+        "question":  [question],
+        "answer":    [answer],
+        "contexts":  [contexts]
+    })
+    result = evaluate(data, metrics=[faithfulness])
+    return result["faithfulness"]
+
+# In production handler:
+score = check_faithfulness(user_query, llm_answer, retrieved_chunks)
+if score < 0.75:
+    alert_slack(f"Low faithfulness: {score:.2f} — flagging for review")
+    return human_review_queue.enqueue(llm_answer)
+</code></pre>
+
+              <!-- 5. Versioning -->
+              <h2 id="versioning">Versioning: Model Weights vs Prompt Versions</h2>
+
+              <p>In MLOps, versioning is well-understood. You version your training data (DVC), your model artefacts (MLflow Model Registry), and your pipeline code (Git). Roll-backs are clean because everything is deterministic.</p>
+
+              <p>LLMOps versioning is messier because there are more moving parts to track simultaneously:</p>
+
+              <ul>
+                <li><strong>System prompt version</strong> — The instruction set fed to the model at every call</li>
+                <li><strong>User prompt template version</strong> — How user input is formatted and injected</li>
+                <li><strong>Model API version</strong> — Which specific model build you're calling (gpt-4o-2024-11-20, not just gpt-4o)</li>
+                <li><strong>Embedding model version</strong> — For RAG systems; a changed embedding model invalidates your entire vector index</li>
+                <li><strong>Retrieval strategy version</strong> — Chunking strategy, top-k, similarity threshold</li>
+              </ul>
+
+              <div class="callout callout-warning">
+                <strong>Lesson learned the hard way:</strong> Always pin your model API version explicitly. <code>model="gpt-4o"</code> will silently point to the latest build whenever OpenAI updates it. Use <code>model="gpt-4o-2024-11-20"</code> and change it deliberately, not accidentally.
+              </div>
+
+              <p>We manage prompt versions in a lightweight YAML registry alongside the codebase, not hardcoded in application code:</p>
+
+<pre><code># prompts/v2/contract_extraction.yaml
+version: "2.1.0"
+model: "gpt-4o-2024-11-20"
+temperature: 0.1
+system: |
+  You are a legal contract analyser. Extract structured data as valid JSON only.
+  Never infer information not explicitly present in the contract text.
+  If a field is absent, return null — do not guess.
+user_template: |
+  Extract the following fields from this contract:
+  {fields}
+
+  CONTRACT TEXT:
+  {contract_text}
+
+  Return ONLY valid JSON matching this schema:
+  {output_schema}
+changelog:
+  - version: "2.1.0"
+    date: "2026-03-10"
+    change: "Added explicit null instruction to reduce fabrication on missing clauses"
+  - version: "2.0.0"
+    date: "2026-01-15"
+    change: "Migrated to gpt-4o-2024-11-20 from gpt-4-turbo"
+</code></pre>
+
+              <!-- 6. Cost -->
+              <h2 id="cost">Infrastructure Cost Patterns</h2>
+
+              <p>This is where teams get the biggest surprise when moving from MLOps to LLMOps. Traditional ML inference cost is largely predictable — it scales with request volume and model size, both of which you control.</p>
+
+              <p>LLM inference cost scales with <strong>tokens</strong>, not requests. And token count is largely controlled by the user, not you.</p>
+
+              <p>On a document processing system we ran, the average request cost was $0.008. But when a user uploaded a 200-page contract instead of the expected 10-page document, a single request cost $0.34 — 42× the average. With 500 users, that's a potential $170 for a single batch run nobody budgeted for.</p>
+
+              <p>Three cost controls we now apply to every LLM system in production:</p>
+
+              <ol>
+                <li><strong>Hard input token limits</strong> — Reject or chunk inputs exceeding a threshold before they hit the API</li>
+                <li><strong>Per-user and per-day token budgets</strong> — Enforced at the application layer, not the API layer</li>
+                <li><strong>Model tiering</strong> — Route simple classification tasks to <code>gpt-4o-mini</code> (~15× cheaper) and reserve <code>gpt-4o</code> for complex reasoning tasks</li>
+              </ol>
+
+<pre><code>class TokenBudgetGuard:
+    """Enforces per-request and per-day token budgets."""
+
+    MAX_INPUT_TOKENS  = 8_000   # hard limit per request
+    DAILY_BUDGET      = 100_000 # tokens per user per day
+
+    def __init__(self, user_id: str, token_counter):
+        self.user_id       = user_id
+        self.token_counter = token_counter
+
+    def check_and_route(self, prompt: str) -> str:
+        """Returns model name to use based on prompt complexity."""
+        estimated = self.token_counter.count(prompt)
+
+        if estimated > self.MAX_INPUT_TOKENS:
+            raise ValueError(f"Input too long: {estimated} tokens. Max: {self.MAX_INPUT_TOKENS}")
+
+        daily_used = self.token_counter.get_daily_usage(self.user_id)
+        if daily_used + estimated > self.DAILY_BUDGET:
+            raise BudgetExceededError(f"Daily token budget reached for user {self.user_id}")
+
+        # Route to cheaper model for short, simple prompts
+        return "gpt-4o-mini" if estimated < 500 else "gpt-4o"
+</code></pre>
+
+              <!-- 7. Evaluation -->
+              <h2 id="evaluation">Evaluation: Metrics That Actually Work</h2>
+
+              <p>In MLOps, evaluation is deterministic. You have a held-out test set, ground truth labels, and a clear metric — RMSE, F1, AUC. Run it, get a number, compare to threshold, decide.</p>
+
+              <p>In LLMOps, there is no single metric. Output quality is probabilistic and task-dependent. BLEU and ROUGE — borrowed from NLP research — are effectively useless for conversational or reasoning tasks. Here's what actually works:</p>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Evaluation Method</th>
+                    <th>Use Case</th>
+                    <th>Tooling</th>
+                    <th>Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>LLM-as-a-Judge</strong></td>
+                    <td>Open-ended output quality scoring</td>
+                    <td>GPT-4o as evaluator, custom rubric</td>
+                    <td>Medium</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ragas faithfulness</strong></td>
+                    <td>RAG hallucination detection</td>
+                    <td>Ragas library</td>
+                    <td>Low–Medium</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Golden dataset eval</strong></td>
+                    <td>Regression testing on prompt changes</td>
+                    <td>LangSmith, custom scripts</td>
+                    <td>Low</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Output schema validation</strong></td>
+                    <td>Structured output correctness</td>
+                    <td>Pydantic, JSON Schema</td>
+                    <td>Very Low</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Human preference eval</strong></td>
+                    <td>Subjective quality, tone, accuracy</td>
+                    <td>Label Studio, Argilla</td>
+                    <td>High</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p>The approach that gives the most coverage for least effort: <strong>golden dataset + schema validation + Ragas faithfulness</strong>, with LLM-as-a-Judge reserved for major prompt version changes and human eval only for final sign-off before production launches.</p>
+
+              <!-- 8. CI/CD -->
+              <h2 id="cicd">CI/CD Pipelines for LLMs</h2>
+
+              <p>MLOps CI/CD pipelines test data transformations, model training, and inference code. They're fast because unit tests don't call external APIs.</p>
+
+              <p>LLMOps CI/CD must test prompt behaviour — which means calling the LLM API on every prompt change. This makes pipelines slower and more expensive. Our approach is a three-gate system:</p>
+
+              <ol>
+                <li><strong>Gate 1 — Schema tests (fast, free):</strong> Validate output format against Pydantic models using cached responses. Runs on every PR in under 30 seconds.</li>
+                <li><strong>Gate 2 — Golden dataset eval (medium, cheap):</strong> Run the new prompt against 25–50 curated test cases. Uses <code>gpt-4o-mini</code> to keep costs under $0.10 per run. Must pass 90% of cases to merge.</li>
+                <li><strong>Gate 3 — Full eval suite (slow, gated):</strong> Runs against 200+ cases including adversarial inputs. Triggered only on release branches, not every PR.</li>
+              </ol>
+
+<pre><code># .github/workflows/llm-eval.yml (abbreviated)
+name: LLM Prompt Evaluation
+
+on:
+  pull_request:
+    paths: ["prompts/**", "src/llm/**"]
+
+jobs:
+  schema-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -r requirements.txt
+      - run: pytest tests/test_output_schema.py -v   # uses cached responses
+
+  golden-eval:
+    needs: schema-tests
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -r requirements.txt
+      - run: |
+          python eval/run_golden_dataset.py \
+            --prompt prompts/v2/contract_extraction.yaml \
+            --dataset eval/golden/contract_extraction_25.json \
+            --threshold 0.90 \
+            --model gpt-4o-mini
+</code></pre>
+
+              <!-- 9. Failure Modes -->
+              <h2 id="failure-modes">Failure Modes in Production</h2>
+
+              <p>This is the most important section for anyone moving from MLOps to LLMOps. The failure modes are qualitatively different — and the traditional alerting stack will miss them entirely.</p>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Failure Type</th>
+                    <th>MLOps Equivalent</th>
+                    <th>How It Manifests</th>
+                    <th>Detection Method</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Prompt drift</strong></td>
+                    <td>Concept drift</td>
+                    <td>Output quality degrades without model or code changes — usually after a provider model update</td>
+                    <td>Faithfulness score monitoring, output schema validation, periodic golden eval</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hallucination</strong></td>
+                    <td>N/A (no classical equivalent)</td>
+                    <td>Model generates plausible-sounding but factually wrong content — most dangerous in regulated domains</td>
+                    <td>RAG faithfulness checks, LLM-as-a-Judge on sampled outputs</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Context overflow</strong></td>
+                    <td>Memory error</td>
+                    <td>Input exceeds context window — model truncates or throws an error depending on provider</td>
+                    <td>Token counting before API call; hard rejection above threshold</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Schema breakage</strong></td>
+                    <td>API contract violation</td>
+                    <td>Model returns valid text that fails downstream JSON parsing — often after prompt changes</td>
+                    <td>Pydantic validation on every response; retry with stricter prompt</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Provider outage</strong></td>
+                    <td>Model server down</td>
+                    <td>OpenAI/Anthropic API returns 5xx errors</td>
+                    <td>Circuit breaker + fallback to secondary model</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- 10. Stack -->
+              <h2 id="stack">The Stack We Use</h2>
+
+              <p>For reference, here is the actual LLMOps stack across our production deployments as of early 2026:</p>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Layer</th>
+                    <th>Tool</th>
+                    <th>Why We Chose It</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tracing &amp; observability</td>
+                    <td>LangFuse (self-hosted)</td>
+                    <td>Open-source, GDPR-safe, full trace visibility with token-level cost tracking</td>
+                  </tr>
+                  <tr>
+                    <td>Experiment tracking</td>
+                    <td>MLflow</td>
+                    <td>Same tool as MLOps stack — reduces cognitive overhead for the team</td>
+                  </tr>
+                  <tr>
+                    <td>RAG evaluation</td>
+                    <td>Ragas</td>
+                    <td>Best open-source metrics for faithfulness, answer relevancy, context precision</td>
+                  </tr>
+                  <tr>
+                    <td>Prompt CI/CD</td>
+                    <td>LangSmith (evals) + GitHub Actions</td>
+                    <td>Native LangChain integration; evaluation datasets versioned in repo</td>
+                  </tr>
+                  <tr>
+                    <td>Vector DB</td>
+                    <td>Qdrant</td>
+                    <td>Fast, supports payload filtering, easy to self-host on Azure</td>
+                  </tr>
+                  <tr>
+                    <td>Output validation</td>
+                    <td>Pydantic v2</td>
+                    <td>Enforces JSON schema on every LLM response; retries on validation failure</td>
+                  </tr>
+                  <tr>
+                    <td>Human review</td>
+                    <td>Argilla</td>
+                    <td>Lightweight annotation UI for flagged low-confidence outputs</td>
+                  </tr>
+                  <tr>
+                    <td>Cost monitoring</td>
+                    <td>Custom dashboard (LangFuse + Azure Cost Management)</td>
+                    <td>Token usage per user, per endpoint, per day — alerts on anomalies</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- 11. When to Use -->
+              <h2 id="when-to-use">When to Use Each</h2>
+
+              <p>Not every AI system needs LLMOps. Here's the decision framework:</p>
+
+              <p><strong>Stick with MLOps</strong> <span class="verdict-badge badge-use">USE</span> when:</p>
+              <ul>
+                <li>Your output is a numeric prediction or a fixed class label</li>
+                <li>You fully own the model (not calling an external API)</li>
+                <li>Evaluation is deterministic — you have ground truth labels</li>
+                <li>Inference is batch, not real-time conversational</li>
+              </ul>
+
+              <p><strong>Move to LLMOps</strong> <span class="verdict-badge badge-use">USE</span> when:</p>
+              <ul>
+                <li>You're calling any external LLM API (OpenAI, Anthropic, Gemini, etc.)</li>
+                <li>Output is free-form text, JSON from a prompt, or a RAG-generated answer</li>
+                <li>The system faces real users who can provide unpredictable inputs</li>
+                <li>You operate in a regulated domain (healthcare, legal, finance) where hallucinations have consequences</li>
+              </ul>
+
+              <p><strong>You need both running in parallel</strong> when:</p>
+              <ul>
+                <li>Your system uses traditional ML for structured prediction (e.g., risk scoring) and LLMs for generation (e.g., report writing) — both in the same pipeline</li>
+                <li>You're fine-tuning open-source models — training is an MLOps concern; serving and monitoring is LLMOps</li>
+              </ul>
+
+              <div class="callout callout-success">
+                <strong>Practical starting point:</strong> If you have existing MLOps infrastructure, don't replace it — extend it. Add LangFuse for tracing, Ragas for evaluation, and a prompt registry. You can be running basic LLMOps in a week without a full platform rebuild.
+              </div>
+
+              <!-- 12. FAQ -->
+              <h2 id="faq">Frequently Asked Questions</h2>
+
+              <h3>What is the difference between MLOps and LLMOps?</h3>
+              <p>MLOps manages traditional ML models in production — covering data pipelines, model training, deployment, and drift monitoring. LLMOps extends this for large language models, adding prompt version control, hallucination monitoring, token cost management, and output schema validation. The core difference: in MLOps you monitor model accuracy; in LLMOps you monitor output quality, which is harder to quantify and can degrade for reasons entirely outside your codebase.</p>
+
+              <h3>Do I need LLMOps if I already have MLOps?</h3>
+              <p>Yes, if you're running LLMs in production. MLOps tooling has no visibility into prompt drift, hallucinations, or token economics. Your dashboards will be green while your users get confidently wrong answers. LLMOps is not a replacement for MLOps — it's an extension layer on top.</p>
+
+              <h3>What is prompt drift?</h3>
+              <p>Prompt drift is the degradation of LLM output quality over time without any change in your code or prompts. The most common cause is a silent model update from your API provider — OpenAI and Anthropic periodically update their models, and the new version may respond differently to the same system prompt. Unlike data drift in classical ML, prompt drift can happen overnight and be invisible to standard monitoring.</p>
+
+              <h3>What tools are used for LLMOps?</h3>
+              <p>The most widely adopted LLMOps tools as of 2026: <strong>LangFuse</strong> or <strong>LangSmith</strong> for prompt tracing and observability, <strong>Ragas</strong> for RAG pipeline evaluation, <strong>MLflow</strong> for experiment tracking (shared with MLOps), <strong>Pydantic</strong> for output schema validation, <strong>Argilla</strong> for human-in-the-loop review, and <strong>Qdrant</strong> or <strong>Pinecone</strong> for vector storage in RAG systems.</p>
+
+              <h3>Is LLMOps harder than MLOps?</h3>
+              <p>Different, not necessarily harder. The challenge is that quality is harder to measure — there is no single accuracy number. You need probabilistic evaluation, human judgement, and semantic monitoring alongside traditional operational metrics. Engineers from MLOps backgrounds typically find the evaluation layer the steepest learning curve.</p>
+
+            </div>
+            <!-- ===== END POST BODY ===== -->
+
+            <hr class="mt-5 mb-4">
+
+            <!-- Author Box -->
+            <div class="author-box">
+              <img src="../assets/img/profile-img.png" alt="Neil Dave AI Solution Architect">
+              <div>
+                <strong>Neil Dave</strong><br>
+                <span style="font-size:0.85rem; color:#666;">AI Solution Architect · Bangalore, India</span><br>
+                <span style="font-size:0.82rem; color:#888;">7+ years shipping ML and LLM systems in healthcare, sports analytics, and enterprise. Mentor to 120+ AI professionals.</span><br>
+                <span style="font-size:0.82rem;">
+                  <a href="https://www.linkedin.com/in/neil-dave/" target="_blank" rel="noopener">LinkedIn</a> ·
+                  <a href="https://theneildave.substack.com" target="_blank" rel="noopener">Newsletter</a> ·
+                  <a href="../index.html#appointment">Book a call</a>
+                </span>
+              </div>
+            </div>
+
+            <!-- Substack CTA -->
+            <div class="substack-cta">
+              <p class="mb-2" style="font-size:1rem; font-weight:600;">Want more posts like this?</p>
+              <p class="mb-3" style="font-size:0.9rem; opacity:0.9;">I write about LLMOps, RAG in production, and building real AI systems — no theory, no fluff.</p>
+              <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-light btn-sm rounded-pill px-4">Subscribe on Substack →</a>
+            </div>
+
+            <!-- Back link -->
+            <div class="mt-4">
+              <a href="../blog.html" style="font-size:0.9rem;">← Back to all articles</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Made with ❤️ by <strong><span>Neil Dave</span></strong>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+
+</body>
+</html>
