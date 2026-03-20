@@ -17,12 +17,16 @@ python -m http.server 8080
 
 ```
 index.html              ← Main single-page site (hero, about, skills, portfolio, newsletter, podcast, contact)
+speaking.html           ← Speaker kit page for conference organisers
+enterprise.html         ← Enterprise consulting landing page for CTOs / engineering leaders
+collaborate.html        ← AI tool collaboration page for founders / builders
 blog.html               ← Article listing page (cards link to /blog/*.html)
 blog/post-template.html ← Template to copy when creating a new blog post
-lead.html               ← Lead magnet / free resume template page
+lead.html               ← Lead magnet / free resume template page (linked from footer)
 /blog/*.html            ← Individual blog posts (each is a standalone HTML file)
 /* portfolio pages */   ← gen-ai.html, sepsis.html, cv.html, cv-object-detection.html,
                            run-prediction.html, rai.html — each is a portfolio detail page
+DESIGN.md               ← Design system reference (fonts, colours, components, schema, CTAs)
 sitemap.xml             ← Manually maintained — update when adding new pages
 robots.txt              ← AI bot access explicitly configured (do not modify without care)
 assets/css/style.css    ← Main stylesheet (based on iPortfolio Bootstrap template)
@@ -45,6 +49,9 @@ Every page must have inline `<script type="application/ld+json">` blocks. Minimu
 - **Blog posts**: `BlogPosting` (use the template — it's pre-wired)
 - **Portfolio pages**: `CreativeWork`
 - **index.html**: `Person` + `ProfessionalService` (already present — do not remove)
+- **speaking.html**: `Person` with `hasOccupation` Speaker
+- **enterprise.html**: `ProfessionalService`
+- **collaborate.html**: `Person` with `makesOffer` array (3 Offer items)
 
 The `Person` schema on `index.html` contains the Wikidata entity ID (`Q138716797`) in `sameAs` — this is a critical GEO/AI-citation signal. Never remove or alter the Wikidata URL.
 
@@ -70,6 +77,14 @@ All major AI crawlers are explicitly allowed (`GPTBot`, `ChatGPT-User`, `Perplex
 
 ### Sitemap
 `sitemap.xml` is hand-maintained. Add a `<url>` block for every new page. Blog posts in `/blog/` are not yet in the sitemap — add them when published.
+
+### Sidebar Nav — Files That Must Stay in Sync
+The left sidebar nav block is duplicated across every page. When adding or removing a nav item, update **all** of the following files:
+- `index.html`
+- `gen-ai.html`, `sepsis.html`, `cv.html`, `cv-object-detection.html`, `run-prediction.html`, `rai.html`
+- `speaking.html`, `enterprise.html`, `collaborate.html`
+
+Nav links on non-index pages use `index.html#section` format (e.g., `index.html#about`) rather than `#about`. Social links must use full URLs — never `href="#"`.
 
 ## GEO / AI-Citation Strategy
 

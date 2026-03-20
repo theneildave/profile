@@ -7,6 +7,90 @@
 */
 
 /*--------------------------------------------------------------
+# Site-wide shared classes (used across index.html + new pages)
+--------------------------------------------------------------*/
+
+/* Article / category tag chips */
+.blog-tag {
+  font-size: 0.75rem;
+  background: #e8f4fd;
+  color: #0d6efd;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-right: 4px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+/* Tech skill badges */
+.skill-badge {
+  display: inline-block;
+  background: #e8f0fe;
+  color: #1a3a6b;
+  border-radius: 6px;
+  padding: 5px 13px;
+  margin: 3px 4px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: 1px solid #c5d5f5;
+}
+
+.skill-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #aaa;
+  font-weight: 700;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+
+/* Portfolio captions */
+.portfolio-caption {
+  padding: 10px 12px 6px;
+}
+
+.portfolio-caption h5 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 2px 0;
+  color: #333;
+}
+
+.portfolio-caption small {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+/* Remove default disclosure triangle from <details>/<summary> */
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none; /* Safari */
+}
+
+/* Homepage audience routing strip */
+.routing-card {
+  border: 1px solid #dee2e6;
+  border-left: 3px solid transparent; /* Reserve width to prevent layout shift on hover */
+  transition: border-left-color 0.2s, box-shadow 0.2s;
+}
+
+.routing-card:hover {
+  border-left-color: #0d6efd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+}
+
+/* Routing card for pages not yet built */
+.routing-card--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
 body {
