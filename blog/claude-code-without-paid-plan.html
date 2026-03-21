@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>How to Run Claude Code Without a Claude Paid Plan | Neil Dave</title>
+  <meta name="description" content="You don't need a Claude Pro subscription to use Claude Code. Learn how to run it with an Anthropic API key, AWS Bedrock, or Google Vertex AI — step by step.">
+  <link rel="canonical" href="https://theneildave.in/blog/claude-code-without-paid-plan.html">
+  <meta name="author" content="Neil Dave">
+  <meta name="robots" content="index, follow">
+  <meta name="article:published_time" content="2026-03-20">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://theneildave.in/blog/claude-code-without-paid-plan.html">
+  <meta property="og:title" content="How to Run Claude Code Without a Claude Paid Plan | Neil Dave">
+  <meta property="og:description" content="You don't need a Claude Pro subscription to use Claude Code. Learn how to run it with an Anthropic API key, AWS Bedrock, or Google Vertex AI — step by step.">
+  <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
+  <meta name="twitter:title" content="How to Run Claude Code Without a Claude Paid Plan">
+  <meta name="twitter:description" content="No Pro subscription needed. Run Claude Code with an API key, AWS Bedrock, or Vertex AI — here's how.">
+  <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.png">
+
+  <!-- BlogPosting Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Run Claude Code Without a Claude Paid Plan",
+    "description": "You don't need a Claude Pro subscription to use Claude Code. Learn how to run it with an Anthropic API key, AWS Bedrock, or Google Vertex AI — step by step.",
+    "url": "https://theneildave.in/blog/claude-code-without-paid-plan.html",
+    "datePublished": "2026-03-20",
+    "dateModified": "2026-03-20",
+    "author": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in",
+      "jobTitle": "AI Solution Architect",
+      "sameAs": ["https://www.linkedin.com/in/neil-dave/", "https://www.wikidata.org/wiki/Q138716797"]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in"
+    },
+    "keywords": ["Claude Code", "Claude Code without subscription", "Claude Code Ollama", "Claude Code local model", "Claude API key", "Claude Code AWS Bedrock", "Claude Code Vertex AI", "Anthropic CLI", "AI coding assistant free", "LiteLLM Claude Code"],
+    "mainEntityOfPage": "https://theneildave.in/blog/claude-code-without-paid-plan.html",
+    "wordCount": 2600,
+    "timeRequired": "PT13M"
+  }
+  </script>
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"},
+      {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://theneildave.in/blog.html"},
+      {"@type": "ListItem", "position": 3, "name": "Claude Code Without a Paid Plan", "item": "https://theneildave.in/blog/claude-code-without-paid-plan.html"}
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema — for AI citation extraction -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I run Claude Code with a local model using Ollama for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can run Claude Code against a local Ollama model by using LiteLLM as an Anthropic-compatible proxy. Install Ollama, pull a code-capable model like qwen2.5-coder or deepseek-coder, run LiteLLM pointing to Ollama, then set ANTHROPIC_BASE_URL to your LiteLLM endpoint and a dummy ANTHROPIC_API_KEY. This costs nothing and keeps all data local."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a Claude Pro subscription to use Claude Code?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Claude Code works with an Anthropic API key on a pay-as-you-go basis. You do not need a Claude Pro, Max, or Team subscription. New Anthropic accounts receive $5 in free API credits, which is enough to try Claude Code meaningfully."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I run Claude Code with an API key instead of a subscription?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install Claude Code with 'npm install -g @anthropic-ai/claude-code', then set your API key with 'export ANTHROPIC_API_KEY=sk-ant-...' and run 'claude' in your terminal. Claude Code will authenticate against the Anthropic API directly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use Claude Code with AWS Bedrock?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Set CLAUDE_CODE_USE_BEDROCK=1 and configure your AWS credentials. Claude Code will route all requests through AWS Bedrock, which is useful if you already have AWS credits or enterprise agreements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does Claude Code cost per month on the API?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Light usage (a few hours per day of coding tasks) typically costs $5–$20/month on the Anthropic API using claude-sonnet-4-5. Heavy usage or large codebases can cost more. AWS Bedrock and Vertex AI pricing is similar but may benefit from existing cloud credits."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon1.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .post-content { font-size: 1.05rem; line-height: 1.85; color: #333; }
+    .post-content h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.2rem; margin-bottom: 0.8rem; color: #173b6c; }
+    .post-content h3 { font-size: 1.2rem; font-weight: 600; margin-top: 1.8rem; margin-bottom: 0.6rem; }
+    .post-content p { margin-bottom: 1.2rem; }
+    .post-content ul, .post-content ol { margin-bottom: 1.2rem; padding-left: 1.5rem; }
+    .post-content li { margin-bottom: 0.4rem; }
+    .post-content pre { background: #f6f8fa; border-radius: 8px; padding: 1rem 1.2rem; overflow-x: auto; margin-bottom: 1.2rem; }
+    .post-content code { font-size: 0.9rem; background: #f0f2f5; padding: 2px 6px; border-radius: 4px; }
+    .post-content pre code { background: none; padding: 0; }
+    .post-content blockquote { border-left: 4px solid #0d6efd; padding-left: 1rem; color: #555; font-style: italic; margin: 1.5rem 0; }
+    .post-content img { max-width: 100%; border-radius: 8px; margin: 1rem 0; }
+    .post-content a { color: #0d6efd; }
+    .blog-tag { font-size: 0.75rem; background: #e8f4fd; color: #0d6efd; border-radius: 20px; padding: 3px 12px; margin-right: 6px; display: inline-block; }
+    .author-box { background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1.5rem; margin-top: 3rem; display: flex; align-items: center; gap: 1rem; }
+    .author-box img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+    .substack-cta { background: linear-gradient(135deg, #ff6719 0%, #ff8c00 100%); color: white; border-radius: 12px; padding: 1.5rem 2rem; margin-top: 3rem; text-align: center; }
+    .substack-cta a { color: white; font-weight: 600; text-decoration: underline; }
+    .callout { background: #eef4ff; border-left: 4px solid #0d6efd; border-radius: 0 8px 8px 0; padding: 1rem 1.2rem; margin: 1.5rem 0; }
+    .callout-warning { background: #fff8ec; border-left: 4px solid #f0a500; border-radius: 0 8px 8px 0; padding: 1rem 1.2rem; margin: 1.5rem 0; }
+    .method-card { border: 1px solid #e0e6f0; border-radius: 10px; padding: 1.2rem 1.4rem; margin-bottom: 1rem; }
+    .method-card h3 { margin-top: 0; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.92rem; }
+    .comparison-table th { background: #173b6c; color: white; padding: 0.6rem 0.9rem; text-align: left; }
+    .comparison-table td { padding: 0.55rem 0.9rem; border-bottom: 1px solid #e8ecf3; vertical-align: top; }
+    .comparison-table tr:nth-child(even) td { background: #f7f9fc; }
+    .badge-free { background: #d4edda; color: #155724; font-size: 0.72rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+    .badge-paid { background: #fff3cd; color: #856404; font-size: 0.72rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="../assets/img/profile-img.png" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy">
+        <h1 class="text-light"><a href="../index.html">Neil Dave</a></h1>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="facebook"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener" title="Neil Dave on Substack"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Google Scholar"><i class="bx bx-book-alt"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="../index.html#hero" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="../index.html#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="../index.html#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="../blog.html" class="nav-link active"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="../index.html#substack" class="nav-link scrollto"><i class="bx bx-envelope-open"></i><span>Newsletter</span></a></li>
+          <li><a href="../index.html#tndtalks" class="nav-link scrollto"><i class="bx bx-podcast"></i> <span>TND Talks</span></a></li>
+          <li><a href="../index.html#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
+          <li><a href="../index.html#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Breadcrumbs -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Article</h2>
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../blog.html">Articles</a></li>
+            <li>Claude Code Without a Paid Plan</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= Post Content ======= -->
+    <section class="portfolio-details" style="padding: 40px 0 60px;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+            <!-- Post Header -->
+            <div class="mb-4">
+              <span class="blog-tag">Claude Code</span>
+              <span class="blog-tag">Ollama</span>
+              <span class="blog-tag">Local LLM</span>
+              <span class="blog-tag">Anthropic API</span>
+            </div>
+
+            <h1 style="font-size:1.9rem; font-weight:700; line-height:1.3; margin-bottom:0.8rem;">How to Run Claude Code Without a Claude Paid Plan</h1>
+
+            <div class="d-flex align-items-center gap-3 mb-4" style="font-size:0.85rem; color:#888;">
+              <span><i class="bx bx-calendar"></i> 20 March 2026</span>
+              <span><i class="bx bx-time"></i> 13 min read</span>
+            </div>
+
+            <hr class="mb-4">
+
+            <div class="post-content">
+
+              <p>
+                Claude Code is one of the most capable AI coding assistants available today — it can edit files, run tests, write entire features, and reason about large codebases with minimal hand-holding. But there's a widespread misconception that you need an active <strong>Claude Pro or Max subscription</strong> to use it.
+              </p>
+              <p>
+                You don't. Claude Code is a CLI tool that works independently of the claude.ai web subscription. You can run it completely free using a local model via Ollama, or pay-as-you-go with an Anthropic API key, or route it through AWS Bedrock and Google Vertex AI if you have existing cloud credits. This post walks through every method, starting with the fully free local option.
+              </p>
+
+              <div class="callout">
+                <strong>TL;DR:</strong> Run Claude Code for free with Ollama + LiteLLM on your own machine — no API key, no subscription, no data leaving your laptop. Or grab an Anthropic API key ($5 free credits) for cloud-quality output in 5 minutes.
+              </div>
+
+              <h2>What Is Claude Code, Exactly?</h2>
+              <p>
+                Claude Code (<code>@anthropic-ai/claude-code</code>) is an agentic CLI released by Anthropic. Unlike a chat interface, it operates as an autonomous agent in your terminal: it reads your codebase, writes and edits files, executes shell commands, runs tests, and iterates until a task is done — all under your supervision.
+              </p>
+              <p>
+                It connects to the Anthropic API format to call models. By pointing its base URL to a compatible local server, you can swap in any model — including locally running open-source models — without touching a paid plan.
+              </p>
+
+              <h2>The Four Ways to Run Claude Code Without a Subscription</h2>
+
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Cost</th>
+                    <th>Best For</th>
+                    <th>Setup Effort</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Ollama + LiteLLM (Local)</strong></td>
+                    <td>Free forever</td>
+                    <td>Privacy-first, offline, students</td>
+                    <td>20 min</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Anthropic API Key</strong></td>
+                    <td>Pay-as-you-go ($5 free credits)</td>
+                    <td>Individual developers, freelancers</td>
+                    <td>5 min</td>
+                  </tr>
+                  <tr>
+                    <td><strong>AWS Bedrock</strong></td>
+                    <td>AWS billing (use existing credits)</td>
+                    <td>Teams already on AWS</td>
+                    <td>15 min</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Google Vertex AI</strong></td>
+                    <td>GCP billing (use existing credits)</td>
+                    <td>Teams already on GCP</td>
+                    <td>15 min</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h2>Method 1: Ollama + LiteLLM — Fully Local, Completely Free</h2>
+              <p>
+                This is the only method with zero ongoing cost. Everything runs on your machine — no tokens billed, no data sent to any cloud. The trick is using <strong>LiteLLM</strong> as a proxy that translates Ollama's OpenAI-compatible API into the Anthropic API format that Claude Code expects.
+              </p>
+
+              <div class="callout-warning">
+                <strong>Hardware note:</strong> A 7B parameter model needs ~8 GB RAM. For a 13B model you'll want 16 GB+. The quality gap vs cloud models is real — Ollama works great for refactoring, tests, and boilerplate, but struggles with complex multi-file reasoning that Claude Sonnet handles easily.
+              </div>
+
+              <h3>Step 1 — Install Ollama</h3>
+              <p>Download and install from <strong>ollama.com</strong>, then pull a code-capable model:</p>
+              <pre><code># Good options for coding tasks
+ollama pull qwen2.5-coder:7b       # Best coding model at 7B, fast
+ollama pull deepseek-coder-v2:16b  # Stronger reasoning, needs 16 GB RAM
+ollama pull codellama:13b          # Meta's dedicated code model</code></pre>
+              <p>Verify Ollama is running:</p>
+              <pre><code>ollama list   # should show your pulled models
+curl http://localhost:11434/api/tags   # should return JSON</code></pre>
+
+              <h3>Step 2 — Install LiteLLM</h3>
+              <p>LiteLLM acts as the translation layer between Ollama and Claude Code. Python 3.8+ is required:</p>
+              <pre><code>pip install litellm[proxy]</code></pre>
+
+              <h3>Step 3 — Start LiteLLM Proxy in Anthropic-Compatible Mode</h3>
+              <p>Run LiteLLM pointing at your local Ollama model, exposing it on port 8082:</p>
+              <pre><code>litellm --model ollama/qwen2.5-coder:7b \
+        --port 8082 \
+        --api_base http://localhost:11434</code></pre>
+              <p>You should see output like:</p>
+              <pre><code>INFO: LiteLLM Proxy running on http://0.0.0.0:8082</code></pre>
+              <p>Leave this terminal open — it must stay running while you use Claude Code.</p>
+
+              <h3>Step 4 — Install Claude Code</h3>
+              <p>Node.js 18+ is required:</p>
+              <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+
+              <h3>Step 5 — Point Claude Code at Your Local Proxy</h3>
+              <p>Set these two environment variables. The API key value doesn't matter — it just can't be empty:</p>
+              <pre><code>export ANTHROPIC_BASE_URL="http://localhost:8082"
+export ANTHROPIC_API_KEY="local-ollama"</code></pre>
+
+              <h3>Step 6 — Run Claude Code</h3>
+              <pre><code>cd your-project
+claude</code></pre>
+              <p>
+                Claude Code will now send all requests to your local LiteLLM proxy, which forwards them to Ollama. Everything stays on your machine — no internet required after the initial model download.
+              </p>
+
+              <div class="callout">
+                <strong>Persisting the setup:</strong> Add the two export lines to your <code>~/.bashrc</code> or <code>~/.zshrc</code> so they survive terminal restarts. Create a shell alias like <code>alias start-local-claude="litellm --model ollama/qwen2.5-coder:7b --port 8082 --api_base http://localhost:11434 &"</code> to launch the proxy in one command.
+              </div>
+
+              <h3>Switching Between Local Models</h3>
+              <p>To swap models, restart LiteLLM with a different <code>--model</code> flag:</p>
+              <pre><code># Switch to a larger model for harder tasks
+litellm --model ollama/deepseek-coder-v2:16b \
+        --port 8082 \
+        --api_base http://localhost:11434</code></pre>
+
+              <h2>Method 2: Anthropic API Key (5-Minute Setup)</h2>
+              <p>
+                If local model quality isn't quite cutting it, the Anthropic API gives you access to the real Claude models on a pay-per-token basis — no subscription required. As of 2026, <strong>claude-sonnet-4-5</strong> costs $3 per million input tokens and $15 per million output tokens. Light daily use rarely exceeds $10–15/month.
+              </p>
+
+              <h3>Step 1 — Get Your API Key</h3>
+              <ol>
+                <li>Go to <strong>console.anthropic.com</strong> and create a free account.</li>
+                <li>Navigate to <strong>API Keys</strong> and generate a new key.</li>
+                <li>New accounts automatically receive <strong>$5 in free credits</strong> — no credit card required upfront.</li>
+              </ol>
+
+              <h3>Step 2 — Install Claude Code</h3>
+              <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+
+              <h3>Step 3 — Set Your API Key</h3>
+              <pre><code># Add to ~/.bashrc or ~/.zshrc
+export ANTHROPIC_API_KEY="sk-ant-api03-..."</code></pre>
+              <pre><code>source ~/.bashrc   # or source ~/.zshrc</code></pre>
+
+              <h3>Step 4 — Run Claude Code</h3>
+              <pre><code>cd your-project
+claude</code></pre>
+
+              <div class="callout-warning">
+                <strong>Cost tip:</strong> Use <code>claude --model claude-haiku-4-5</code> for lighter tasks like refactoring or documentation. Haiku is ~20x cheaper than Sonnet and fast enough for most non-reasoning tasks.
+              </div>
+
+              <h3>Specifying the Model</h3>
+              <pre><code>claude --model claude-sonnet-4-5   # best balance
+claude --model claude-opus-4-6     # complex architecture work
+claude --model claude-haiku-4-5    # fast and cheap</code></pre>
+              <p>Or set a persistent default for a project:</p>
+              <pre><code>claude config set model claude-sonnet-4-5</code></pre>
+
+              <h2>Method 3: AWS Bedrock</h2>
+              <p>
+                If you or your team has AWS credits — from a startup program, enterprise agreement, or existing cloud spend — you can route all Claude Code requests through AWS Bedrock. This keeps billing within your AWS account and may qualify for reserved pricing.
+              </p>
+
+              <h3>Prerequisites</h3>
+              <ul>
+                <li>An AWS account with Bedrock access enabled</li>
+                <li>Claude models enabled in your Bedrock console (<strong>Bedrock → Model Access</strong>)</li>
+                <li>AWS CLI configured (<code>aws configure</code>) or an IAM role attached to your environment</li>
+              </ul>
+
+              <h3>Setup</h3>
+              <pre><code>export CLAUDE_CODE_USE_BEDROCK=1
+export AWS_REGION=us-east-1
+
+aws configure
+# AWS Access Key ID: AKIA...
+# AWS Secret Access Key: ...
+# Default region name: us-east-1</code></pre>
+              <pre><code>claude</code></pre>
+              <p>
+                Claude Code detects <code>CLAUDE_CODE_USE_BEDROCK=1</code> and routes all calls through Bedrock. No <code>ANTHROPIC_API_KEY</code> needed.
+              </p>
+
+              <div class="callout">
+                <strong>Model IDs on Bedrock:</strong> Bedrock uses different model ID strings internally, but Claude Code handles this mapping automatically when Bedrock mode is active.
+              </div>
+
+              <h2>Method 4: Google Vertex AI</h2>
+              <p>
+                GCP users can run Claude Code through Vertex AI — useful if your org keeps AI billing consolidated in Google Cloud.
+              </p>
+
+              <h3>Prerequisites</h3>
+              <ul>
+                <li>A GCP project with Vertex AI API enabled</li>
+                <li>Claude models enabled in Vertex AI Model Garden</li>
+                <li>Google Cloud CLI installed and authenticated</li>
+              </ul>
+
+              <h3>Setup</h3>
+              <pre><code>export CLAUDE_CODE_USE_VERTEX=1
+export CLOUD_ML_REGION=us-east5
+export ANTHROPIC_VERTEX_PROJECT_ID="your-gcp-project-id"
+
+gcloud auth application-default login</code></pre>
+              <pre><code>claude</code></pre>
+              <p>Claude Code uses your Application Default Credentials to authenticate. No <code>ANTHROPIC_API_KEY</code> required.</p>
+
+              <h2>Estimating Monthly Cost (API Methods)</h2>
+              <p>Using <strong>claude-sonnet-4-5</strong> pricing ($3 input / $15 output per million tokens):</p>
+
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Usage Pattern</th>
+                    <th>Estimated Monthly Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Light use — 1–2 hrs/day, small codebase</td>
+                    <td>$5–$15</td>
+                  </tr>
+                  <tr>
+                    <td>Moderate use — 4–6 hrs/day, mid-size project</td>
+                    <td>$20–$50</td>
+                  </tr>
+                  <tr>
+                    <td>Heavy use — all-day agentic tasks, large repos</td>
+                    <td>$80–$150+</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p>
+                Set a <strong>spend limit</strong> in the Anthropic console under <strong>Billing → Usage Limits</strong> to avoid surprises.
+              </p>
+
+              <h2>Common Errors and How to Fix Them</h2>
+
+              <h3>Ollama: "Connection refused" on port 8082</h3>
+              <pre><code>Error: connect ECONNREFUSED 127.0.0.1:8082</code></pre>
+              <p>Your LiteLLM proxy isn't running. Start it in a separate terminal with the <code>litellm --model ollama/...</code> command from Method 1.</p>
+
+              <h3>Ollama: Model responds but output is garbled</h3>
+              <p>The model isn't following Claude Code's system prompt format well. Switch to a stronger model like <code>qwen2.5-coder:7b</code> or <code>deepseek-coder-v2:16b</code> — they have better instruction-following than general-purpose models.</p>
+
+              <h3>API: "Authentication error" or "Invalid API key"</h3>
+              <pre><code>AuthenticationError: invalid x-api-key</code></pre>
+              <p>Run <code>echo $ANTHROPIC_API_KEY</code> to verify the variable is exported in your current shell. Re-source your shell profile if needed.</p>
+
+              <h3>API: "Rate limit exceeded"</h3>
+              <pre><code>RateLimitError: 429 Too Many Requests</code></pre>
+              <p>New API accounts start on Tier 1 with conservative limits. Claude Code will auto-retry. To increase limits, add a payment method and request a tier upgrade at <strong>console.anthropic.com → Limits</strong>.</p>
+
+              <h3>Bedrock: "No credentials found"</h3>
+              <pre><code>NoCredentialProviders: no valid providers in chain</code></pre>
+              <p>Run <code>aws sts get-caller-identity</code> to verify credentials are active. If it fails, re-run <code>aws configure</code>.</p>
+
+              <h2>Which Method Should You Choose?</h2>
+              <ul>
+                <li><strong>Ollama wins</strong> if you're privacy-conscious, working offline, or just want zero cost forever. Expect model quality ~60–70% of cloud Claude for coding tasks.</li>
+                <li><strong>Anthropic API key wins</strong> if you want full Claude quality with no subscription commitment. The $5 free credits are enough to evaluate it properly.</li>
+                <li><strong>Bedrock/Vertex wins</strong> if you have existing cloud credits, need data residency guarantees, or your company requires AI spend within a specific cloud account.</li>
+                <li><strong>Claude Max subscription wins</strong> if you're using Claude Code 6+ hours a day — the flat fee becomes cheaper than API costs at that volume, plus you get higher rate limits.</li>
+              </ul>
+
+              <blockquote>
+                "Start local with Ollama — it costs nothing and teaches you exactly what you're getting. Then decide if the quality gap is worth paying for."
+              </blockquote>
+
+              <h2>Final Checklist</h2>
+              <p><strong>For Ollama (local, free):</strong></p>
+              <ol>
+                <li><code>ollama pull qwen2.5-coder:7b</code></li>
+                <li><code>pip install litellm[proxy]</code></li>
+                <li>Start proxy: <code>litellm --model ollama/qwen2.5-coder:7b --port 8082 --api_base http://localhost:11434</code></li>
+                <li><code>npm install -g @anthropic-ai/claude-code</code></li>
+                <li><code>export ANTHROPIC_BASE_URL="http://localhost:8082" &amp;&amp; export ANTHROPIC_API_KEY="local-ollama"</code></li>
+                <li><code>claude</code></li>
+              </ol>
+              <p><strong>For Anthropic API (cloud, pay-as-you-go):</strong></p>
+              <ol>
+                <li><code>npm install -g @anthropic-ai/claude-code</code></li>
+                <li>Get API key from <strong>console.anthropic.com</strong></li>
+                <li><code>export ANTHROPIC_API_KEY="sk-ant-..."</code></li>
+                <li><code>claude</code></li>
+                <li>Optionally: set a spend limit in the console</li>
+              </ol>
+
+              <p>
+                Either way, you're running the same powerful agentic CLI that engineers across the world are using to ship code faster — without paying a subscription fee.
+              </p>
+
+            </div>
+            <!-- ===== END POST BODY ===== -->
+
+            <hr class="mt-5 mb-4">
+
+            <!-- Author Box -->
+            <div class="author-box">
+              <img src="../assets/img/profile-img.png" alt="Neil Dave">
+              <div>
+                <strong>Neil Dave</strong><br>
+                <span style="font-size:0.85rem; color:#666;">AI Solution Architect · Bangalore, India</span><br>
+                <span style="font-size:0.82rem; color:#888;">7+ years in ML, Deep Learning, Generative AI & Computer Vision.</span>
+              </div>
+            </div>
+
+            <!-- Substack CTA -->
+            <div class="substack-cta">
+              <p class="mb-2" style="font-size:1rem; font-weight:600;">Enjoyed this? Get more articles like this.</p>
+              <p class="mb-3" style="font-size:0.9rem; opacity:0.9;">I write about LLMs, MLOps, and AI in the real world — no fluff.</p>
+              <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-light btn-sm rounded-pill px-4">Subscribe on Substack →</a>
+            </div>
+
+            <!-- Back link -->
+            <div class="mt-4">
+              <a href="../blog.html" style="font-size:0.9rem;">← Back to all articles</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Made with ❤️ by <strong><span>Neil Dave</span></strong>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+
+</body>
+</html>

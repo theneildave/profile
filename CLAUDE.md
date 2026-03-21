@@ -26,6 +26,10 @@ lead.html               ← Lead magnet / free resume template page (linked from
 /blog/*.html            ← Individual blog posts (each is a standalone HTML file)
 /* portfolio pages */   ← gen-ai.html, sepsis.html, cv.html, cv-object-detection.html,
                            run-prediction.html, rai.html — each is a portfolio detail page
+
+/* legacy template files — DO NOT edit or link to these */
+inner-page.html, news.html, portfolio-details.html ← Leftover iPortfolio Bootstrap template
+                                                       pages; not live, not linked, ignore them
 DESIGN.md               ← Design system reference (fonts, colours, components, schema, CTAs)
 sitemap.xml             ← Manually maintained — update when adding new pages
 robots.txt              ← AI bot access explicitly configured (do not modify without care)
@@ -40,8 +44,9 @@ assets/vendor/          ← All JS/CSS vendors bundled locally (Bootstrap, AOS, 
 ### Adding a Blog Post
 1. Copy `blog/post-template.html` → `blog/your-post-slug.html`
 2. Fill every `[FILL IN]` placeholder: title, description, canonical URL, published date, schema keywords, breadcrumb title
-3. Add a card to `blog.html` matching the existing card pattern
-4. Add the URL to `sitemap.xml`
+3. Add a card to `blog.html` matching the existing card pattern (newest post first)
+4. Update the **Articles section on `index.html`** (`#articles`) — swap the pinned card to the newest post and shift the previous one to the second column
+5. Add the URL to `sitemap.xml`
 
 ### Schema Markup (JSON-LD)
 Every page must have inline `<script type="application/ld+json">` blocks. Minimum required per page type:
@@ -76,13 +81,14 @@ The canonical title across all pages, schema, and headings is **"AI Solution Arc
 All major AI crawlers are explicitly allowed (`GPTBot`, `ChatGPT-User`, `PerplexityBot`, `ClaudeBot`, `anthropic-ai`, `Google-Extended`). Do not add `Disallow` rules for these bots — it would prevent AI search citation.
 
 ### Sitemap
-`sitemap.xml` is hand-maintained. Add a `<url>` block for every new page. Blog posts in `/blog/` are not yet in the sitemap — add them when published.
+`sitemap.xml` is hand-maintained. Add a `<url>` block for every new page, including blog posts in `/blog/`.
 
 ### Sidebar Nav — Files That Must Stay in Sync
 The left sidebar nav block is duplicated across every page. When adding or removing a nav item, update **all** of the following files:
 - `index.html`
 - `gen-ai.html`, `sepsis.html`, `cv.html`, `cv-object-detection.html`, `run-prediction.html`, `rai.html`
 - `speaking.html`, `enterprise.html`, `collaborate.html`
+- `blog/*.html` (every individual blog post file, including `post-template.html`)
 
 Nav links on non-index pages use `index.html#section` format (e.g., `index.html#about`) rather than `#about`. Social links must use full URLs — never `href="#"`.
 
