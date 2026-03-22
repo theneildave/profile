@@ -76,6 +76,7 @@ The canonical title across all pages, schema, and headings is **"AI Solution Arc
 | Google Scholar | `https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en` |
 | Twitter/X | `https://twitter.com/theneildave` |
 | Instagram | `https://www.instagram.com/theneildave.ai` |
+| YouTube | `https://www.youtube.com/@theneildave` |
 
 ### robots.txt
 All major AI crawlers are explicitly allowed (`GPTBot`, `ChatGPT-User`, `PerplexityBot`, `ClaudeBot`, `anthropic-ai`, `Google-Extended`). Do not add `Disallow` rules for these bots — it would prevent AI search citation.
