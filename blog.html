@@ -71,6 +71,15 @@
     .blog-tag { font-size: 0.75rem; background: #e8f4fd; color: #0d6efd; border-radius: 20px; padding: 2px 10px; margin-right: 4px; display: inline-block; margin-bottom: 6px; }
     .read-time { font-size: 0.78rem; color: #999; }
     .post-date { font-size: 0.8rem; color: #aaa; margin-bottom: 0.5rem; }
+    /* Articles carousel */
+    .articles-swiper { padding-bottom: 44px !important; }
+    .articles-swiper .swiper-slide { height: auto; }
+    .articles-swiper .swiper-slide .card { height: 100%; }
+    .articles-swiper .swiper-pagination-bullet-active { background: #0d6efd; }
+    .articles-swiper .swiper-button-next,
+    .articles-swiper .swiper-button-prev { color: #0d6efd; top: 44%; }
+    .articles-swiper .swiper-button-next:after,
+    .articles-swiper .swiper-button-prev:after { font-size: 1.2rem; font-weight: 700; }
   </style>
 </head>
 
@@ -141,63 +150,94 @@
         </div>
 
         <!-- =====================================================
-             PINNED LOCAL POSTS — when you publish a full article
-             on this domain, add its card here (newest first).
-             These appear above the Substack archive.
+             PINNED LOCAL POSTS — carousel (Swiper), newest first.
+             Add a new <div class="swiper-slide"> for each post.
              ===================================================== -->
-        <div id="local-posts" class="row g-4 mb-2" data-aos="fade-up">
+        <div id="local-posts" class="mb-2" data-aos="fade-up">
+          <div class="swiper articles-swiper">
+            <div class="swiper-wrapper">
 
-          <!-- EXAMPLE — copy & fill when adding a local post:
-          <div class="col-lg-4 col-md-6">
-            <div class="card blog-card border border-primary" style="border-width:2px !important;">
-              <div class="card-body">
-                <div class="mb-2">
-                  <span class="blog-tag">LLM</span>
-                  <span class="blog-tag">RAG</span>
-                  <span class="blog-tag" style="background:#fff3cd;color:#856404;">Full article</span>
+              <!-- Slide 1 — newest -->
+              <div class="swiper-slide">
+                <div class="card blog-card border border-primary" style="border-width:2px !important;">
+                  <div class="card-body">
+                    <div class="mb-2">
+                      <span class="blog-tag">GEO</span>
+                      <span class="blog-tag">AI SEO</span>
+                      <span class="blog-tag">Schema Markup</span>
+                      <span class="blog-tag" style="background:#fff3cd;color:#856404;">Full article</span>
+                    </div>
+                    <p class="post-date">22 March 2026 · <span class="read-time">14 min read</span></p>
+                    <h5 class="card-title">I Ran a GEO Audit on My Own Portfolio Site — Here's What I Found (and How I Fixed It)</h5>
+                    <p class="card-text">Six real issues found during a GEO audit of my own site — JS-invisible hero text, missing Wikidata, no FAQPage schema — and the exact fixes applied.</p>
+                    <a href="blog/geo-audit-portfolio-site.html" class="btn btn-primary btn-sm rounded-pill mt-3">Read article</a>
+                  </div>
                 </div>
-                <p class="post-date">15 March 2026 · <span class="read-time">8 min read</span></p>
-                <h5 class="card-title">How I Built a Production RAG Pipeline for Healthcare</h5>
-                <p class="card-text">Step-by-step architecture, chunking strategy, and lessons from deploying RAG in a clinical setting...</p>
-                <a href="blog/rag-healthcare.html" class="btn btn-primary btn-sm rounded-pill mt-3">Read article</a>
               </div>
-            </div>
-          </div>
-          -->
 
-          <div class="col-lg-4 col-md-6">
-            <div class="card blog-card border border-primary" style="border-width:2px !important;">
-              <div class="card-body">
-                <div class="mb-2">
-                  <span class="blog-tag">Claude Code</span>
-                  <span class="blog-tag">Anthropic API</span>
+              <!-- Slide 2 -->
+              <div class="swiper-slide">
+                <div class="card blog-card border border-primary" style="border-width:2px !important;">
+                  <div class="card-body">
+                    <div class="mb-2">
+                      <span class="blog-tag">Claude Code</span>
+                      <span class="blog-tag">Anthropic API</span>
+                      <span class="blog-tag" style="background:#fff3cd;color:#856404;">Full article</span>
+                    </div>
+                    <p class="post-date">20 March 2026 · <span class="read-time">13 min read</span></p>
+                    <h5 class="card-title">How to Run Claude Code Without a Claude Paid Plan</h5>
+                    <p class="card-text">Run Claude Code free with Ollama locally, or use an Anthropic API key, AWS Bedrock, or Vertex AI — step-by-step setup for all four methods.</p>
+                    <a href="blog/claude-code-without-paid-plan.html" class="btn btn-primary btn-sm rounded-pill mt-3">Read article</a>
+                  </div>
                 </div>
-                <p class="post-date">20 March 2026 · <span class="read-time">13 min read</span></p>
-                <h5 class="card-title">How to Run Claude Code Without a Claude Paid Plan</h5>
-                <p class="card-text">Run Claude Code free with Ollama locally, or use an Anthropic API key, AWS Bedrock, or Vertex AI — step-by-step setup for all four methods.</p>
-                <a href="blog/claude-code-without-paid-plan.html" class="btn btn-primary btn-sm rounded-pill mt-3">Read article</a>
               </div>
-            </div>
-          </div>
 
-          <div class="col-lg-4 col-md-6">
-            <div class="card blog-card border border-primary" style="border-width:2px !important;">
-              <div class="card-body">
-                <div class="mb-2">
-                  <span class="blog-tag">LLMOps</span>
-                  <span class="blog-tag">MLOps</span>
-                  <span class="blog-tag">Production AI</span>
-                  <span class="blog-tag" style="background:#fff3cd;color:#856404;">Full article</span>
+              <!-- Slide 3 -->
+              <div class="swiper-slide">
+                <div class="card blog-card border border-primary" style="border-width:2px !important;">
+                  <div class="card-body">
+                    <div class="mb-2">
+                      <span class="blog-tag">LLMOps</span>
+                      <span class="blog-tag">MLOps</span>
+                      <span class="blog-tag">Production AI</span>
+                      <span class="blog-tag" style="background:#fff3cd;color:#856404;">Full article</span>
+                    </div>
+                    <p class="post-date">19 March 2026 · <span class="read-time">12 min read</span></p>
+                    <h5 class="card-title">LLMOps vs MLOps: A Real Comparison After Running Both in Production</h5>
+                    <p class="card-text">Monitoring, versioning, cost patterns, and failure modes — an honest breakdown from production systems across healthcare, sports analytics, and enterprise automation.</p>
+                    <a href="blog/llmops-vs-mlops.html" class="btn btn-primary btn-sm rounded-pill mt-3">Read article</a>
+                  </div>
                 </div>
-                <p class="post-date">19 March 2026 · <span class="read-time">12 min read</span></p>
-                <h5 class="card-title">LLMOps vs MLOps: A Real Comparison After Running Both in Production</h5>
-                <p class="card-text">Monitoring, versioning, cost patterns, and failure modes — an honest breakdown from production systems across healthcare, sports analytics, and enterprise automation.</p>
-                <a href="blog/llmops-vs-mlops.html" class="btn btn-primary btn-sm rounded-pill mt-3">Read article</a>
               </div>
-            </div>
-          </div>
 
+            </div><!-- /swiper-wrapper -->
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
         </div>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            new Swiper('.articles-swiper', {
+              slidesPerView: 1,
+              spaceBetween: 20,
+              loop: false,
+              navigation: {
+                nextEl: '.articles-swiper .swiper-button-next',
+                prevEl: '.articles-swiper .swiper-button-prev'
+              },
+              pagination: {
+                el: '.articles-swiper .swiper-pagination',
+                clickable: true
+              },
+              breakpoints: {
+                768: { slidesPerView: 2, spaceBetween: 20 },
+                992: { slidesPerView: 3, spaceBetween: 24 }
+              }
+            });
+          });
+        </script>
 
         <!-- Substack archive divider — only shown once RSS loads -->
         <div id="substack-archive-header" class="mb-3" style="display:none;">

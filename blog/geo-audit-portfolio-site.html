@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>I Ran a GEO Audit on My Own Portfolio Site — Here's What I Found | Neil Dave</title>
+  <meta name="description" content="A hands-on GEO audit of my own AI portfolio site — six real issues I discovered, the exact fixes I applied, and a reusable checklist for any personal brand site.">
+  <link rel="canonical" href="https://theneildave.in/blog/geo-audit-portfolio-site.html">
+  <meta name="author" content="Neil Dave">
+  <meta name="robots" content="index, follow">
+  <meta name="article:published_time" content="2026-03-22">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://theneildave.in/blog/geo-audit-portfolio-site.html">
+  <meta property="og:title" content="I Ran a GEO Audit on My Own Portfolio Site — Here's What I Found | Neil Dave">
+  <meta property="og:description" content="A hands-on GEO audit of my own AI portfolio site — six real issues I discovered, the exact fixes I applied, and a reusable checklist for any personal brand site.">
+  <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
+  <meta name="twitter:title" content="I Ran a GEO Audit on My Own Portfolio Site — Here's What I Found">
+  <meta name="twitter:description" content="Six real GEO issues I found on my own portfolio, the fixes I applied, and a reusable audit checklist — with before/after schema comparisons.">
+  <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.png">
+
+  <!-- BlogPosting Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "I Ran a GEO Audit on My Own Portfolio Site — Here's What I Found (and How I Fixed It)",
+    "description": "A hands-on GEO audit of my own AI portfolio site — six real issues I discovered, the exact fixes I applied, and a reusable checklist for any personal brand site.",
+    "url": "https://theneildave.in/blog/geo-audit-portfolio-site.html",
+    "datePublished": "2026-03-22",
+    "dateModified": "2026-03-22",
+    "author": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in",
+      "jobTitle": "AI Solution Architect",
+      "sameAs": [
+        "https://www.linkedin.com/in/neil-dave/",
+        "https://www.wikidata.org/wiki/Q138716797"
+      ]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in"
+    },
+    "keywords": ["GEO", "Generative Engine Optimisation", "AI SEO", "portfolio site audit", "schema markup", "Wikidata", "personal brand", "AI citation", "structured data", "E-E-A-T"],
+    "mainEntityOfPage": "https://theneildave.in/blog/geo-audit-portfolio-site.html",
+    "wordCount": 2900,
+    "timeRequired": "PT14M"
+  }
+  </script>
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"},
+      {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://theneildave.in/blog.html"},
+      {"@type": "ListItem", "position": 3, "name": "GEO Audit — Portfolio Site", "item": "https://theneildave.in/blog/geo-audit-portfolio-site.html"}
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema — for AI citation extraction -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Generative Engine Optimisation (GEO)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Generative Engine Optimisation (GEO) is the practice of structuring a website's content, schema markup, and entity signals so that AI-powered answer engines — ChatGPT, Perplexity, Google AI Overviews, Claude — are more likely to surface and cite it when answering relevant queries. Unlike traditional SEO which targets ranked blue links, GEO targets the AI-generated summaries that now appear above organic results."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does a Wikidata entity ID help with GEO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wikidata is the structured knowledge graph that Google, ChatGPT, and other LLMs use to disambiguate real-world entities. When a Person schema on your site includes a sameAs link to your Wikidata entry (e.g. https://www.wikidata.org/wiki/Q138716797), you are telling AI crawlers: 'this page is about the verified entity in the knowledge graph.' Research by Kalyan et al. (2023) found that entity-grounded pages receive significantly higher citation rates in LLM-generated answers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the most common GEO mistake on portfolio sites?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The single most common GEO mistake on personal portfolio and consulting sites is rendering the hero heading text only via JavaScript typing animations. AI crawlers do not execute JavaScript in the same way browsers do, so the most important statement on the page — your name, title, and value proposition — is invisible to them. The fix is to add visually-hidden static text in the HTML that duplicates what the animation shows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do statistics and citations improve GEO performance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AI answer engines prefer to cite pages that back up claims with verifiable data. A 2023 study by Aggarwal et al. ('GEO: Generative Engine Optimization') found that pages containing statistics with source attribution achieve ~40% higher citation rates in AI-generated answers compared to pages with equivalent content but no quantified claims. Linking to primary sources (McKinsey, WEF, IEEE) also boosts E-E-A-T signals."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon1.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .post-content { font-size: 1.05rem; line-height: 1.85; color: #333; }
+    .post-content h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 0.8rem; color: #173b6c; }
+    .post-content h3 { font-size: 1.15rem; font-weight: 600; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #1e4d8c; }
+    .post-content p { margin-bottom: 1.2rem; }
+    .post-content ul, .post-content ol { margin-bottom: 1.2rem; padding-left: 1.5rem; }
+    .post-content li { margin-bottom: 0.5rem; }
+    .post-content pre { background: #f6f8fa; border-radius: 8px; padding: 1rem 1.2rem; overflow-x: auto; margin-bottom: 1.4rem; border: 1px solid #e1e4e8; }
+    .post-content code { font-size: 0.88rem; background: #f0f2f5; padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', monospace; }
+    .post-content pre code { background: none; padding: 0; font-size: 0.85rem; }
+    .post-content blockquote { border-left: 4px solid #0d6efd; padding: 0.8rem 1rem; color: #444; font-style: italic; margin: 1.5rem 0; background: #f8f9ff; border-radius: 0 8px 8px 0; }
+    .post-content a { color: #0d6efd; }
+    .post-content table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.93rem; }
+    .post-content table th { background: #173b6c; color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+    .post-content table td { padding: 9px 14px; border-bottom: 1px solid #e9ecef; vertical-align: top; }
+    .post-content table tr:nth-child(even) td { background: #f8f9fa; }
+    .post-content table tr:hover td { background: #eef2ff; }
+    .post-content .callout { background: #e8f4fd; border-left: 4px solid #0d6efd; border-radius: 0 8px 8px 0; padding: 1rem 1.2rem; margin: 1.5rem 0; }
+    .post-content .callout-warning { background: #fff8e1; border-left-color: #f59e0b; }
+    .post-content .callout-success { background: #e8f5e9; border-left-color: #22c55e; }
+    .post-content .callout-danger { background: #fef2f2; border-left-color: #ef4444; }
+    .blog-tag { font-size: 0.75rem; background: #e8f4fd; color: #0d6efd; border-radius: 20px; padding: 3px 12px; margin-right: 6px; display: inline-block; }
+    .author-box { background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1.5rem; margin-top: 3rem; display: flex; align-items: center; gap: 1rem; }
+    .author-box img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+    .substack-cta { background: linear-gradient(135deg, #ff6719 0%, #ff8c00 100%); color: white; border-radius: 12px; padding: 1.5rem 2rem; margin-top: 3rem; text-align: center; }
+    .substack-cta a { color: white; font-weight: 600; text-decoration: underline; }
+    .toc { background: #f8f9fa; border-radius: 10px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; border: 1px solid #e9ecef; }
+    .toc h4 { font-size: 0.9rem; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.8rem; }
+    .toc ol { margin: 0; padding-left: 1.2rem; }
+    .toc li { font-size: 0.92rem; margin-bottom: 0.3rem; }
+    .toc a { color: #0d6efd; text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .finding-number { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #173b6c; color: white; border-radius: 50%; font-weight: 700; font-size: 0.9rem; margin-right: 8px; flex-shrink: 0; }
+    .finding-header { display: flex; align-items: center; margin-top: 2.2rem; margin-bottom: 0.8rem; }
+    .finding-header h2 { margin: 0; }
+    .severity-badge { font-size: 0.72rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; margin-left: 10px; }
+    .sev-high { background: #fee2e2; color: #991b1b; }
+    .sev-med { background: #fff8e1; color: #92400e; }
+    .checklist-item { display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 0.7rem; }
+    .check-icon { color: #22c55e; font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+  </style>
+</head>
+
+<body>
+
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+      <div class="profile">
+        <img src="../assets/img/profile-img.png" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy">
+        <h1 class="text-light"><a href="../index.html">Neil Dave</a></h1>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="facebook"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener" title="Neil Dave on Substack"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Google Scholar"><i class="bx bx-book-alt"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="../index.html#hero" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="../index.html#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="../index.html#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="../blog.html" class="nav-link active"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="../index.html#substack" class="nav-link scrollto"><i class="bx bx-envelope-open"></i><span>Newsletter</span></a></li>
+          <li><a href="../index.html#tndtalks" class="nav-link scrollto"><i class="bx bx-podcast"></i> <span>TND Talks</span></a></li>
+          <li><a href="../index.html#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
+          <li><a href="../index.html#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Breadcrumbs -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Article</h2>
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../blog.html">Articles</a></li>
+            <li>GEO Audit — Portfolio Site</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= Post Content ======= -->
+    <section class="portfolio-details" style="padding: 40px 0 60px;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+            <!-- Post Header -->
+            <div class="mb-4">
+              <span class="blog-tag">GEO</span>
+              <span class="blog-tag">AI SEO</span>
+              <span class="blog-tag">Schema Markup</span>
+              <span class="blog-tag">Personal Brand</span>
+            </div>
+
+            <h1 style="font-size:1.9rem; font-weight:700; line-height:1.3; margin-bottom:0.8rem;">
+              I Ran a GEO Audit on My Own Portfolio Site — Here's What I Found (and How I Fixed It)
+            </h1>
+
+            <div class="d-flex align-items-center gap-3 mb-4" style="font-size:0.85rem; color:#888;">
+              <span><i class="bx bx-calendar"></i> 22 March 2026</span>
+              <span><i class="bx bx-time"></i> 14 min read</span>
+            </div>
+
+            <hr class="mb-4">
+
+            <!-- TOC -->
+            <div class="toc">
+              <h4>In this article</h4>
+              <ol>
+                <li><a href="#what-is-geo">What is GEO and why should you care in 2026?</a></li>
+                <li><a href="#audit-method">My audit methodology</a></li>
+                <li><a href="#finding-1">Finding #1 — JS-only hero text, invisible to AI crawlers</a></li>
+                <li><a href="#finding-2">Finding #2 — No entity disambiguation (missing Wikidata)</a></li>
+                <li><a href="#finding-3">Finding #3 — Zero extractable Q&amp;A (no FAQPage schema)</a></li>
+                <li><a href="#finding-4">Finding #4 — Thin citation density, no quantified claims</a></li>
+                <li><a href="#finding-5">Finding #5 — Generic page title, no job-title signal</a></li>
+                <li><a href="#finding-6">Finding #6 — robots.txt blocking AI crawlers by default</a></li>
+                <li><a href="#before-after">Before vs. after: schema comparison</a></li>
+                <li><a href="#geo-checklist">The GEO checklist for your own site</a></li>
+              </ol>
+            </div>
+
+            <div class="post-content">
+
+              <!-- ===== INTRO ===== -->
+              <p>
+                Earlier this year, a friend of mine — also an AI engineer — mentioned that when he asked ChatGPT to name
+                AI Solution Architects in India, his profile came up but mine didn't. We had comparable LinkedIn profiles,
+                similar GitHub activity, and both had a personal site. So I sat down and did something I should have done
+                much earlier: a proper GEO audit of my own site.
+              </p>
+
+              <p>
+                What I found surprised me. Not because the issues were exotic, but because they were <em>obvious in
+                retrospect</em> — the kind of mistakes you make when you're optimising for Google's 2018 crawler instead
+                of the LLM-based answer engines that now handle a significant share of information queries. This post
+                documents the six real problems I found, the exact fixes I applied, and ends with a reusable checklist
+                you can run on your own portfolio or consulting site today.
+              </p>
+
+              <!-- ===== SECTION 1 ===== -->
+              <h2 id="what-is-geo">What is GEO and why should you care in 2026?</h2>
+
+              <p>
+                <strong>Generative Engine Optimisation (GEO)</strong> is the practice of structuring content, schema
+                markup, and entity signals so that AI-powered answer engines — ChatGPT, Perplexity, Google AI Overviews,
+                Claude — are more likely to surface and cite your site when answering relevant queries.
+              </p>
+
+              <p>
+                Traditional SEO gets you ranked in the blue-link results below the fold. GEO gets you <em>cited</em> in
+                the AI-generated summary at the top of the page — or mentioned when someone asks an AI assistant a direct
+                question. The traffic mechanics are different: instead of click-through rates on ranked results, you
+                compete for inclusion in a synthesised answer that may not require the user to click anything at all.
+              </p>
+
+              <blockquote>
+                A 2023 research paper by Aggarwal et al. — "GEO: Generative Engine Optimization" — found that pages with
+                statistics and cited sources achieved up to 40% higher citation rates in LLM-generated answers compared
+                to pages with equivalent prose but no quantified claims.
+              </blockquote>
+
+              <p>
+                For personal brands — AI engineers, consultants, speakers — GEO matters because it determines whether an
+                AI assistant recommends you by name when someone asks <em>"Who are the top AI Solution Architects in
+                India?"</em> or <em>"Who should I hire to build a GenAI system for my enterprise?"</em>. That is a
+                high-intent query with real commercial value.
+              </p>
+
+              <!-- ===== SECTION 2 ===== -->
+              <h2 id="audit-method">My audit methodology</h2>
+
+              <p>I ran a structured checklist across three layers:</p>
+
+              <ul>
+                <li><strong>Crawlability</strong> — Can AI bots access and fully read the page? robots.txt, rendering, JS-dependency.</li>
+                <li><strong>Entity signals</strong> — Does the page unambiguously identify the subject as a known real-world entity? Schema, sameAs, knowledge graph links.</li>
+                <li><strong>Citation signals</strong> — Does the content give AI answer engines something worth quoting? Stats with sources, Q&amp;A patterns, authoritative references, E-E-A-T.</li>
+              </ul>
+
+              <p>
+                Tools used: Google Rich Results Test, Schema.org validator, manual View Source (for JS rendering check),
+                and direct prompting of ChatGPT, Perplexity, and Claude to ask about me by name and specialty.
+              </p>
+
+              <div class="callout callout-warning">
+                <strong>Note on AI prompt testing:</strong> Querying an LLM about yourself is a noisy signal — model
+                knowledge cutoffs, training data sampling, and recency bias all affect results. But the direction of
+                change after fixes was consistent across all three models I tested.
+              </div>
+
+              <!-- ===== FINDING 1 ===== -->
+              <div class="finding-header">
+                <span class="finding-number">1</span>
+                <h2 id="finding-1" style="margin-top:0;">JS-only hero text — invisible to AI crawlers <span class="severity-badge sev-high">High severity</span></h2>
+              </div>
+
+              <p>
+                My hero section used a typing-animation library to cycle through my titles: <em>"AI Solution Architect /
+                Generative AI Engineer / ML Research Engineer."</em> It looked great in a browser. To a crawler —
+                especially one that doesn't execute JavaScript — the <code>&lt;h1&gt;</code> tag was effectively empty.
+              </p>
+
+              <p>Here's what View Source returned for my hero heading before the fix:</p>
+
+              <pre><code>&lt;h1 class="typed-heading"&gt;&lt;span id="typed-text"&gt;&lt;/span&gt;&lt;/h1&gt;</code></pre>
+
+              <p>
+                An empty span. The single most important identity statement on the entire site — name, title, value
+                proposition — was invisible to every AI crawler that doesn't execute JavaScript.
+              </p>
+
+              <p><strong>The fix:</strong> I added a <code>visually-hidden</code> static element inside the hero that
+              duplicates what the animation displays. The animation still runs for human visitors; the static text is
+              indexed by bots.</p>
+
+              <pre><code>&lt;span class="visually-hidden"&gt;
+  Neil Dave — AI Solution Architect, Generative AI Engineer,
+  and Machine Learning Research Engineer based in Bangalore, India.
+&lt;/span&gt;</code></pre>
+
+              <p>
+                Bootstrap's <code>.visually-hidden</code> class (formerly <code>.sr-only</code>) renders the element
+                off-screen but keeps it in the DOM and in the accessibility tree — which means crawlers pick it up
+                without showing duplicate text to users.
+              </p>
+
+              <!-- ===== FINDING 2 ===== -->
+              <div class="finding-header">
+                <span class="finding-number">2</span>
+                <h2 id="finding-2" style="margin-top:0;">No entity disambiguation — missing Wikidata <span class="severity-badge sev-high">High severity</span></h2>
+              </div>
+
+              <p>
+                My <code>Person</code> schema had <code>sameAs</code> links to LinkedIn and GitHub. Those are useful,
+                but they are not entity-disambiguation links — they are social profiles. What was missing was a pointer
+                to a structured knowledge graph entry that proves to an LLM: <em>"this is a verified, real-world named
+                entity, not just a string of text."</em>
+              </p>
+
+              <p>
+                Wikidata is the canonical open knowledge graph used by Google, Wikipedia, and — through training data —
+                by the major LLMs. If you have a Wikidata entry (even a minimal one), linking to it from your
+                <code>Person</code> schema is the single highest-leverage GEO action you can take on a personal site.
+              </p>
+
+              <p>Before:</p>
+              <pre><code>"sameAs": [
+  "https://www.linkedin.com/in/neil-dave/",
+  "https://github.com/theneildave/"
+]</code></pre>
+
+              <p>After:</p>
+              <pre><code>"sameAs": [
+  "https://www.linkedin.com/in/neil-dave/",
+  "https://github.com/theneildave/",
+  "https://www.wikidata.org/wiki/Q138716797",
+  "https://scholar.google.com/citations?user=93Ybux4AAAAJ&amp;hl=en",
+  "https://twitter.com/theneildave"
+]</code></pre>
+
+              <p>
+                The Wikidata link is the critical addition. Google uses Wikidata entity IDs extensively in its Knowledge
+                Graph, and several AI training pipelines ingest Wikidata as a ground-truth entity reference. Don't have
+                a Wikidata entry? Create a minimal one — it requires a verifiable claim (IEEE publication, media mention,
+                employer record) and takes about 20 minutes.
+              </p>
+
+              <!-- ===== FINDING 3 ===== -->
+              <div class="finding-header">
+                <span class="finding-number">3</span>
+                <h2 id="finding-3" style="margin-top:0;">Zero extractable Q&amp;A — no FAQPage schema <span class="severity-badge sev-high">High severity</span></h2>
+              </div>
+
+              <p>
+                AI answer engines work by extracting a relevant passage from your content, synthesising it, and citing
+                the source. The easiest content format for an LLM to extract from is a structured question-answer pair,
+                because it maps directly to the question the user asked.
+              </p>
+
+              <p>
+                My site had none. The About section was good prose, but it was not structured around the questions
+                someone would actually ask an AI. I had no <code>FAQPage</code> schema anywhere.
+              </p>
+
+              <p>
+                The fix was two-part: first, I added a <code>FAQPage</code> JSON-LD block to my index page and to every
+                blog post. Second, I rewrote one section of the About copy to explicitly answer the top three questions
+                I wanted to rank for:
+              </p>
+
+              <ul>
+                <li>"Who is Neil Dave?"</li>
+                <li>"What does an AI Solution Architect do?"</li>
+                <li>"What AI projects has Neil Dave worked on?"</li>
+              </ul>
+
+              <p>A minimal FAQPage block looks like this:</p>
+
+              <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does Neil Dave specialise in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Neil Dave is an AI Solution Architect specialising in
+        Generative AI, LLM Engineering, and Computer Vision systems.
+        He has 7+ years of experience deploying ML systems in healthcare,
+        sports analytics, and enterprise automation."
+      }
+    }
+  ]
+}</code></pre>
+
+              <p>
+                The <code>acceptedAnswer.text</code> field is what gets pulled verbatim into AI citations. Write it like
+                a Wikipedia lead paragraph — complete sentence, third person, specific and verifiable.
+              </p>
+
+              <!-- ===== FINDING 4 ===== -->
+              <div class="finding-header">
+                <span class="finding-number">4</span>
+                <h2 id="finding-4" style="margin-top:0;">Thin citation density — no quantified claims with sources <span class="severity-badge sev-med">Medium severity</span></h2>
+              </div>
+
+              <p>
+                The Aggarwal et al. GEO paper I referenced earlier identified a consistent pattern: AI systems
+                preferentially cite pages that contain <em>statistics with attributed sources</em>. The intuition is
+                straightforward — if you can point to a number from McKinsey, WEF, or an IEEE paper, your content is
+                more likely to be treated as authoritative than equivalent prose without sources.
+              </p>
+
+              <p>
+                My About section made claims like <em>"AI is transforming industries"</em> and <em>"demand for AI
+                skills is growing"</em> — true, but unverifiable from my text alone. Zero citations. Zero numbers.
+              </p>
+
+              <p>The fix was concrete replacements:</p>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Before</th>
+                    <th>After</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AI is transforming every industry.</td>
+                    <td>McKinsey estimates generative AI could add $2.6–4.4 trillion annually to the global economy (McKinsey Global Institute, 2023).</td>
+                  </tr>
+                  <tr>
+                    <td>Demand for AI talent is growing fast.</td>
+                    <td>The World Economic Forum projects 97 million new AI-related roles by 2025 (WEF Future of Jobs Report, 2020).</td>
+                  </tr>
+                  <tr>
+                    <td>I have published AI research.</td>
+                    <td>Google Scholar-indexed publications in computer vision and ML, cited in peer-reviewed venues.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p>
+                None of these changes required fabricating anything — the numbers are real and the sources are public.
+                The discipline is in making the connection explicit rather than leaving it implicit.
+              </p>
+
+              <!-- ===== FINDING 5 ===== -->
+              <div class="finding-header">
+                <span class="finding-number">5</span>
+                <h2 id="finding-5" style="margin-top:0;">Generic page title — no job-title signal <span class="severity-badge sev-med">Medium severity</span></h2>
+              </div>
+
+              <p>
+                My <code>&lt;title&gt;</code> tag read: <em>"Neil Dave - AI Leadership &amp; Solution Architect"</em>.
+                The problem is the conjunction. "AI Leadership" is not a job title anyone searches for. More critically,
+                the title was inconsistent with my <code>Person</code> schema <code>jobTitle</code> field, which said
+                "AI Solution Architect."
+              </p>
+
+              <p>
+                LLMs extract job titles through a combination of schema fields and surface-level text patterns. When the
+                <code>&lt;title&gt;</code>, <code>&lt;h1&gt;</code>, schema <code>jobTitle</code>, and About body copy
+                all say the same thing, the signal is reinforced. When they conflict, the model has to guess.
+              </p>
+
+              <div class="callout">
+                <strong>Rule of thumb:</strong> Your <code>&lt;title&gt;</code>, <code>Person.jobTitle</code>, first
+                <code>&lt;h1&gt;</code>, and the first sentence of your About paragraph should all contain the identical
+                canonical job title string. Any variation is noise for an LLM trying to extract your role.
+              </div>
+
+              <p>The fix:</p>
+
+              <pre><code>&lt;!-- Before --&gt;
+&lt;title&gt;Neil Dave - AI Leadership &amp; Solution Architect&lt;/title&gt;
+
+&lt;!-- After --&gt;
+&lt;title&gt;Neil Dave — AI Solution Architect | Generative AI Engineer&lt;/title&gt;</code></pre>
+
+              <p>
+                I also audited every page for title consistency: speaking.html, enterprise.html, collaborate.html, and
+                all blog posts. Each one now leads with "Neil Dave — AI Solution Architect" before the secondary
+                descriptor.
+              </p>
+
+              <!-- ===== FINDING 6 ===== -->
+              <div class="finding-header">
+                <span class="finding-number">6</span>
+                <h2 id="finding-6" style="margin-top:0;">robots.txt silently blocking AI crawlers <span class="severity-badge sev-high">High severity</span></h2>
+              </div>
+
+              <p>
+                This one is easy to overlook because the default <code>robots.txt</code> for most site generators and
+                templates only explicitly allows or disallows <code>Googlebot</code>. The AI crawlers — <code>GPTBot</code>,
+                <code>PerplexityBot</code>, <code>ClaudeBot</code>, <code>anthropic-ai</code>,
+                <code>Google-Extended</code> — are not Googlebot. Under a permissive default they can crawl. But some
+                templates ship with restrictive defaults, and many site owners add <code>Disallow: /</code> rules
+                without realising they apply to all bots.
+              </p>
+
+              <p>My audit found my robots.txt was fine, but when I cross-checked with friends who had similar sites,
+              two of them had unknowingly blocked all non-Google bots. Their sites were effectively invisible to every
+              AI answer engine.</p>
+
+              <p>The correct robots.txt for a personal brand site that wants AI citation:</p>
+
+              <pre><code>User-agent: *
+Allow: /
+
+# Explicitly allow AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://yourdomain.com/sitemap.xml</code></pre>
+
+              <p>
+                Explicit <code>Allow</code> rules are belt-and-suspenders. They override any ambiguity from wildcard
+                rules and signal — to the crawlers that respect robots.txt meta-information — that you actively welcome
+                AI indexing.
+              </p>
+
+              <!-- ===== BEFORE/AFTER ===== -->
+              <h2 id="before-after">Before vs. after: schema comparison</h2>
+
+              <p>Here's the condensed delta for my <code>index.html</code> Person schema — the highest-leverage single
+              schema block on a personal site:</p>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Field</th>
+                    <th>Before</th>
+                    <th>After</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>@type</code></td>
+                    <td>Person</td>
+                    <td>Person</td>
+                  </tr>
+                  <tr>
+                    <td><code>jobTitle</code></td>
+                    <td>AI Solution Architect</td>
+                    <td>AI Solution Architect (consistent across all pages)</td>
+                  </tr>
+                  <tr>
+                    <td><code>sameAs</code></td>
+                    <td>LinkedIn, GitHub</td>
+                    <td>LinkedIn, GitHub, Wikidata Q138716797, Google Scholar, Twitter</td>
+                  </tr>
+                  <tr>
+                    <td><code>knowsAbout</code></td>
+                    <td>Not present</td>
+                    <td>["Generative AI", "LLM Engineering", "MLOps", "Computer Vision", "NLP"]</td>
+                  </tr>
+                  <tr>
+                    <td><code>hasOccupation</code></td>
+                    <td>Not present</td>
+                    <td>Occupation with <code>name</code>, <code>occupationLocation</code>, <code>skills</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>alumniOf</code></td>
+                    <td>Not present</td>
+                    <td>University name + degree</td>
+                  </tr>
+                  <tr>
+                    <td>FAQPage</td>
+                    <td>Not present</td>
+                    <td>4 question–answer pairs targeting top persona queries</td>
+                  </tr>
+                  <tr>
+                    <td>ProfessionalService</td>
+                    <td>Not present</td>
+                    <td>Present with <code>serviceType</code> array and <code>areaServed</code></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p>
+                The cumulative effect of these changes is that an AI crawler now has a dense, internally consistent, and
+                externally anchored (Wikidata) description of who I am and what I do — without having to infer anything
+                from prose.
+              </p>
+
+              <!-- ===== CHECKLIST ===== -->
+              <h2 id="geo-checklist">The GEO checklist for your own site</h2>
+
+              <p>
+                Below is the audit checklist I now run on every page I publish. Copy it, adapt the schema examples, and
+                work through it top to bottom before you go live.
+              </p>
+
+              <h3>Layer 1 — Crawlability</h3>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div>robots.txt explicitly allows <code>GPTBot</code>, <code>PerplexityBot</code>, <code>ClaudeBot</code>, <code>anthropic-ai</code>, <code>Google-Extended</code></div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div>sitemap.xml is present and submitted to Google Search Console</div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div>Hero heading text is in static HTML (not JS-only) — use <code>.visually-hidden</code> if you need animation</div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div>View Source on your homepage shows your name, title, and a sentence about what you do in plain text</div></div>
+
+              <h3>Layer 2 — Entity signals</h3>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div><code>Person</code> schema is present on homepage with <code>name</code>, <code>jobTitle</code>, <code>url</code>, <code>image</code>, <code>sameAs</code></div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div><code>sameAs</code> includes Wikidata entity URL (create one if you don't have it)</div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div><code>jobTitle</code> in schema exactly matches the title in <code>&lt;title&gt;</code>, <code>&lt;h1&gt;</code>, and About paragraph first sentence</div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div><code>knowsAbout</code> array lists your actual skill domains as discrete strings</div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div>Google Scholar, ORCID, or ResearchGate link in <code>sameAs</code> (even one publication counts)</div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div><code>ProfessionalService</code> schema on homepage with <code>serviceType</code>, <code>areaServed</code>, <code>provider</code></div></div>
+
+              <h3>Layer 3 — Citation signals</h3>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div><code>FAQPage</code> schema with at least 3 Q&amp;A pairs targeting persona-level questions</div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div>About section contains at least 2 statistics with attributed sources (McKinsey, WEF, IEEE, etc.)</div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div>Blog posts each have <code>BlogPosting</code> schema with <code>wordCount</code>, <code>timeRequired</code>, <code>keywords</code></div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div>Any blog post making a factual claim links to a primary source</div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div>Each page has a <code>BreadcrumbList</code> schema (minimal but universal)</div></div>
+              <div class="checklist-item"><i class="bx bx-check-circle check-icon"></i><div>"Last updated: Month YYYY" is visible in About or footer (recency signal)</div></div>
+
+              <!-- ===== CLOSING ===== -->
+              <h2>Final thoughts</h2>
+
+              <p>
+                The irony of this whole exercise is that none of the fixes were technically complex. There was no code
+                refactor, no new API, no infrastructure change. It was mostly a discipline problem: consistently applying
+                structured markup, keeping identity signals aligned across every page, and writing content the way an
+                LLM would want to extract it rather than the way a 2018 content marketer would write it.
+              </p>
+
+              <p>
+                GEO for personal brands is still early. Most portfolio sites I've looked at have at least four of the
+                six issues I described above. That means the competitive moat is not that high right now — getting the
+                basics right puts you ahead of the majority. In twelve months, when everyone has caught up, the bar will
+                be higher. The time to fix this is before that happens.
+              </p>
+
+              <p>
+                If you run this audit on your own site and find something interesting, I'd like to hear about it. Drop
+                me a message on <a href="https://www.linkedin.com/in/neil-dave/" target="_blank" rel="noopener">LinkedIn</a>
+                or reply to the <a href="https://theneildave.substack.com" target="_blank" rel="noopener">newsletter</a>.
+              </p>
+
+            </div>
+            <!-- ===== END POST BODY ===== -->
+
+            <hr class="mt-5 mb-4">
+
+            <!-- Author Box -->
+            <div class="author-box">
+              <img src="../assets/img/profile-img.png" alt="Neil Dave">
+              <div>
+                <strong>Neil Dave</strong><br>
+                <span style="font-size:0.85rem; color:#666;">AI Solution Architect · Bangalore, India</span><br>
+                <span style="font-size:0.82rem; color:#888;">7+ years in ML, Deep Learning, Generative AI &amp; Computer Vision.</span>
+              </div>
+            </div>
+
+            <!-- Substack CTA -->
+            <div class="substack-cta">
+              <p class="mb-2" style="font-size:1rem; font-weight:600;">Enjoyed this? Get more articles like this.</p>
+              <p class="mb-3" style="font-size:0.9rem; opacity:0.9;">I write about LLMs, MLOps, and AI in the real world — no fluff.</p>
+              <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-light btn-sm rounded-pill px-4">Subscribe on Substack →</a>
+            </div>
+
+            <!-- Back link -->
+            <div class="mt-4">
+              <a href="../blog.html" style="font-size:0.9rem;">← Back to all articles</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Made with ❤️ by <strong><span>Neil Dave</span></strong>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+
+</body>
+</html>
