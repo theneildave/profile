@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>I Redesigned Our Agentic AI System Three Times. Here's What I Learned | Neil Dave</title>
+  <meta name="description" content="Three production redesigns of an agentic AI system — what broke each time, why it broke, and the architecture that finally shipped. With eight diagrams covering every pattern.">
+  <link rel="canonical" href="https://theneildave.in/blog/agentic-ai-system-design.html">
+  <meta name="author" content="Neil Dave">
+  <meta name="robots" content="index, follow">
+  <meta name="article:published_time" content="2026-03-30">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://theneildave.in/blog/agentic-ai-system-design.html">
+  <meta property="og:title" content="I Redesigned Our Agentic AI System Three Times. Here's What I Learned | Neil Dave">
+  <meta property="og:description" content="Three production redesigns of an agentic AI system — what broke each time, why it broke, and the architecture that finally shipped. With eight diagrams covering every pattern.">
+  <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
+  <meta name="twitter:title" content="I Redesigned Our Agentic AI System Three Times. Here's What I Learned">
+  <meta name="twitter:description" content="Three production redesigns of an agentic AI system, what broke each time, and the architecture that finally shipped. Eight diagrams included.">
+  <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.png">
+
+  <!-- BlogPosting Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "I Redesigned Our Agentic AI System Three Times. Here's What I Learned",
+    "description": "Three production redesigns of an agentic AI system — what broke each time, why it broke, and the architecture that finally shipped. With eight diagrams covering every orchestration pattern, memory layer, tool registry, and evaluation loop.",
+    "url": "https://theneildave.in/blog/agentic-ai-system-design.html",
+    "datePublished": "2026-03-30",
+    "dateModified": "2026-03-30",
+    "author": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in",
+      "jobTitle": "AI Solution Architect",
+      "sameAs": [
+        "https://www.linkedin.com/in/neil-dave/",
+        "https://www.wikidata.org/wiki/Q138716797",
+        "https://www.youtube.com/@theneildave"
+      ]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in"
+    },
+    "keywords": ["agentic AI system design", "multi-agent LLM architecture", "AI agent orchestration", "production AI agents", "LLM memory layer", "tool registry pattern", "AI guardrails", "human-in-the-loop AI", "enterprise agentic AI", "AI solution architect"],
+    "mainEntityOfPage": "https://theneildave.in/blog/agentic-ai-system-design.html",
+    "wordCount": 3400,
+    "timeRequired": "PT17M"
+  }
+  </script>
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"},
+      {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://theneildave.in/blog.html"},
+      {"@type": "ListItem", "position": 3, "name": "Agentic AI System Design", "item": "https://theneildave.in/blog/agentic-ai-system-design.html"}
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between an AI agent and a regular LLM API call?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A regular LLM API call is stateless — you send a prompt and receive a response. An AI agent is a system that plans multi-step tasks, calls external tools, retains memory across steps, and makes decisions about what to do next based on intermediate results. The key difference is agency: the system determines its own execution path."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I use a multi-agent system instead of a single agent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use a single agent when tasks are sequential, context fits comfortably in one window, and failures are straightforward to debug. Move to multi-agent when tasks are genuinely parallelisable, when distinct specialisation is required, or when a single agent consistently degrades in quality over long runs. The mistake most teams make is splitting too early."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best orchestration pattern for enterprise agentic AI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The supervisor-worker pattern is the most reliable for enterprise use. A single orchestrator decomposes tasks and manages state while specialised worker agents execute sub-tasks. This gives you observability, retry logic in one place, and clear accountability when something goes wrong."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I stop an agentic AI system from going off-rails in production?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Four controls matter: a tool registry that scopes which agents can call which tools, confidence-based human-in-the-loop checkpoints before irreversible actions, an LLM-as-judge evaluation layer that scores outputs before delivery, and hard token budget caps per task run. Any one of these in isolation is insufficient."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What memory architecture should a production agentic system use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Production systems need four memory types working together: short-term memory (the active context window), episodic memory (past session summaries stored in a database such as PostgreSQL or Redis), semantic memory (a vector store for retrieval-augmented generation), and procedural memory (tool schemas and policy rules that define agent behaviour). Most failed systems only implement the first."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon1.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .post-content { font-size: 1.05rem; line-height: 1.85; color: #333; }
+    .post-content h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 0.8rem; color: #173b6c; }
+    .post-content h3 { font-size: 1.2rem; font-weight: 600; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #1a3a5c; }
+    .post-content p { margin-bottom: 1.2rem; }
+    .post-content ul, .post-content ol { margin-bottom: 1.2rem; padding-left: 1.5rem; }
+    .post-content li { margin-bottom: 0.5rem; }
+    .post-content pre { background: #f6f8fa; border-radius: 8px; padding: 1rem 1.2rem; overflow-x: auto; margin-bottom: 1.2rem; }
+    .post-content code { font-size: 0.9rem; background: #f0f2f5; padding: 2px 6px; border-radius: 4px; }
+    .post-content pre code { background: none; padding: 0; }
+    .post-content blockquote { border-left: 4px solid #0d6efd; padding-left: 1rem; color: #555; font-style: italic; margin: 1.5rem 0; }
+    .post-content a { color: #0d6efd; }
+    .blog-tag { font-size: 0.75rem; background: #e8f4fd; color: #0d6efd; border-radius: 20px; padding: 3px 12px; margin-right: 6px; display: inline-block; }
+    .author-box { background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1.5rem; margin-top: 3rem; display: flex; align-items: center; gap: 1rem; }
+    .author-box img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+    .substack-cta { background: linear-gradient(135deg, #ff6719 0%, #ff8c00 100%); color: white; border-radius: 12px; padding: 1.5rem 2rem; margin-top: 3rem; text-align: center; }
+    .substack-cta a { color: white; font-weight: 600; text-decoration: underline; }
+    .diagram-caption { font-size: 0.82rem; color: #888; text-align: center; margin-top: 0.4rem; margin-bottom: 1.8rem; font-style: italic; }
+    .lesson-box { background: #f0f7ff; border-left: 4px solid #0d6efd; border-radius: 0 8px 8px 0; padding: 1rem 1.4rem; margin: 1.8rem 0; }
+    .lesson-box strong { color: #0d6efd; display: block; margin-bottom: 0.3rem; }
+    .version-label { display: inline-block; padding: 4px 16px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 0.8rem; text-transform: uppercase; }
+    .v1 { background: #fde8e8; color: #c0392b; }
+    .v2 { background: #fef3e8; color: #d35400; }
+    .v3 { background: #e8f8f0; color: #1e8449; }
+    .pattern-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0 1.8rem; font-size: 0.92rem; }
+    .pattern-table th { background: #173b6c; color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+    .pattern-table td { padding: 10px 14px; border-bottom: 1px solid #e9ecef; vertical-align: top; }
+    .pattern-table tr:last-child td { border-bottom: none; }
+    .pattern-table tr:nth-child(even) td { background: #f8f9fa; }
+    .rec-badge { background: #e8f8f0; color: #1e8449; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 6px; }
+    /* Mermaid diagram containers */
+    .mermaid { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem 1rem; margin: 1.5rem 0; overflow-x: auto; text-align: center; }
+    .mermaid svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    /* Memory Layer HTML diagram */
+    .mem-diagram { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; }
+    .mem-agent-wrap { text-align: center; margin-bottom: 0.8rem; }
+    .mem-agent-node { display: inline-block; background: #dbeafe; border: 2px solid #3b82f6; border-radius: 8px; padding: 8px 28px; font-weight: 700; font-size: 0.95rem; color: #1e3a8a; }
+    .mem-arrows { text-align: center; color: #94a3b8; font-size: 0.78rem; margin-bottom: 0.8rem; letter-spacing: 0.05em; }
+    .mem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    @media(min-width:768px){ .mem-grid { grid-template-columns: repeat(4,1fr); } }
+    .mem-card { border-radius: 10px; padding: 1rem; border: 2px solid; }
+    .mem-stm { background: #fee2e2; border-color: #dc2626; }
+    .mem-epi { background: #f3e8ff; border-color: #a855f7; }
+    .mem-sem { background: #dcfce7; border-color: #16a34a; }
+    .mem-pro { background: #fef3c7; border-color: #d97706; }
+    .mem-card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+    .mem-stm .mem-card-label { color: #7f1d1d; }
+    .mem-epi .mem-card-label { color: #581c87; }
+    .mem-sem .mem-card-label { color: #14532d; }
+    .mem-pro .mem-card-label { color: #78350f; }
+    .mem-card-title { font-weight: 700; font-size: 0.88rem; margin-bottom: 0.35rem; color: #1e293b; }
+    .mem-card-desc { font-size: 0.78rem; color: #475569; line-height: 1.45; margin-bottom: 0.4rem; }
+    .mem-card-tech { font-size: 0.72rem; font-style: italic; color: #64748b; font-weight: 600; }
+    /* Orchestration Patterns HTML diagram */
+    .patterns-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1.5rem 0; }
+    @media(min-width:768px){ .patterns-grid { grid-template-columns: repeat(3,1fr); } }
+    .pattern-card { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 1.2rem 1rem; text-align: center; }
+    .pattern-card-rec { background: #f0fdf4; border-color: #16a34a; }
+    .pattern-rec-badge { display: inline-block; background: #16a34a; color: white; font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 10px; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .pattern-card-title { font-weight: 700; font-size: 0.92rem; color: #1e3a8a; margin-bottom: 0.9rem; }
+    .pf-node { display: inline-block; background: white; border: 2px solid #94a3b8; border-radius: 6px; padding: 5px 12px; font-size: 0.78rem; font-weight: 600; color: #334155; margin: 3px; }
+    .pf-node-orch { background: #dcfce7; border-color: #16a34a; color: #14532d; }
+    .pf-node-warn { background: #fef3c7; border-color: #d97706; color: #78350f; }
+    .pf-arrow { color: #64748b; font-size: 1rem; line-height: 1; margin: 0 2px; }
+    .pf-seq { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; min-height: 80px; }
+    .pf-star { display: flex; flex-direction: column; align-items: center; gap: 6px; min-height: 80px; justify-content: center; }
+    .pf-workers { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+    .pf-mesh { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px; min-height: 80px; position: relative; }
+    .pf-mesh-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .pattern-card-desc { font-size: 0.75rem; color: #64748b; margin-top: 0.8rem; line-height: 1.4; }
+    .pattern-card-warn { font-size: 0.72rem; color: #d97706; margin-top: 0.3rem; font-style: italic; }
+    .faq-item { margin-bottom: 2rem; }
+    .faq-item h3 { color: #173b6c; font-size: 1.05rem; }
+  </style>
+
+  <!-- Mermaid.js for architecture diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#dbeafe',
+        primaryTextColor: '#1e3a8a',
+        primaryBorderColor: '#3b82f6',
+        lineColor: '#64748b',
+        secondaryColor: '#dcfce7',
+        tertiaryColor: '#fef9c3',
+        background: '#f8fafc',
+        fontFamily: 'Poppins, sans-serif',
+        fontSize: '13px',
+        edgeLabelBackground: '#ffffff'
+      },
+      flowchart: { htmlLabels: true, curve: 'basis', padding: 20, nodeSpacing: 50, rankSpacing: 55 }
+    });
+  </script>
+</head>
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="../assets/img/profile-img.png" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy">
+        <h1 class="text-light"><a href="../index.html">Neil Dave</a></h1>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="facebook"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener" title="Neil Dave on Substack"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Google Scholar"><i class="bx bx-book-alt"></i></a>
+          <a href="https://www.youtube.com/@theneildave" class="youtube" target="_blank" rel="noopener" title="Neil Dave on YouTube"><i class="bx bxl-youtube"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="../index.html#hero" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="../index.html#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="../index.html#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="../blog.html" class="nav-link active"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="../index.html#substack" class="nav-link scrollto"><i class="bx bx-envelope-open"></i><span>Newsletter</span></a></li>
+          <li><a href="../index.html#tndtalks" class="nav-link scrollto"><i class="bx bx-podcast"></i> <span>TND Talks</span></a></li>
+          <li><a href="../index.html#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
+          <li><a href="../index.html#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Breadcrumbs -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Article</h2>
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../blog.html">Articles</a></li>
+            <li>Agentic AI System Design</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= Post Content ======= -->
+    <section class="portfolio-details" style="padding: 40px 0 60px;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+            <!-- Post Header -->
+            <div class="mb-4">
+              <span class="blog-tag">Agentic AI</span>
+              <span class="blog-tag">System Design</span>
+              <span class="blog-tag">LLM Engineering</span>
+              <span class="blog-tag">Enterprise AI</span>
+            </div>
+
+            <h1 style="font-size:1.9rem; font-weight:700; line-height:1.3; margin-bottom:0.8rem;">
+              I Redesigned Our Agentic AI System Three Times. Here's What I Learned
+            </h1>
+
+            <div class="d-flex align-items-center gap-3 mb-4" style="font-size:0.85rem; color:#888;">
+              <span><i class="bx bx-calendar"></i> 29 March 2026</span>
+              <span><i class="bx bx-time"></i> 17 min read</span>
+            </div>
+
+            <hr class="mb-4">
+
+            <!-- POST BODY -->
+            <div class="post-content">
+
+              <p>The first version worked perfectly in the demo. It crashed on day three in production, taking down a customer-facing workflow that forty people relied on every morning.</p>
+
+              <p>That was my introduction to the real cost of getting agentic AI system design wrong. Not a graceful degradation, not a warning in the logs — a silent loop that consumed token quota until the billing alarm fired at 2 AM.</p>
+
+              <p>Over the following eight months, I rebuilt the same system three times. Each iteration taught me something the previous one did not. What follows is the honest account of all three — the architecture diagrams, the failure modes, the decisions I wish I had made on day one, and the four-component model that finally made it to production and stayed there.</p>
+
+              <p>Whether you are an engineer responsible for building the plumbing or an architect deciding what components to commission, this is the article I needed before I started.</p>
+
+              <hr style="margin: 2rem 0;">
+
+              <h2>Version 1: The Single Agent That Tried to Do Everything</h2>
+              <span class="version-label v1">V1 — The Naive Build</span>
+
+              <p>The first system was simple by design. One agent, powered by GPT-4, with access to every tool the task required: web search, code execution, a file system interface, a database client, an email sender, and three internal API connectors. Seven tools total.</p>
+
+              <div class="mermaid">
+graph TD
+    U([User Request]) --> A[Single LLM Agent]
+    A --> T1[Web Search ]
+    A --> T2[File System ]
+    A --> T3[Database Client ]
+    A --> T4[Email Sender ]
+    A --> T5[Code Executor ]
+    A --> T6[External APIs ]
+    T1 & T2 & T3 & T4 & T5 & T6 --> A
+    A --> R([Response])
+    classDef user fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    classDef agent fill:#fee2e2,stroke:#dc2626,stroke-width:3px,color:#7f1d1d
+    classDef tool fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#334155
+    classDef output fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    class U user
+    class A agent
+    class T1,T2,T3,T4,T5,T6 tool
+    class R output
+              </div>
+              <p class="diagram-caption">Diagram 1: Version 1 — one agent, unrestricted access to all tools, no memory, no observability</p>
+
+              <p>It looked clean on paper. In practice, the agent's context window was bloated with tool schemas before the first real work began. With seven tools registered, approximately 4,000 tokens of schema description landed in every prompt — before any task content, before any conversation history.</p>
+
+              <p>On long tasks, we hit the context ceiling mid-execution. The agent had no recovery strategy. It would either hallucinate the remaining steps or enter a reasoning loop, calling the same tool repeatedly with slightly different arguments each time, burning tokens until the run timed out.</p>
+
+              <p>The second problem was state. Every run began from zero. If a task was interrupted and restarted, the agent had no memory of what it had already completed. Our workaround was to write longer and longer system prompts that summarised prior context — which made the context problem significantly worse.</p>
+
+              <p>The third problem was observability. When something failed, the only artifact was a wall of unstructured LLM output. We had no trace of which tool was called, in what order, with what arguments, or what it returned. Debugging a production failure meant reconstructing the agent's decision path from log fragments. It was archaeology, not engineering.</p>
+
+              <div class="lesson-box">
+                <strong>Lesson from V1</strong>
+                An agent is not a function. Treating it like one — give it inputs, expect outputs — ignores the state, memory, and observability infrastructure it requires to survive in production. These are not optional add-ons. They are the system.
+              </div>
+
+              <h2>Version 2: The Multi-Agent Mess</h2>
+              <span class="version-label v2">V2 — The Over-Engineered Rebuild</span>
+
+              <p>I overcorrected hard. Inspired by microservices thinking, I decomposed the monolithic agent into six specialised agents: a Research Agent, a Synthesis Agent, a Code Agent, a Writer Agent, a Review Agent, and a Formatter Agent. A central Planner Agent coordinated them all.</p>
+
+              <div class="mermaid">
+graph TD
+    U([User]) --> PL[Planner Agent]
+    PL --> RA[Research Agent]
+    PL --> CA[Code Agent]
+    PL --> WA[Writer Agent]
+    RA --> SY[Synthesis Agent]
+    CA --> SY
+    WA --> FM[Formatter Agent]
+    SY --> RV[Review Agent]
+    FM --> RV
+    RV -->|Rejection Loop| PL
+    PL --> R([Response])
+    classDef user fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    classDef planner fill:#fef3c7,stroke:#d97706,stroke-width:3px,color:#78350f
+    classDef worker fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d
+    classDef output fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    class U user
+    class PL planner
+    class RA,CA,WA,SY,FM,RV worker
+    class R output
+              </div>
+              <p class="diagram-caption">Diagram 2: Version 2 — seven agents with a rejection loop, no circuit breaker, 45-second latency</p>
+
+              <p>On paper, this was elegant. In production, it was the most expensive debugging experience of my career.</p>
+
+              <p>The first problem was latency. What previously took eight seconds now took forty-five. Every agent handoff involved a fresh LLM call, a new context assembly, and an additional round of network overhead. We were paying the API tax seven times for work that needed it twice.</p>
+
+              <p>The second problem was cost. Each agent required its own full context, which meant task-relevant information was duplicated across every prompt in the chain. Our per-task token spend tripled within the first week of the rollout.</p>
+
+              <p>The third problem was coordination failure. When the Review Agent rejected an output, it passed the rejection signal back to the Planner, which re-queued the original task, which triggered the same six-agent sequence again. Without a circuit breaker, a single malformed task could loop indefinitely. It did. On a Friday evening.</p>
+
+              <p>The fourth problem was debugging. A production failure now required tracing through seven separate agent logs to reconstruct what happened. The system was technically observable but practically incomprehensible at 11 PM with a customer on the phone.</p>
+
+              <div class="lesson-box">
+                <strong>Lesson from V2</strong>
+                More agents is not better architecture. Every additional agent adds coordination overhead, cost, latency, and a new failure surface. The right number of agents is the minimum required for each one to stay focused and context-bounded — usually far fewer than you think on day one.
+              </div>
+
+              <h2>Version 3: The Architecture That Ships</h2>
+              <span class="version-label v3">V3 — Production-Ready</span>
+
+              <p>The third design started with a different question. Instead of asking how to split the system up, I asked what the system actually needed in order to be reliable. The answer was four things: a smart orchestrator, a scoped tool registry, a deliberate memory layer, and an evaluation gate before any output reached the user.</p>
+
+              <div class="mermaid">
+graph TD
+    U([User Request]) --> GW[API Gateway]
+    GW --> OC[Orchestrator]
+    OC --> PL[Task Planner]
+    PL --> Q[Task Queue]
+    Q --> W1[Research Worker]
+    Q --> W2[Code Worker]
+    Q --> W3[Writer Worker]
+    W1 --> ML[Memory Layer]
+    W2 --> ML
+    W3 --> ML
+    ML --> OC
+    OC --> GD[Guardrails + Evaluator]
+    GD --> HI{Human Approval?}
+    HI -->|No| RS([Final Response])
+    HI -->|Yes| HR[Human Review Queue]
+    HR --> AP{Approved?}
+    AP -->|Yes| RS
+    AP -->|No| OC
+    OC --> AL[(Audit Log)]
+    classDef user fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    classDef gateway fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
+    classDef core fill:#dcfce7,stroke:#16a34a,stroke-width:3px,color:#14532d
+    classDef planner fill:#f0fdf4,stroke:#4ade80,stroke-width:1.5px,color:#166534
+    classDef memory fill:#f3e8ff,stroke:#a855f7,stroke-width:2px,color:#581c87
+    classDef guard fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    classDef decision fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
+    classDef output fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    classDef storage fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569
+    class U user
+    class GW gateway
+    class OC core
+    class PL,Q,W1,W2,W3,HR planner
+    class ML memory
+    class GD guard
+    class HI,AP decision
+    class RS output
+    class AL storage
+              </div>
+              <p class="diagram-caption">Diagram 3: Version 3 — production architecture with orchestrator, scoped workers, memory layer, guardrails, and confidence-based human routing</p>
+
+              <p>Version 3 runs with one Orchestrator and a maximum of three Worker Agents, each scoped to a distinct capability domain. The Orchestrator handles task decomposition, worker assignment, state management, retry logic, and the decision about whether a completed output requires human approval before delivery. Worker Agents are stateless — all state lives in the Memory Layer, which the Orchestrator manages centrally.</p>
+
+              <p>This design is not glamorous. It does not look impressive in a system diagram. It has run without a critical production failure for six months. That is the metric that matters.</p>
+
+              <hr style="margin: 2.5rem 0;">
+
+              <h2>The Four Components Every Production Agentic System Needs</h2>
+
+              <p>The difference between V2 and V3 was not the number of agents. It was the four infrastructure components that V1 and V2 both lacked. Here is each one in detail.</p>
+
+              <h3>1. The Orchestrator</h3>
+
+              <p>The orchestrator is the central nervous system of the entire system. Its responsibilities are: receive a task, decompose it into sub-tasks, assign sub-tasks to the appropriate workers, collect results, manage retries, maintain execution state, and decide when output is ready to be evaluated.</p>
+
+              <p>The critical design principle is that the orchestrator should be the only component that holds the full task context. Worker agents receive only what they need for their specific sub-task. This keeps individual context windows tight, makes token costs predictable, and gives you a single place to instrument, monitor, and debug the execution path.</p>
+
+              <p>Below is a simplified implementation of this pattern in Python:</p>
+
+              <pre><code>class Orchestrator:
+    def __init__(self, tool_registry, memory, evaluator):
+        self.tools = tool_registry
+        self.memory = memory
+        self.evaluator = evaluator
+
+    def run(self, task: Task) -> Result:
+        # Decompose task into ordered sub-tasks
+        plan = self.planner.decompose(task)
+        results = []
+
+        for sub_task in plan.steps:
+            worker = self.select_worker(sub_task)
+            context = self.memory.load(sub_task.context_key)
+            output = worker.execute(sub_task, context)
+            self.memory.save(sub_task.context_key, output)
+            results.append(output)
+
+        final_output = self.synthesize(results)
+
+        # Gate output through the evaluator before delivery
+        eval_result = self.evaluator.score(final_output, task)
+        if eval_result.score &lt; CONFIDENCE_THRESHOLD:
+            return self.route_to_human_review(final_output, eval_result)
+
+        self.audit_log.write(task, final_output, eval_result)
+        return final_output</code></pre>
+
+              <p>Notice that the orchestrator owns the full execution loop. No worker agent calls another worker agent directly. All state transitions go through one place.</p>
+
+              <h3>2. The Tool Registry</h3>
+
+              <p>In V1, tools were imported directly into the agent. Any agent could call any tool. This is the agentic equivalent of giving every employee in a company unrestricted root access — technically functional, operationally reckless.</p>
+
+              <p>A tool registry is a centralised wrapper that sits between agents and tools. It handles three things: permission scoping (which agents are authorised to call which tools), input schema validation (arguments are verified before execution), and audit logging (every tool invocation is recorded with its arguments and output).</p>
+
+              <div class="mermaid">
+graph LR
+    A[Agent] --> TR[Tool Registry]
+    TR --> SC{Permission Check}
+    SC -->|Allowed| VS[Schema Validator]
+    SC -->|Denied| ER[Error + Log]
+    VS -->|Valid| EX[Execute Tool]
+    VS -->|Invalid| ER
+    EX --> AL[(Audit Trail)]
+    EX --> RES[Result to Agent]
+    classDef agent fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    classDef registry fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
+    classDef check fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
+    classDef ok fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+    classDef error fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
+    classDef storage fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569
+    class A agent
+    class TR registry
+    class SC check
+    class VS,EX,RES ok
+    class ER error
+    class AL storage
+              </div>
+              <p class="diagram-caption">Diagram 4: Tool Registry — permission check, schema validation, and audit trail on every tool call before execution</p>
+
+              <p>In practice, permission scoping looks like this: the Research Worker can call web search and the vector store retrieval tool. It cannot call the email sender or the database write tool. The Code Worker can execute sandboxed code. It cannot write to the file system in production paths. These boundaries are not just good security hygiene — they dramatically reduce the blast radius when an agent misbehaves.</p>
+
+              <h3>3. The Memory Layer</h3>
+
+              <p>The most common architecture mistake I see in production agentic systems is treating the context window as the only form of memory. The context window is short-term memory. It is ephemeral, expensive, and limited. Production systems need all four memory types working together.</p>
+
+              <div class="mem-diagram">
+                <div class="mem-agent-wrap">
+                  <span class="mem-agent-node">Agent</span>
+                </div>
+                <div class="mem-arrows">&#8597; reads and writes to all four memory layers</div>
+                <div class="mem-grid">
+                  <div class="mem-card mem-stm">
+                    <div class="mem-card-label">Short-Term</div>
+                    <div class="mem-card-title">Context Window</div>
+                    <div class="mem-card-desc">Active working memory for the current turn. Everything in flight lives here. Ephemeral and bounded.</div>
+                    <div class="mem-card-tech">In-memory buffer &middot; Up to 128K tokens</div>
+                  </div>
+                  <div class="mem-card mem-epi">
+                    <div class="mem-card-label">Episodic</div>
+                    <div class="mem-card-title">Session Summaries</div>
+                    <div class="mem-card-desc">Compressed records of past runs. Retrieved when users reference prior decisions or context.</div>
+                    <div class="mem-card-tech">PostgreSQL or Redis</div>
+                  </div>
+                  <div class="mem-card mem-sem">
+                    <div class="mem-card-label">Semantic</div>
+                    <div class="mem-card-title">Domain Knowledge</div>
+                    <div class="mem-card-desc">Product docs, policies, knowledge bases. Accessed via retrieval-augmented generation at query time.</div>
+                    <div class="mem-card-tech">Pinecone &middot; Qdrant &middot; Weaviate</div>
+                  </div>
+                  <div class="mem-card mem-pro">
+                    <div class="mem-card-label">Procedural</div>
+                    <div class="mem-card-title">Tool Schemas &amp; Policies</div>
+                    <div class="mem-card-desc">Agent role definitions, tool permission rules, guardrail policies. Static at runtime but versioned.</div>
+                    <div class="mem-card-tech">Config files &middot; Version controlled</div>
+                  </div>
+                </div>
+              </div>
+              <p class="diagram-caption">Diagram 5: Four memory types a production agentic system needs — most teams only implement the first one</p>
+
+              <ul>
+                <li><strong>Short-term memory</strong> is the active context window. Everything in the current turn lives here. It is fast but expensive and bounded. When a task exceeds this boundary, you need the other three types to pick up the slack.</li>
+                <li><strong>Episodic memory</strong> stores summaries of past sessions. When a user returns after a week and references a decision made in a previous run, the orchestrator retrieves the relevant episode and injects a summary into the current context. This is where PostgreSQL or Redis comes in.</li>
+                <li><strong>Semantic memory</strong> is your vector store. It holds domain knowledge, product documentation, internal policies — anything the agent needs to reason accurately over a corpus that is too large to fit in context. Retrieval-augmented generation (RAG) is the pattern for accessing it.</li>
+                <li><strong>Procedural memory</strong> is static configuration: the tool registry schemas, the agent role definitions, the guardrail policies. It does not change at runtime, but it shapes every single agent decision. Most teams define this ad hoc in system prompts. Externalising it as configuration makes it auditable, versioned, and changeable without a code deploy.</li>
+              </ul>
+
+              <h3>4. Guardrails and Evaluation</h3>
+
+              <p>In V1, agent output went directly to the user. In V3, it passes through an evaluation gate first. This is the component that prevented the most production incidents in our system — and the one most teams skip because it feels like overhead.</p>
+
+              <div class="mermaid">
+graph LR
+    AO[Agent Output] --> JD[LLM Evaluator]
+    JD --> S1[Faithfulness Score]
+    JD --> S2[Relevance Score]
+    JD --> S3[Task Completion]
+    JD --> S4[Safety Check]
+    S1 & S2 & S3 & S4 --> AG[Aggregate Score]
+    AG --> TH{Pass Threshold?}
+    TH -->|Yes| DL[Deliver to User]
+    TH -->|No| RT[Retry with Feedback]
+    RT --> AO
+    classDef input fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#334155
+    classDef judge fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    classDef score fill:#f0fdf4,stroke:#4ade80,stroke-width:1.5px,color:#166534
+    classDef agg fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
+    classDef decision fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
+    classDef deliver fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    classDef retry fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    class AO input
+    class JD judge
+    class S1,S2,S3,S4 score
+    class AG agg
+    class TH decision
+    class DL deliver
+    class RT retry
+              </div>
+              <p class="diagram-caption">Diagram 6: Evaluation loop — four-dimension scoring before delivery, failed outputs retried with evaluator feedback injected into prompt</p>
+
+              <p>The evaluator is itself an LLM call — a separate model instance that acts as a judge and scores the agent output across four dimensions: faithfulness to the source material, relevance to the original task, task completion, and safety. If the aggregate score falls below a configurable threshold, the output is not delivered. Instead, the evaluator's feedback is injected into a retry prompt and the agent tries again.</p>
+
+              <p>The key implementation detail is that the evaluator must be a different model instance from the one that generated the output, and it must be given the original task specification alongside the output to score. An evaluator judging its own work in a shared context is not an evaluator — it is confirmation bias at scale.</p>
+
+              <hr style="margin: 2.5rem 0;">
+
+              <h2>Choosing Your Orchestration Pattern</h2>
+
+              <p>Not every agentic system needs the same coordination model. The three patterns you will encounter in the wild each have distinct cost, latency, and reliability characteristics. Here is the honest comparison.</p>
+
+              <div class="patterns-grid">
+
+                <div class="pattern-card">
+                  <div class="pattern-card-title">Sequential Pipeline</div>
+                  <div class="pf-seq">
+                    <span class="pf-node">Agent A</span>
+                    <span class="pf-arrow">&#8594;</span>
+                    <span class="pf-node">Agent B</span>
+                    <span class="pf-arrow">&#8594;</span>
+                    <span class="pf-node">Agent C</span>
+                  </div>
+                  <div class="pattern-card-desc">Best for linear, step-dependent workflows where each output feeds directly into the next.</div>
+                  <div class="pattern-card-warn">One failure stalls the entire pipeline.</div>
+                </div>
+
+                <div class="pattern-card pattern-card-rec">
+                  <div class="pattern-rec-badge">Recommended</div>
+                  <div class="pattern-card-title">Supervisor-Worker</div>
+                  <div class="pf-star">
+                    <span class="pf-node pf-node-orch">Orchestrator</span>
+                    <span class="pf-arrow">&#8595;</span>
+                    <div class="pf-workers">
+                      <span class="pf-node">Worker A</span>
+                      <span class="pf-node">Worker B</span>
+                      <span class="pf-node">Worker C</span>
+                    </div>
+                  </div>
+                  <div class="pattern-card-desc">Central orchestrator manages state, retries, and routing. Workers are stateless and parallelisable.</div>
+                </div>
+
+                <div class="pattern-card">
+                  <div class="pattern-card-title">Peer-to-Peer Mesh</div>
+                  <div class="pf-mesh">
+                    <div class="pf-mesh-inner">
+                      <span class="pf-node pf-node-warn">Agent A</span>
+                      <span class="pf-node pf-node-warn">Agent B</span>
+                      <span class="pf-node pf-node-warn">Agent C</span>
+                      <span class="pf-node pf-node-warn">Agent D</span>
+                    </div>
+                  </div>
+                  <div class="pattern-card-desc">Agents communicate directly. Good for adversarial review and debate-style reasoning.</div>
+                  <div class="pattern-card-warn">High cost, high latency, hard to debug in production.</div>
+                </div>
+
+              </div>
+              <p class="diagram-caption">Diagram 7: Three orchestration patterns with their trade-offs — start with Supervisor-Worker for any enterprise system</p>
+
+              <table class="pattern-table">
+                <thead>
+                  <tr>
+                    <th>Pattern</th>
+                    <th>Best For</th>
+                    <th>Avoid When</th>
+                    <th>Latency</th>
+                    <th>Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Sequential Pipeline</strong></td>
+                    <td>Linear workflows where each step depends on the previous output</td>
+                    <td>Tasks that can run in parallel, or where one step failing stalls everything</td>
+                    <td>Medium</td>
+                    <td>Low</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Supervisor-Worker</strong> <span class="rec-badge">Recommended</span></td>
+                    <td>Most enterprise use cases; tasks that can be parallelised with a central state manager</td>
+                    <td>Task graphs so dynamic that the orchestrator itself becomes a bottleneck</td>
+                    <td>Low to Medium</td>
+                    <td>Medium</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Peer-to-Peer Mesh</strong></td>
+                    <td>Adversarial review workflows, multi-perspective reasoning, debate-style synthesis</td>
+                    <td>Any context requiring predictable latency, controlled cost, or clear audit trails</td>
+                    <td>High</td>
+                    <td>High</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p>The supervisor-worker pattern is my default recommendation for enterprise systems. The orchestrator as a single coordination point gives you one place to add retries, circuit breakers, cost controls, and observability hooks. When something goes wrong — and it will — you know exactly where to look.</p>
+
+              <p>The sequential pipeline is appropriate for simple, well-defined workflows where the steps are known in advance and each one truly depends on the last. Report generation pipelines and structured data extraction workflows are good examples. The peer-to-peer mesh is powerful for specific use cases like document review or adversarial red-teaming, but it is expensive and hard to control. Do not start there.</p>
+
+              <hr style="margin: 2.5rem 0;">
+
+              <h2>Human-in-the-Loop Is Not a Nice-to-Have</h2>
+
+              <p>Every agentic system I have audited in the past year has the same gap: human review is either absent entirely or implemented as a binary flag that gets turned off the moment someone complains that the system is too slow.</p>
+
+              <p>The correct approach is not binary. It is confidence-based routing.</p>
+
+              <div class="mermaid">
+graph TD
+    T[Task Ready] --> CS{Confidence Score}
+    CS -->|Above 0.85| AE[Auto Execute]
+    CS -->|0.60 to 0.85| HQ[Human Review Queue]
+    CS -->|Below 0.60| RJ[Reject with Explanation]
+    HQ --> HD{Human Decision}
+    HD -->|Approve| AE
+    HD -->|Edit| RV[Revise and Re-score]
+    HD -->|Reject| RJ
+    AE --> AL[(Audit Log)]
+    RJ --> AL
+    RV --> CS
+    classDef task fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    classDef decision fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
+    classDef auto fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    classDef review fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    classDef reject fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
+    classDef revise fill:#ede9fe,stroke:#7c3aed,stroke-width:1.5px,color:#4c1d95
+    classDef storage fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569
+    class T task
+    class CS,HD decision
+    class AE auto
+    class HQ review
+    class RJ reject
+    class RV revise
+    class AL storage
+              </div>
+              <p class="diagram-caption">Diagram 8: Confidence-based HITL routing — above 0.85 auto-executes, 0.60 to 0.85 queues for human review, below 0.60 rejects with explanation</p>
+
+              <p>The confidence score that drives this routing comes from the evaluator. A high-confidence output — well above threshold, all four evaluation dimensions passing cleanly — is auto-executed. A medium-confidence output queues for a human reviewer who can approve, edit, or reject it. A low-confidence output is rejected immediately, with an explanation returned to the user rather than a hallucinated answer delivered with false authority.</p>
+
+              <p>Two rules matter here. First, any action that is irreversible — sending an email, writing to a production database, triggering a payment — should have a lower auto-execute threshold regardless of confidence score. The cost of a false positive on an irreversible action is categorically different from the cost of a false positive on a text summary. Second, every decision in this routing graph, whether automated or human, must be written to the audit log. This is not optional in enterprise deployments. Your compliance team will ask for it eventually. Build it from the start.</p>
+
+              <hr style="margin: 2.5rem 0;">
+
+              <h2>What I Would Do Differently From Day One</h2>
+
+              <p>If I were starting this system today, here is the sequence I would follow:</p>
+
+              <ol>
+                <li><strong>Start with a single agent and a tool registry from day one.</strong> Do not wait until you have a production incident to add permission scoping and audit logging. The tool registry costs one afternoon to build and saves weeks of debugging later.</li>
+                <li><strong>Design the memory layer before writing a single agent.</strong> Decide upfront which database holds episodic memory, which vector store handles semantic retrieval, and how procedural configuration is versioned. These decisions are architectural — changing them later requires rebuilding the agents that depend on them.</li>
+                <li><strong>Add the evaluator before going to production, not after.</strong> An agent without an evaluation gate is not a production system. It is a demo that has not failed yet.</li>
+                <li><strong>Instrument everything from the first deploy.</strong> Log every tool call, every agent decision, every memory read and write. The cost of generating these logs is trivial. The cost of reconstructing them after a failure is not.</li>
+                <li><strong>Add agents only when a single agent demonstrably cannot do the job.</strong> The threshold is not "this would be cleaner with two agents". The threshold is "this agent is consistently hitting context limits or producing quality degradation that a second specialised agent would solve". Set that bar high.</li>
+              </ol>
+
+              <hr style="margin: 2.5rem 0;">
+
+              <h2>Frequently Asked Questions</h2>
+
+              <div class="faq-item">
+                <h3>What is the difference between an AI agent and a regular LLM API call?</h3>
+                <p>A regular LLM API call is stateless. You send a prompt and receive a response. An AI agent is a system that plans multi-step tasks, calls external tools, retains memory across steps, and makes decisions about what to do next based on intermediate results. The defining characteristic is agency: the system determines its own execution path rather than following a fixed prompt-response cycle.</p>
+              </div>
+
+              <div class="faq-item">
+                <h3>When should I use a multi-agent system instead of a single agent?</h3>
+                <p>Use a single agent when tasks are sequential, context fits comfortably in one window, and failures are straightforward to debug. Move to multi-agent when tasks are genuinely parallelisable, when distinct specialisation produces measurably better output quality, or when a single agent consistently degrades over long runs. The mistake most teams make is splitting too early, before they have evidence that a single agent cannot handle the load.</p>
+              </div>
+
+              <div class="faq-item">
+                <h3>What is the best orchestration pattern for enterprise agentic AI?</h3>
+                <p>The supervisor-worker pattern is the most reliable choice for enterprise systems. A single orchestrator decomposes tasks and manages state while specialised worker agents execute sub-tasks in parallel. This gives you observability and retry logic concentrated in one component, clear accountability when something fails, and a single surface to attach cost controls and security policies.</p>
+              </div>
+
+              <div class="faq-item">
+                <h3>How do I stop an agentic system from going off-rails in production?</h3>
+                <p>Four controls work in combination. A tool registry that scopes which agents can call which tools limits the blast radius of misbehaviour. Confidence-based human-in-the-loop routing intercepts low-confidence and irreversible actions before they execute. An LLM-as-judge evaluation layer scores outputs before delivery. Hard token budget caps per task run prevent runaway cost from a looping agent. Any one of these in isolation is insufficient. Together, they create defence in depth.</p>
+              </div>
+
+              <div class="faq-item">
+                <h3>What memory architecture should a production agentic system use?</h3>
+                <p>Production systems need all four memory types: short-term (the active context window), episodic (past session summaries in PostgreSQL or Redis), semantic (a vector store for retrieval-augmented generation), and procedural (tool schemas and policy rules as static configuration). Most teams only implement short-term memory and wonder why their agents have no continuity across sessions. The other three types are what separates a system that scales from one that requires constant human intervention.</p>
+              </div>
+
+              <hr style="margin: 2.5rem 0;">
+
+              <h2>Final Thought</h2>
+
+              <p>The hardest part of agentic AI system design is not the LLM. The LLM is the easiest component in the stack. The hard parts are the infrastructure decisions you make in the first week — how memory is structured, where state lives, what the tool boundaries are, and when to involve a human — because those decisions shape every single component you build on top of them.</p>
+
+              <p>Version 3 is not perfect. No production system is. But it has a memory layer that keeps context from exploding, a tool registry that contains failures before they propagate, an evaluation gate that catches bad outputs before they reach users, and an audit log that makes every incident a tractable debugging exercise rather than a guessing game.</p>
+
+              <p>That is the bar worth building toward. Start there, not with the number of agents.</p>
+
+              <blockquote>
+                If you are designing an agentic AI system for your organisation and want a second opinion on the architecture, the consulting page has details on how we can work together.
+              </blockquote>
+
+            </div>
+            <!-- ===== END POST BODY ===== -->
+
+            <hr class="mt-5 mb-4">
+
+            <!-- Author Box -->
+            <div class="author-box">
+              <img src="../assets/img/profile-img.png" alt="Neil Dave">
+              <div>
+                <strong>Neil Dave</strong><br>
+                <span style="font-size:0.85rem; color:#666;">AI Solution Architect &middot; Bangalore, India</span><br>
+                <span style="font-size:0.82rem; color:#888;">7+ years in ML, Deep Learning, Generative AI &amp; Computer Vision.</span>
+              </div>
+            </div>
+
+            <!-- Substack CTA -->
+            <div class="substack-cta">
+              <p class="mb-2" style="font-size:1rem; font-weight:600;">Enjoyed this? Get more articles like this.</p>
+              <p class="mb-3" style="font-size:0.9rem; opacity:0.9;">I write about LLMs, MLOps, and AI in the real world — no fluff.</p>
+              <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-light btn-sm rounded-pill px-4">Subscribe on Substack &rarr;</a>
+            </div>
+
+            <!-- Back link -->
+            <div class="mt-4">
+              <a href="../blog.html" style="font-size:0.9rem;">&larr; Back to all articles</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Made with &#10084;&#65039; by <strong><span>Neil Dave</span></strong>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+
+</body>
+</html>
