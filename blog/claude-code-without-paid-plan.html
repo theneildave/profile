@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>How to Run Claude Code Without a Claude Paid Plan | Neil Dave</title>
-  <meta name="description" content="You don't need a Claude Pro subscription to use Claude Code. Learn how to run it with an Anthropic API key, AWS Bedrock, or Google Vertex AI — step by step.">
+  <title>Claude Code Without Subscription: Free + API-Key Setup Guide | Neil Dave</title>
+  <meta name="description" content="Claude Code works without any subscription — run it free with Ollama locally, or pay-as-you-go via API key ($5 free credits). Most developers miss the Ollama method entirely. 4 setups compared.">
   <link rel="canonical" href="https://theneildave.in/blog/claude-code-without-paid-plan.html">
   <meta name="author" content="Neil Dave">
   <meta name="robots" content="index, follow">
@@ -15,15 +15,15 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://theneildave.in/blog/claude-code-without-paid-plan.html">
-  <meta property="og:title" content="How to Run Claude Code Without a Claude Paid Plan | Neil Dave">
-  <meta property="og:description" content="You don't need a Claude Pro subscription to use Claude Code. Learn how to run it with an Anthropic API key, AWS Bedrock, or Google Vertex AI — step by step.">
+  <meta property="og:title" content="Claude Code Without Subscription: Free + API-Key Setup Guide | Neil Dave">
+  <meta property="og:description" content="Claude Code works without any subscription — run it free with Ollama locally, or pay-as-you-go via API key ($5 free credits). Most developers miss the Ollama method entirely. 4 setups compared.">
   <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.png">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@theneildave">
-  <meta name="twitter:title" content="How to Run Claude Code Without a Claude Paid Plan">
-  <meta name="twitter:description" content="No Pro subscription needed. Run Claude Code with an API key, AWS Bedrock, or Vertex AI — here's how.">
+  <meta name="twitter:title" content="Claude Code Without Subscription: Free + API-Key Setup Guide">
+  <meta name="twitter:description" content="Claude Code works without any subscription — free with Ollama, or pay-as-you-go with an API key ($5 free credits). Most developers miss the Ollama method. 4 setups compared.">
   <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.png">
 
   <!-- BlogPosting Schema -->
@@ -31,11 +31,11 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "How to Run Claude Code Without a Claude Paid Plan",
-    "description": "You don't need a Claude Pro subscription to use Claude Code. Learn how to run it with an Anthropic API key, AWS Bedrock, or Google Vertex AI — step by step.",
+    "headline": "Claude Code Without Subscription: Free + API-Key Setup Guide",
+    "description": "Claude Code works without any subscription — run it free with Ollama locally, or pay-as-you-go via Anthropic API key ($5 free credits). 4 methods compared with step-by-step setup.",
     "url": "https://theneildave.in/blog/claude-code-without-paid-plan.html",
     "datePublished": "2026-03-20",
-    "dateModified": "2026-03-20",
+    "dateModified": "2026-03-29",
     "author": {
       "@type": "Person",
       "name": "Neil Dave",
@@ -48,7 +48,7 @@
       "name": "Neil Dave",
       "url": "https://theneildave.in"
     },
-    "keywords": ["Claude Code", "Claude Code without subscription", "Claude Code Ollama", "Claude Code local model", "Claude API key", "Claude Code AWS Bedrock", "Claude Code Vertex AI", "Anthropic CLI", "AI coding assistant free", "LiteLLM Claude Code"],
+    "keywords": ["Claude Code without subscription", "Claude Code free", "Claude Code no login", "Claude Code without paid plan", "Claude Code API key only", "Claude Code Ollama", "Claude Code local model", "Claude CLI without subscription", "Anthropic CLI free", "LiteLLM Claude Code", "Claude Code AWS Bedrock", "Claude Code Vertex AI"],
     "mainEntityOfPage": "https://theneildave.in/blog/claude-code-without-paid-plan.html",
     "wordCount": 2600,
     "timeRequired": "PT13M"
@@ -104,6 +104,14 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Yes. Set CLAUDE_CODE_USE_BEDROCK=1 and configure your AWS credentials. Claude Code will route all requests through AWS Bedrock, which is useful if you already have AWS credits or enterprise agreements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use Claude Code without logging in or creating an account?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. When using the Ollama + LiteLLM local method, Claude Code requires no account, no login, and no API key — just a running local model and the LiteLLM proxy. When using the Anthropic API, you need a free console.anthropic.com account to generate an API key, but no Claude.ai login or subscription."
         }
       },
       {
@@ -232,7 +240,7 @@
               <span class="blog-tag">Anthropic API</span>
             </div>
 
-            <h1 style="font-size:1.9rem; font-weight:700; line-height:1.3; margin-bottom:0.8rem;">How to Run Claude Code Without a Claude Paid Plan</h1>
+            <h1 style="font-size:1.9rem; font-weight:700; line-height:1.3; margin-bottom:0.8rem;">Claude Code Without Subscription: Free and Pay-as-You-Go Methods</h1>
 
             <div class="d-flex align-items-center gap-3 mb-4" style="font-size:0.85rem; color:#888;">
               <span><i class="bx bx-calendar"></i> 20 March 2026</span>
