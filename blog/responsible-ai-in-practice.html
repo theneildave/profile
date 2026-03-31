@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Responsible AI in Practice: What "Fairness" Actually Means in Production | Neil Dave</title>
+  <meta name="description" content="Beyond principles and checklists — how to actually implement fairness, explainability, and bias detection in production ML systems. Includes real tools, code, and the EU AI Act implications for 2026.">
+  <link rel="canonical" href="https://theneildave.in/blog/responsible-ai-in-practice.html">
+  <meta name="author" content="Neil Dave">
+  <meta name="robots" content="index, follow">
+  <meta name="article:published_time" content="2026-03-30">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://theneildave.in/blog/responsible-ai-in-practice.html">
+  <meta property="og:title" content="Responsible AI in Practice: What "Fairness" Actually Means in Production | Neil Dave">
+  <meta property="og:description" content="Beyond principles and checklists — how to actually implement fairness, explainability, and bias detection in production ML systems. Real tools, code, and EU AI Act implications.">
+  <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.png">
+  <meta property="og:site_name" content="Neil Dave">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
+  <meta name="twitter:title" content="Responsible AI in Practice: What "Fairness" Actually Means in Production">
+  <meta name="twitter:description" content="Beyond principles and checklists — how to actually implement fairness, explainability, and bias detection in production ML systems.">
+  <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.png">
+
+  <!-- BlogPosting Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Responsible AI in Practice: What \"Fairness\" Actually Means in Production",
+    "description": "Beyond principles and checklists — how to actually implement fairness, explainability, and bias detection in production ML systems. Includes real tools, code, and the EU AI Act implications for 2026.",
+    "url": "https://theneildave.in/blog/responsible-ai-in-practice.html",
+    "datePublished": "2026-03-30",
+    "dateModified": "2026-03-30",
+    "author": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in",
+      "jobTitle": "AI Solution Architect",
+      "sameAs": [
+        "https://www.linkedin.com/in/neil-dave/",
+        "https://www.wikidata.org/wiki/Q138716797",
+        "https://www.youtube.com/@theneildave"
+      ]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in"
+    },
+    "keywords": ["responsible AI", "AI fairness", "bias in machine learning", "explainable AI", "SHAP", "Fairlearn", "EU AI Act", "AI ethics production", "bias detection ML", "AI solution architect"],
+    "mainEntityOfPage": "https://theneildave.in/blog/responsible-ai-in-practice.html",
+    "wordCount": 3200,
+    "timeRequired": "PT16M"
+  }
+  </script>
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"},
+      {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://theneildave.in/blog.html"},
+      {"@type": "ListItem", "position": 3, "name": "Responsible AI in Practice", "item": "https://theneildave.in/blog/responsible-ai-in-practice.html"}
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between fairness and accuracy in machine learning?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Accuracy measures overall predictive correctness across all samples. Fairness measures whether that correctness is distributed equitably across demographic groups. A model can be highly accurate in aggregate while systematically underperforming for a specific group  a phenomenon called the accuracy-fairness tradeoff. In practice, optimising purely for accuracy often amplifies existing societal inequalities in the training data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What tools are used for bias detection in machine learning?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The main open-source tools are: Microsoft Fairlearn (fairness metrics and mitigation algorithms), IBM AI Fairness 360 (30+ bias metrics and 10+ mitigation algorithms), SHAP (SHapley Additive exPlanations for model explainability), LIME (Local Interpretable Model-agnostic Explanations), and Google's What-If Tool. For LLM systems, Guardrails AI and LangKit add bias and toxicity detection layers to inference pipelines."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does the EU AI Act require for high-risk AI systems?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The EU AI Act (in full enforcement from August 2026) classifies AI systems in credit scoring, hiring, healthcare triage, law enforcement, and education as high-risk. These systems must have: a conformity assessment before deployment, human oversight mechanisms, detailed documentation of training data and model decisions, ongoing monitoring for bias and drift, and the ability to explain decisions to affected individuals on request."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you have a fair model without sacrificing too much accuracy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Usually yes, with the right mitigation strategy. Techniques like reweighing training samples, adversarial debiasing, and threshold calibration per group typically reduce accuracy by 1–5% while significantly improving fairness metrics. The key insight is that fairness-accuracy tradeoffs are much smaller than often assumed  and the business and legal risk of deploying an unfair model far outweighs a small accuracy reduction."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon1.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .post-content { font-size: 1.05rem; line-height: 1.85; color: #333; }
+    .post-content h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.2rem; margin-bottom: 0.8rem; color: #173b6c; }
+    .post-content h3 { font-size: 1.2rem; font-weight: 600; margin-top: 1.8rem; margin-bottom: 0.6rem; }
+    .post-content p { margin-bottom: 1.2rem; }
+    .post-content ul, .post-content ol { margin-bottom: 1.2rem; padding-left: 1.5rem; }
+    .post-content li { margin-bottom: 0.4rem; }
+    .post-content pre { background: #f6f8fa; border-radius: 8px; padding: 1rem 1.2rem; overflow-x: auto; margin-bottom: 1.2rem; }
+    .post-content code { font-size: 0.9rem; background: #f0f2f5; padding: 2px 6px; border-radius: 4px; }
+    .post-content pre code { background: none; padding: 0; }
+    .post-content blockquote { border-left: 4px solid #0d6efd; padding-left: 1rem; color: #555; font-style: italic; margin: 1.5rem 0; }
+    .post-content img { max-width: 100%; border-radius: 8px; margin: 1rem 0; }
+    .post-content a { color: #0d6efd; }
+    .post-content table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.92rem; }
+    .post-content th { background: #173b6c; color: #fff; padding: 0.6rem 0.8rem; text-align: left; }
+    .post-content td { padding: 0.55rem 0.8rem; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+    .post-content tr:nth-child(even) td { background: #f8f9fa; }
+    .blog-tag { font-size: 0.75rem; background: #e8f4fd; color: #0d6efd; border-radius: 20px; padding: 3px 12px; margin-right: 6px; display: inline-block; }
+    .author-box { background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1.5rem; margin-top: 3rem; display: flex; align-items: center; gap: 1rem; }
+    .author-box img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+    .substack-cta { background: linear-gradient(135deg, #ff6719 0%, #ff8c00 100%); color: white; border-radius: 12px; padding: 1.5rem 2rem; margin-top: 3rem; text-align: center; }
+    .substack-cta a { color: white; font-weight: 600; text-decoration: underline; }
+    .callout { background: #eef4ff; border-left: 4px solid #173b6c; border-radius: 0 8px 8px 0; padding: 0.9rem 1.2rem; margin: 1.5rem 0; font-size: 0.97rem; }
+    .warning-callout { background: #fff8e1; border-left: 4px solid #f0a500; border-radius: 0 8px 8px 0; padding: 0.9rem 1.2rem; margin: 1.5rem 0; font-size: 0.97rem; }
+    nav.toc { background: #f8f9fa; border-radius: 10px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+    nav.toc h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.6rem; color: #173b6c; }
+    nav.toc ol { margin: 0; padding-left: 1.2rem; }
+    nav.toc li { font-size: 0.9rem; margin-bottom: 0.3rem; }
+    nav.toc a { color: #0d6efd; text-decoration: none; }
+    nav.toc a:hover { text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <header id="header">
+    <div class="d-flex flex-column">
+      <div class="profile">
+        <img src="../assets/img/profile-img.png" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy">
+        <h1 class="text-light"><a href="../index.html">Neil Dave</a></h1>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="facebook"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener" title="Neil Dave on Substack"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Google Scholar"><i class="bx bx-book-alt"></i></a>
+          <a href="https://www.youtube.com/@theneildave" class="youtube" target="_blank" rel="noopener" title="Neil Dave on YouTube"><i class="bx bxl-youtube"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="../index.html#hero" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="../index.html#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="../index.html#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="../blog.html" class="nav-link active"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="../index.html#substack" class="nav-link scrollto"><i class="bx bx-envelope-open"></i><span>Newsletter</span></a></li>
+          <li><a href="../index.html#tndtalks" class="nav-link scrollto"><i class="bx bx-podcast"></i> <span>TND Talks</span></a></li>
+          <li><a href="../index.html#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
+          <li><a href="../index.html#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Article</h2>
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../blog.html">Articles</a></li>
+            <li>Responsible AI in Practice</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio-details" style="padding: 40px 0 60px;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+            <div class="mb-4">
+              <span class="blog-tag">Responsible AI</span>
+              <span class="blog-tag">ML Fairness</span>
+              <span class="blog-tag">Explainable AI</span>
+              <span class="blog-tag">EU AI Act</span>
+            </div>
+
+            <h1 style="font-size:1.9rem; font-weight:700; line-height:1.3; margin-bottom:0.8rem;">
+              Responsible AI in Practice: What "Fairness" Actually Means in Production
+            </h1>
+
+            <div class="d-flex align-items-center gap-3 mb-4" style="font-size:0.85rem; color:#888;">
+              <span><i class="bx bx-calendar"></i> 31 March 2026</span>
+              <span><i class="bx bx-time"></i> 16 min read</span>
+              <span><i class="bx bx-user"></i> Neil Dave, AI Solution Architect</span>
+            </div>
+
+            <hr class="mb-4">
+
+            <nav class="toc" aria-label="Table of contents">
+              <h4>Contents</h4>
+              <ol>
+                <li><a href="#the-incident">The Audit That Changed How I Think About This</a></li>
+                <li><a href="#checklist-problem">Why the Checklist Approach Fails</a></li>
+                <li><a href="#fairness-definitions">The Fairness Definition Problem</a></li>
+                <li><a href="#where-bias-enters">Five Pipeline Stages Where Bias Enters</a></li>
+                <li><a href="#tools">Tools That Actually Work</a></li>
+                <li><a href="#explainability">Explainability Is Not Optional Anymore</a></li>
+                <li><a href="#eu-ai-act">The EU AI Act: What It Means for Practitioners in 2026</a></li>
+                <li><a href="#india-context">The India Context: DPDP Act and High-Stakes AI</a></li>
+                <li><a href="#embedding-rai">Embedding RAI in the Development Cycle</a></li>
+                <li><a href="#real-example">A Real Example: Credit Card Default Prediction</a></li>
+                <li><a href="#faq">FAQ</a></li>
+              </ol>
+            </nav>
+
+            <div class="post-content">
+
+              <h2 id="the-incident">The Audit That Changed How I Think About This</h2>
+
+              <p>A financial services client asked us to audit a credit card default prediction model that had been running in production for eighteen months. On paper it was a success: 87% accuracy, stable drift metrics, clean CI/CD. The business was happy.</p>
+
+              <p>We ran a standard fairness audit as part of the engagement. What we found was uncomfortable. When we sliced the model's predictions by postcode  a feature the team had assumed was purely geographic  the false positive rate (flagging a borrower as likely to default when they wouldn't) was significantly higher in lower-income urban areas. The model was technically accurate in aggregate but systematically wrong in one direction for a specific demographic group.</p>
+
+              <p>Postcode wasn't a protected attribute. It was a proxy for one.</p>
+
+              <blockquote>
+                The model hadn't been built with discriminatory intent. It had been built with insufficient awareness of how historical data encodes societal inequality  and then deployed without any mechanism to detect or correct for it.
+              </blockquote>
+
+              <p>This is the pattern I see repeatedly across industries. Not malice. Not carelessness. Just a gap between what "responsible AI" means on a slide deck and what it requires in practice. This post is about closing that gap.</p>
+
+              <h2 id="checklist-problem">Why the Checklist Approach Fails</h2>
+
+              <p>Every major technology company has published a set of AI principles. Google has seven. Microsoft has six. Meta, Amazon, IBM  all have their version. They tend to look like this:</p>
+
+              <ul>
+                <li>Be fair and inclusive</li>
+                <li>Be transparent and explainable</li>
+                <li>Protect privacy</li>
+                <li>Be accountable</li>
+                <li>Be safe and secure</li>
+              </ul>
+
+              <p>These are not wrong. They are just not actionable at the level of a sprint ticket. The problem is that the industry has treated RAI as a governance problem  something you solve with a policy document, a review board, and a checkbox in the pre-deployment checklist. Governance matters, but it cannot substitute for engineering.</p>
+
+              <p>When a team ticks "Fairness  Reviewed" before shipping a model, what did they actually do? In most organisations I've worked with, the honest answer is: they eyeballed the overall accuracy, confirmed there was no obviously sensitive column in the feature set, and moved on. That process would not have caught the postcode problem above. It does not catch proxy discrimination, intersectional bias, or feedback loop effects  the three most common sources of harm in real production systems.</p>
+
+              <div class="callout">
+                <strong>The core issue:</strong> Responsible AI requires specific, measurable engineering work at every stage of the ML pipeline. Principles describe what you should care about. Engineering tells you how to check whether you're achieving it.
+              </div>
+
+              <h2 id="fairness-definitions">The Fairness Definition Problem</h2>
+
+              <p>Before you can measure fairness, you need to define it. This sounds straightforward until you realise that the most common fairness definitions are mathematically incompatible with each other. You cannot simultaneously satisfy all of them on a realistic dataset.</p>
+
+              <p>Here are the four definitions you'll encounter most often:</p>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Definition</th>
+                    <th>What It Requires</th>
+                    <th>Example</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Demographic Parity</strong></td>
+                    <td>Equal positive prediction rate across groups</td>
+                    <td>Approve loans at the same rate for Group A and Group B</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Equalized Odds</strong></td>
+                    <td>Equal true positive rate AND equal false positive rate across groups</td>
+                    <td>Same sensitivity and specificity for both groups</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Equal Opportunity</strong></td>
+                    <td>Equal true positive rate across groups (relaxes false positive constraint)</td>
+                    <td>Qualified borrowers from both groups approved at same rate</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Calibration</strong></td>
+                    <td>Predicted probability equals actual outcome rate across groups</td>
+                    <td>"60% default probability" means 60% actual default for both groups</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p>The Impossibility Theorem (Chouldechova, 2017; Kleinberg et al., 2016) formally proved that if the base rates of the outcome differ between groups  which they almost always do in real datasets, precisely because of historical inequality  you cannot achieve demographic parity, equalized odds, and calibration simultaneously.</p>
+
+              <p>This is not a bug in the math. It is a signal that fairness is a values question as much as a technical one. The choice of which fairness definition to optimise for should be made explicitly, by domain experts and stakeholders, before model training begins  not left implicit in the loss function.</p>
+
+              <div class="warning-callout">
+                <strong>Practical implication:</strong> When you start a high-stakes ML project, the fairness definition needs to be written into the requirements document alongside the accuracy target. "The model must achieve equalized odds across income quintiles within ±3 percentage points" is an engineering requirement. "The model should be fair" is not.
+              </div>
+
+              <h2 id="where-bias-enters">Five Pipeline Stages Where Bias Enters</h2>
+
+              <p>Bias is not something that appears at the end of the pipeline when you run a fairness audit. It accumulates across every stage. Understanding where it enters helps you intervene at the right point.</p>
+
+              <h3>1. Data Collection</h3>
+              <p>Historical data encodes historical decisions. If a bank historically denied more loans to applicants from certain postcodes, a model trained on that data will learn that postcodes predict default  not because the geography causes default, but because the geography correlates with who was denied credit in the first place. This is called <strong>historical bias</strong> or <strong>societal bias</strong> in the training data.</p>
+
+              <p>Underrepresentation is the second data collection problem. If a clinical dataset has 90% data from one demographic group, a model trained on it will perform worse for everyone else. This is endemic in healthcare AI  and it is a direct patient safety issue.</p>
+
+              <h3>2. Feature Selection</h3>
+              <p>Proxy features are features that are not sensitive attributes themselves but are highly correlated with them. Postcode correlates with race and income. Name correlates with ethnicity and gender. Device type correlates with age and income. Removing the obvious sensitive columns (race, gender, religion) does not remove the proxies.</p>
+
+              <p>This is why naive feature selection  "we removed gender, we're fine"  does not work. You need to actively audit feature-to-sensitive-attribute correlation before training.</p>
+
+              <h3>3. Model Architecture and Training</h3>
+              <p>The loss function you optimise implicitly encodes values. Standard cross-entropy loss optimises for average accuracy  which means the model may sacrifice performance on minority groups to improve aggregate numbers. Gradient boosting and deep networks are particularly prone to this because they are expressive enough to learn complex proxy discriminations that simpler models would miss.</p>
+
+              <h3>4. Decision Threshold Setting</h3>
+              <p>Most classification models output a probability. You convert that to a binary decision by setting a threshold. The threshold is almost always set once, globally, based on optimising a metric like F1. But a single threshold applied uniformly can produce dramatically different false positive and false negative rates across demographic groups, even when the underlying model probabilities are well-calibrated.</p>
+
+              <p>Per-group threshold calibration is a simple and highly effective mitigation  but it is rarely implemented because it requires you to have explicitly decided which group-level fairness metric you care about.</p>
+
+              <h3>5. Deployment and Feedback Loops</h3>
+              <p>A model that produces biased decisions shapes the data it will be retrained on. If a hiring model deprioritises candidates from certain universities, fewer such candidates will be interviewed, fewer will receive offers, fewer will appear as "successful hires" in the training data, and the next model version will deprioritise them even more strongly. This is called a <strong>feedback loop</strong> or <strong>performative prediction</strong>, and it is the mechanism by which small initial biases compound into large systemic ones over time.</p>
+
+              <h2 id="tools">Tools That Actually Work</h2>
+
+              <p>Three tools form the core of a practical RAI engineering stack.</p>
+
+              <h3>Microsoft Fairlearn</h3>
+              <p>Fairlearn is the most practically useful open-source library for fairness-aware ML. It provides two things: a dashboard for visualising performance across demographic groups, and mitigation algorithms that constrain the optimisation during training.</p>
+
+<pre><code>from fairlearn.metrics import MetricFrame, demographic_parity_difference
+from fairlearn.reductions import ExponentiatedGradient, DemographicParity
+from sklearn.linear_model import LogisticRegression
+import pandas as pd
+
+# --- 1. Measure fairness BEFORE mitigation ---
+mf = MetricFrame(
+    metrics={
+        "accuracy":         lambda y, y_hat: (y == y_hat).mean(),
+        "false_positive_rate": lambda y, y_hat: ((y == 0) & (y_hat == 1)).sum() / (y == 0).sum()
+    },
+    y_true=y_test,
+    y_pred=y_pred,
+    sensitive_features=X_test["income_bracket"]
+)
+
+print(mf.by_group)
+print("Demographic parity difference:", demographic_parity_difference(y_test, y_pred, sensitive_features=X_test["income_bracket"]))
+
+# --- 2. Apply mitigation ---
+base_estimator = LogisticRegression(max_iter=1000)
+mitigator = ExponentiatedGradient(base_estimator, DemographicParity())
+mitigator.fit(X_train, y_train, sensitive_features=X_train["income_bracket"])
+
+y_pred_fair = mitigator.predict(X_test)
+</code></pre>
+
+              <p>The <code>MetricFrame</code> object is what makes Fairlearn genuinely useful  it disaggregates any metric you care about by any sensitive feature. Running this before deployment takes ten minutes and will surface group-level disparities that aggregate metrics hide completely.</p>
+
+              <h3>SHAP (SHapley Additive Explanations)</h3>
+              <p>SHAP gives you feature-level explanations for individual predictions, grounded in game theory. It tells you not just which features the model uses overall, but which features drove a specific decision for a specific person. This is what "explainability" actually means in practice  not a global feature importance chart, but the ability to say "this application was declined primarily because of X, Y, and Z."</p>
+
+<pre><code>import shap
+
+explainer = shap.TreeExplainer(model)  # or shap.Explainer() for model-agnostic
+shap_values = explainer.shap_values(X_test)
+
+# Global summary  which features matter most overall
+shap.summary_plot(shap_values, X_test, plot_type="bar")
+
+# Individual explanation  why did this specific prediction happen?
+shap.force_plot(
+    explainer.expected_value,
+    shap_values[sample_idx],
+    X_test.iloc[sample_idx]
+)
+
+# Detect proxy discrimination: plot shap values coloured by sensitive attribute
+shap.dependence_plot("postcode_cluster", shap_values, X_test, interaction_index="income_bracket")
+</code></pre>
+
+              <p>The dependence plot is particularly useful for proxy detection. If the SHAP value for <code>postcode_cluster</code> shows a strong pattern when coloured by <code>income_bracket</code>, you have a proxy feature operating in the model even if the overall feature importance looks benign.</p>
+
+              <h3>IBM AI Fairness 360 (AIF360)</h3>
+              <p>AIF360 provides a broader set of bias metrics (30+) and pre/in/post-processing mitigation algorithms (10+). It is more comprehensive than Fairlearn and better suited for research-grade fairness analysis or regulatory reporting where you need to demonstrate that you evaluated multiple fairness criteria.</p>
+
+              <div class="callout">
+                <strong>Tool selection guidance:</strong> Use Fairlearn for everyday fairness monitoring and mitigation in production. Use SHAP for every model regardless of the project  explainability is non-negotiable. Reach for AIF360 when you need regulatory-grade documentation or when you're working in a domain where multiple fairness definitions apply (e.g., a credit system that affects both lenders and borrowers differently).
+              </div>
+
+              <h2 id="explainability">Explainability Is Not Optional Anymore</h2>
+
+              <p>The conversation about explainability has shifted from "nice to have" to "legally required" in the span of three years. The EU AI Act (Article 13), India's DPDP Act, and the US FTC's algorithmic accountability guidance all now establish  in varying degrees of specificity  that individuals have a right to a meaningful explanation of automated decisions that affect them.</p>
+
+              <p>The technical challenge is that global explainability (the model uses these features in these proportions) is not the same as local explainability (this decision was made for this reason). Courts and regulators care about the latter. A feature importance chart from your training run is not sufficient.</p>
+
+              <p>For LLM-based systems, explainability takes a different form. The analogous tools are attention visualisation, chain-of-thought prompting with logged reasoning traces, and output attribution systems like LangFuse traces that can tell you which retrieved documents or input segments most influenced a specific output. The underlying principle is the same: you need to be able to answer "why did the system produce this output for this user"  not just "how does the system work in general."</p>
+
+              <h2 id="eu-ai-act">The EU AI Act: What It Means for Practitioners in 2026</h2>
+
+              <p>The EU AI Act entered full enforcement in August 2026. If you are building AI systems that process data about EU residents  regardless of where you or your company are based  the risk classification framework applies to you.</p>
+
+              <p>The Act defines four risk tiers. The tier that matters most for typical enterprise AI work is <strong>High Risk</strong>, which includes AI systems used in:</p>
+
+              <ul>
+                <li>Credit scoring and creditworthiness assessment</li>
+                <li>Recruitment, CV screening, and interview scoring</li>
+                <li>Healthcare triage, diagnosis, and treatment recommendation</li>
+                <li>Education: student assessment, admission, and examination</li>
+                <li>Law enforcement: crime prediction, evidence evaluation</li>
+                <li>Border control and biometric identification</li>
+              </ul>
+
+              <p>For high-risk systems, the Act mandates:</p>
+
+              <ol>
+                <li><strong>Conformity assessment</strong>  a documented evaluation before deployment that includes bias testing across protected groups</li>
+                <li><strong>Human oversight mechanisms</strong>  the system must be designed to allow human intervention; fully automated high-stakes decisions are prohibited in most categories</li>
+                <li><strong>Technical documentation</strong>  training data provenance, model architecture, performance metrics disaggregated by demographic group, and known limitations</li>
+                <li><strong>Ongoing monitoring</strong>  post-deployment surveillance for bias drift, accuracy degradation, and distributional shift</li>
+                <li><strong>Logging</strong>  audit logs sufficient to reconstruct what the system did and why, retained for a minimum period</li>
+              </ol>
+
+              <div class="warning-callout">
+                <strong>Penalty structure:</strong> Violations carry fines of up to €30 million or 6% of global annual turnover, whichever is higher  on par with GDPR. Enforcement is via national market surveillance authorities in each member state. This is not a theoretical risk for companies operating at scale.
+              </div>
+
+              <h2 id="india-context">The India Context: DPDP Act and High-Stakes AI</h2>
+
+              <p>India's Digital Personal Data Protection Act (2023) is now operationally active and directly intersects with AI systems that process personal data. While the DPDP Act is primarily a data governance framework rather than an AI-specific regulation, several of its provisions have direct implications for ML systems.</p>
+
+              <p>The right to grievance redressal (Section 13) means that individuals can challenge automated decisions that use their personal data. The obligation to process only with a lawful basis and to limit data use to the stated purpose constrains what features an ML model can legally use. Data principals (individuals) can withdraw consent  which creates engineering requirements around model unlearning or retraining workflows that most teams have not yet built.</p>
+
+              <p>The DPDP Act does not yet have the explicit risk-tiering of the EU AI Act, but enforcement guidance is evolving. For companies building AI for Indian financial services, healthcare, or government contexts, the responsible approach is to apply EU-AI-Act-style documentation and bias testing proactively  not because the letter of Indian law currently requires it, but because the regulatory direction is clear and the cost of retrofitting compliance into a deployed system is much higher than building it in from the start.</p>
+
+              <h2 id="embedding-rai">Embedding RAI in the Development Cycle</h2>
+
+              <p>The most important shift in how I approach this now is treating RAI as a continuous engineering discipline rather than a pre-deployment gate. Here is what that looks like in practice:</p>
+
+              <h3>At project kickoff</h3>
+              <ul>
+                <li>Define the sensitive attributes relevant to the problem (protected characteristics, proxy-correlated features)</li>
+                <li>Choose the fairness definition to optimise for, documented in the requirements</li>
+                <li>Set measurable fairness targets alongside accuracy targets (e.g., false positive rate disparity &lt; 5% across income groups)</li>
+                <li>Identify the regulatory tier the system falls into</li>
+              </ul>
+
+              <h3>During feature engineering</h3>
+              <ul>
+                <li>Run correlation analysis between candidate features and sensitive attributes</li>
+                <li>Flag and review high-correlation proxy features explicitly  don't automatically drop them, but make a documented decision about whether to include them</li>
+                <li>Audit data sources for underrepresentation of demographic groups</li>
+              </ul>
+
+              <h3>During model training</h3>
+              <ul>
+                <li>Run <code>MetricFrame</code> disaggregation after every evaluation run, not just before deployment</li>
+                <li>Apply mitigation techniques (reweighing, adversarial debiasing, or post-hoc threshold calibration) when fairness targets are breached</li>
+                <li>Generate SHAP explanations on the validation set and review dependence plots for proxy patterns</li>
+              </ul>
+
+              <h3>At deployment</h3>
+              <ul>
+                <li>Set up fairness monitoring alongside accuracy monitoring  group-level false positive rates, approval rate disparities, and output distribution by demographic segment</li>
+                <li>Define a fairness drift threshold that triggers model review (not just accuracy drift)</li>
+                <li>Implement an explanation endpoint  every prediction that affects a user should be explainable on request</li>
+              </ul>
+
+              <h3>Post-deployment</h3>
+              <ul>
+                <li>Audit feedback loops: is the model's output creating data that it will be retrained on? If yes, how does this affect minority groups over multiple retraining cycles?</li>
+                <li>Run quarterly fairness reviews on production data, not just the original test set</li>
+              </ul>
+
+              <h2 id="real-example">A Real Example: Credit Card Default Prediction</h2>
+
+              <p>The credit card default project I referenced at the opening was the RAI engagement that most shaped how I think about this. Here is what the mitigation process actually looked like once we identified the postcode-proxy problem.</p>
+
+              <p><strong>Step 1  Quantify the disparity.</strong> Using Fairlearn's <code>MetricFrame</code>, we calculated false positive rates by income bracket (derived from postcode clustering). The disparity was 11 percentage points between the highest and lowest income brackets  the model flagged low-income applicants as default risks at an 11% higher rate even when their actual default behaviour was equivalent.</p>
+
+              <p><strong>Step 2  Identify the mechanism.</strong> SHAP dependence plots revealed that <code>postcode_cluster</code> was acting as a strong positive contributor to default risk probability specifically in clusters corresponding to lower-income areas  even after controlling for actual credit utilisation and repayment history. The model had learned the proxy from historical approval data where low-income postcodes had been underserved.</p>
+
+              <p><strong>Step 3  Apply mitigation.</strong> We tested two approaches: (a) removing postcode features entirely and retraining, and (b) applying Fairlearn's <code>ExponentiatedGradient</code> with a demographic parity constraint. Option (a) reduced accuracy by 4.2%. Option (b) reduced the fairness disparity from 11 to 2.8 percentage points with an accuracy cost of 1.7%. The client chose option (b)  a sensible tradeoff.</p>
+
+              <p><strong>Step 4  Set up ongoing monitoring.</strong> We added group-level false positive rate tracking to the existing MLflow monitoring dashboard. The fairness drift alert threshold was set at a 5 percentage point disparity  above that, the model automatically flags for human review before the next retraining cycle.</p>
+
+              <p>The entire mitigation process, from audit to production update, took six working days. The cost of not doing it  regulatory exposure under RBI's fairness guidelines for BFSI AI, reputational risk, and the actual harm to real borrowers  was orders of magnitude higher.</p>
+
+              <h2 id="faq">FAQ</h2>
+
+              <h3>What is the difference between fairness and accuracy in machine learning?</h3>
+              <p>Accuracy measures overall predictive correctness across all samples. Fairness measures whether that correctness is distributed equitably across demographic groups. A model can be highly accurate in aggregate while systematically underperforming for a specific group  a phenomenon called the accuracy-fairness tradeoff. In practice, optimising purely for accuracy often amplifies existing societal inequalities in the training data.</p>
+
+              <h3>What tools are used for bias detection in machine learning?</h3>
+              <p>The main open-source tools are: Microsoft Fairlearn (fairness metrics and mitigation algorithms), IBM AI Fairness 360 (30+ bias metrics and 10+ mitigation algorithms), SHAP (model explainability), LIME (local interpretable explanations), and Google's What-If Tool. For LLM systems, Guardrails AI and LangKit add bias and toxicity detection layers to inference pipelines.</p>
+
+              <h3>What does the EU AI Act require for high-risk AI systems?</h3>
+              <p>High-risk systems must have a conformity assessment before deployment, human oversight mechanisms, detailed documentation of training data and model decisions, ongoing monitoring for bias and drift, and the ability to explain decisions to affected individuals on request. Full enforcement began in August 2026.</p>
+
+              <h3>Can you have a fair model without sacrificing too much accuracy?</h3>
+              <p>Usually yes. Techniques like reweighing training samples, adversarial debiasing, and threshold calibration per group typically reduce accuracy by 1–5% while significantly improving fairness metrics. The key insight is that fairness-accuracy tradeoffs are much smaller than often assumed  and the business and legal risk of deploying an unfair model far outweighs a small accuracy reduction.</p>
+
+              <hr style="margin: 2.5rem 0 1.5rem;">
+
+              <p style="font-size:0.95rem; color:#555;">If you're building high-stakes AI systems and want help structuring a responsible AI review process  covering bias audits, explainability, and regulatory compliance  that's exactly the kind of engagement I take on. <a href="../enterprise.html">See how I work with enterprise teams →</a></p>
+
+              <p style="font-size:0.95rem; color:#555;">The credit card default project mentioned in this post is part of my <a href="../rai.html">Responsible AI portfolio work</a>  more technical detail on the fairness mitigation pipeline there.</p>
+
+            </div>
+
+            <hr class="mt-5 mb-4">
+
+            <div class="author-box">
+              <img src="../assets/img/profile-img.png" alt="Neil Dave AI Solution Architect" loading="lazy">
+              <div>
+                <strong>Neil Dave</strong><br>
+                <span style="font-size:0.85rem; color:#666;">AI Solution Architect · Bangalore, India</span><br>
+                <span style="font-size:0.82rem; color:#888;">7+ years in ML, Deep Learning, Generative AI &amp; Computer Vision. 3 IEEE/Springer publications. Mentors 120+ AI professionals on LinkedIn.</span>
+              </div>
+            </div>
+
+            <div class="substack-cta">
+              <p class="mb-2" style="font-size:1rem; font-weight:600;">Enjoyed this? Get more articles like this.</p>
+              <p class="mb-3" style="font-size:0.9rem; opacity:0.9;">I write about LLMs, MLOps, responsible AI, and building real-world AI systems  no fluff.</p>
+              <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-light btn-sm rounded-pill px-4">Subscribe on Substack →</a>
+            </div>
+
+            <div class="mt-4">
+              <a href="../blog.html" style="font-size:0.9rem;">← Back to all articles</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Made with ❤️ by <strong><span>Neil Dave</span></strong>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+
+</body>
+</html>

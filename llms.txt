@@ -1,0 +1,50 @@
+# Neil Dave — AI Solution Architect
+
+> Neil Dave is an AI Solution Architect and Generative AI Engineer based in Bangalore, India, with 7+ years of expertise in Machine Learning, Deep Learning, LLM Engineering, Computer Vision, and MLOps. He works at Mumbai Indians (IPL franchise), mentors 120+ professionals on LinkedIn, and consults for SMBs and enterprises globally on AI strategy and implementation.
+>
+> Wikidata entity: https://www.wikidata.org/wiki/Q138716797
+> Contact: hello@theneildave.in
+
+## Key Pages
+
+- [Home](https://theneildave.in/): Portfolio, skills, projects, publications, newsletter, and contact. Covers AI consulting services and professional background.
+- [Enterprise AI Consulting](https://theneildave.in/enterprise.html): AI consulting services for CTOs and engineering leaders — Generative AI strategy, LLM integration, MLOps, and Responsible AI audits.
+- [Collaborate](https://theneildave.in/collaborate.html): AI tool collaboration page for founders and builders — three engagement models: build, advise, and co-create.
+- [Speaking](https://theneildave.in/speaking.html): Speaker kit for conference organisers. Topics include Generative AI, LLMOps, Responsible AI, and AI strategy.
+- [Blog](https://theneildave.in/blog.html): Articles on AI engineering, LLM deployment, MLOps, and the AI industry.
+- [Lead Magnet](https://theneildave.in/lead.html): Free AI-optimised resume template.
+
+## Blog Posts
+
+- [Responsible AI in Practice](https://theneildave.in/blog/responsible-ai-in-practice.html): Frameworks and real-world patterns for deploying AI ethically and safely.
+- [Agentic AI System Design](https://theneildave.in/blog/agentic-ai-system-design.html): Architecture patterns for building reliable multi-agent AI systems.
+- [LLMOps vs MLOps](https://theneildave.in/blog/llmops-vs-mlops.html): Compares operational practices for large language models versus traditional ML pipelines.
+- [GEO Audit — Portfolio Site](https://theneildave.in/blog/geo-audit-portfolio-site.html): Generative Engine Optimisation (GEO) audit of a personal portfolio site.
+- [Scaling Generative AI from Pilot to Production](https://theneildave.in/blog/scaling-generative-ai-pilot-to-production.html): Practical guide to moving Gen AI proofs-of-concept into production systems.
+- [Data Scientist vs AI Engineer (2026)](https://theneildave.in/blog/data-scientist-vs-ai-engineer-2026.html): Role comparison covering skills, salaries, and career paths in 2026.
+- [Enterprise LLM Cost Breakdown (2026)](https://theneildave.in/blog/enterprise-llm-cost-2026.html): Full cost analysis of running LLMs at enterprise scale.
+- [Using Claude Code Without a Paid Plan](https://theneildave.in/blog/claude-code-without-paid-plan.html): Guide to accessing Claude Code on the free tier.
+
+## Portfolio Projects
+
+- [Generative AI Projects](https://theneildave.in/gen-ai.html): RAG pipelines, LLM fine-tuning, and Gen AI applications.
+- [Sepsis Prediction](https://theneildave.in/sepsis.html): ML model for early ICU sepsis detection (healthcare AI).
+- [Computer Vision — CV](https://theneildave.in/cv.html): Computer vision system for player tracking and performance analytics.
+- [CV Object Detection](https://theneildave.in/cv-object-detection.html): Real-time object detection pipeline using deep learning.
+- [Run Prediction](https://theneildave.in/run-prediction.html): Cricket run-rate prediction model (sports analytics, Mumbai Indians).
+- [Responsible AI](https://theneildave.in/rai.html): Responsible AI audit framework and bias mitigation case study.
+
+## Social & Publications
+
+- LinkedIn: https://www.linkedin.com/in/neil-dave/
+- GitHub: https://github.com/theneildave/
+- Substack: https://theneildave.substack.com
+- Medium: https://medium.com/@theneildave
+- Google Scholar: https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en
+- YouTube: https://www.youtube.com/@theneildave
+- Twitter/X: https://twitter.com/theneildave
+
+## Optional
+
+- [Sitemap](https://theneildave.in/sitemap.xml)
+- [Robots.txt](https://theneildave.in/robots.txt)
