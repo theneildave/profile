@@ -2,11 +2,20 @@
 <html lang="en">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FF2576R3B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0FF2576R3B');
+  </script>
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Responsible AI in Practice: What "Fairness" Actually Means in Production | Neil Dave</title>
-  <meta name="description" content="Beyond principles and checklists — how to actually implement fairness, explainability, and bias detection in production ML systems. Includes real tools, code, and the EU AI Act implications for 2026.">
+  <title>Responsible AI in Practice: Fairness in Production | Neil Dave</title>
+  <meta name="description" content="Beyond checklists — how to implement fairness, explainability, and bias detection in production ML. Real tools, code, and EU AI Act implications for 2026.">
   <link rel="canonical" href="https://theneildave.in/blog/responsible-ai-in-practice.html">
   <meta name="author" content="Neil Dave">
   <meta name="robots" content="index, follow">
@@ -173,7 +182,7 @@
   <header id="header">
     <div class="d-flex flex-column">
       <div class="profile">
-        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy">
+        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" fetchpriority="high" width="200" height="200">
         <h1 class="text-light"><a href="/">Neil Dave</a></h1>
         <div class="social-links mt-3 text-center">
           <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
@@ -588,12 +597,12 @@ shap.dependence_plot("postcode_cluster", shap_values, X_test, interaction_index=
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="../assets/vendor/aos/aos.js"></script>
-  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="../assets/js/main.js"></script>
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js" defer></script>
+  <script src="../assets/vendor/aos/aos.js" defer></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
 
 </body>
 </html>

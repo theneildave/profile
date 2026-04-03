@@ -2,17 +2,26 @@
 <html lang="en">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FF2576R3B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0FF2576R3B');
+  </script>
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Neil Dave - AI Solution Architect & Thought Leader</title>
-  <meta name="description" content="Seasoned AI Solution Architect with 7+ years in Gen AI, LLM Engineering & Computer Vision. Transforming businesses and mentoring 120+ professionals.">
-  <meta name="keywords" content="Data Scientist, General AI Engineer, Deep Learning, LLM Engineering, Computer Vision, Machine Learning, Artificial Intelligence, Data Analysis, Neural Networks, Python, Data Mining, Predictive Modeling, AI Research, Big Data Technologies">
+  <title>Neil Dave — AI Solution Architect & Generative AI Engineer</title>
+  <meta name="description" content="AI Solution Architect with 7+ years in Gen AI, LLM Engineering & Computer Vision. Delivering real-world AI across healthcare, sports analytics, and enterprise.">
+  <meta name="keywords" content="Data Scientist, Generative AI Engineer, Deep Learning, LLM Engineering, Computer Vision, Machine Learning, Artificial Intelligence, Data Analysis, Neural Networks, Python, Data Mining, Predictive Modeling, AI Research, Big Data Technologies">
   
   <!-- Open Graph Meta Tags (Social Media Sharing) -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://theneildave.in/">
-  <meta property="og:title" content="Neil Dave - AI Leadership & Solution Architect">
+  <meta property="og:title" content="Neil Dave — AI Solution Architect & Generative AI Engineer">
   <meta property="og:description" content="Seasoned AI Solution Architect with 7+ years expertise in Gen AI,Machine Learning, Deep Learning, NLP/LLM, and Computer Vision.">
   <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.webp">
   <meta property="og:site_name" content="Neil Dave">
@@ -21,7 +30,7 @@
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://theneildave.in/">
-  <meta name="twitter:title" content="Neil Dave - AI Leadership & Solution Architect">
+  <meta name="twitter:title" content="Neil Dave — AI Solution Architect & Generative AI Engineer">
   <meta name="twitter:description" content="Seasoned AI Solution Architect with 7+ years expertise in Machine Learning, Deep Learning, NLP/LLM, and Computer Vision.">
   <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.webp">
   
@@ -126,6 +135,17 @@
   }
   </script>
 
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"}
+    ]
+  }
+  </script>
+
   <!-- Organization Schema — AI consulting entity recognition -->
   <script type="application/ld+json">
   {
@@ -155,14 +175,14 @@
       "https://www.youtube.com/@theneildave"
     ],
     "areaServed": "Worldwide",
-    "serviceType": [
-      "Generative AI Consulting",
-      "LLM Engineering",
-      "Machine Learning Development",
-      "Computer Vision Solutions",
-      "MLOps & LLMOps",
-      "Responsible AI Audits",
-      "AI Strategy for SMBs"
+    "makesOffer": [
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Generative AI Consulting"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "LLM Engineering"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Machine Learning Development"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Computer Vision Solutions"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "MLOps & LLMOps"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Responsible AI Audits"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI Strategy for SMBs"}}
     ],
     "priceRange": "$$",
     "knowsAbout": [
@@ -189,7 +209,7 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" fetchpriority="high">
+        <img src="assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" fetchpriority="high" width="200" height="200">
         <h2 class="text-light"><a href="/">Neil Dave</a></h2>
         <div class="social-links mt-3 text-center">
           <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
@@ -288,7 +308,7 @@
 
         <div class="row">
           <div class="col-lg-4" data-aos="fade-right">
-            <img src="assets/img/profile-img.webp" class="img-fluid" alt="Neil Dave Profile" loading="lazy">
+            <img src="assets/img/profile-img.webp" class="img-fluid" alt="Neil Dave Profile" loading="lazy" width="200" height="200">
           </div>
           <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
             <h3>AI Solution Architect</h3>
@@ -589,7 +609,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-genai">
             <div class="portfolio-wrap">
-              <img src="assets/img/ai.webp" class="img-fluid" alt="Gen AI and LLM Project" loading="lazy">
+              <img src="assets/img/ai.webp" class="img-fluid" alt="Gen AI and LLM Project" loading="lazy" width="800" height="450">
               <div class="portfolio-links">
                 <a href="gen-ai.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -603,7 +623,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-ml">
             <div class="portfolio-wrap">
-              <img src="assets/img/sepsis.webp" class="img-fluid" alt="Sepsis Detection Machine Learning" loading="lazy">
+              <img src="assets/img/sepsis.webp" class="img-fluid" alt="Sepsis Detection Machine Learning" loading="lazy" width="800" height="600">
               <div class="portfolio-links">
                 <a href="sepsis.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -617,7 +637,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-rai">
             <div class="portfolio-wrap">
-              <img src="assets/img/rai.webp" class="img-fluid" alt="Responsible AI Project" loading="lazy">
+              <img src="assets/img/rai.webp" class="img-fluid" alt="Responsible AI Project" loading="lazy" width="800" height="534">
               <div class="portfolio-links">
                 <a href="rai.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -631,7 +651,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-dl">
             <div class="portfolio-wrap">
-              <img src="assets/img/run-prediction.webp" class="img-fluid" alt="Cricket Run Prediction Deep Learning" loading="lazy">
+              <img src="assets/img/run-prediction.webp" class="img-fluid" alt="Cricket Run Prediction Deep Learning" loading="lazy" width="800" height="507">
               <div class="portfolio-links">
                 <a href="run-prediction.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -645,7 +665,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-cv">
             <div class="portfolio-wrap">
-              <img src="assets/img/object-detection.webp" class="img-fluid" alt="Computer Vision Object Detection" loading="lazy">
+              <img src="assets/img/object-detection.webp" class="img-fluid" alt="Computer Vision Object Detection" loading="lazy" width="800" height="527">
               <div class="portfolio-links">
                 <a href="cv-object-detection.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -659,7 +679,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-cv">
             <div class="portfolio-wrap">
-              <img src="assets/img/cv.webp" class="img-fluid" alt="Thermal Imaging Computer Vision" loading="lazy">
+              <img src="assets/img/cv.webp" class="img-fluid" alt="Thermal Imaging Computer Vision" loading="lazy" width="800" height="938">
               <div class="portfolio-links">
                 <a href="cv.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -673,7 +693,7 @@
 
           <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-card">
             <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-7.webp" class="img-fluid" alt="">
+              <img src="assets/img/portfolio/portfolio-7.webp" class="img-fluid" alt="AI Portfolio Project" width="800" height="600">
               <div class="portfolio-links">
                 <a href="assets/img/portfolio/portfolio-7.webp" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 1"><i class="bx bx-plus"></i></a>
                 <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
@@ -683,7 +703,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-card">
             <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-8.webp" class="img-fluid" alt="">
+              <img src="assets/img/portfolio/portfolio-8.webp" class="img-fluid" alt="AI Portfolio Project" width="800" height="600">
               <div class="portfolio-links">
                 <a href="assets/img/portfolio/portfolio-8.webp" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a>
                 <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
@@ -693,7 +713,7 @@
 
           <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-web">
             <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-9.webp" class="img-fluid" alt="">
+              <img src="assets/img/portfolio/portfolio-9.webp" class="img-fluid" alt="AI Portfolio Project" width="800" height="600">
               <div class="portfolio-links">
                 <a href="assets/img/portfolio/portfolio-9.webp" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
                 <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>

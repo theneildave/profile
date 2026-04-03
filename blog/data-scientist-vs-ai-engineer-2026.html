@@ -2,12 +2,21 @@
 <html lang="en">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FF2576R3B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0FF2576R3B');
+  </script>
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Data Scientist vs. AI Engineer: What Actually Changes in 2026? | Neil Dave — AI Solution Architect</title>
+  <title>Data Scientist vs AI Engineer — 2026 Guide | Neil Dave</title>
 
-  <meta name="description" content="Data scientist vs AI engineer — the titles sound similar but the work is completely different. A practitioner breakdown of skills, salary, and how to make the move in 2026.">
+  <meta name="description" content="Data scientist vs AI engineer — similar titles, completely different work. Practitioner breakdown of skills, salary, and how to make the move in 2026.">
 
   <link rel="canonical" href="https://theneildave.in/blog/data-scientist-vs-ai-engineer-2026.html">
 
@@ -19,8 +28,15 @@
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://theneildave.in/blog/data-scientist-vs-ai-engineer-2026.html">
   <meta property="og:title" content="Data Scientist vs. AI Engineer: What Actually Changes in 2026? | Neil Dave">
-  <meta property="og:description" content="Data scientist vs AI engineer — the titles sound similar but the work is completely different. A practitioner breakdown of skills, salary, and how to make the move in 2026.">
+  <meta property="og:description" content="Data scientist vs AI engineer — similar titles, completely different work. Practitioner breakdown of skills, salary, and how to make the move in 2026.">
   <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.webp">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
+  <meta name="twitter:title" content="Data Scientist vs. AI Engineer: What Actually Changes in 2026? | Neil Dave">
+  <meta name="twitter:description" content="Data scientist vs AI engineer — similar titles, completely different work. Practitioner breakdown of skills, salary, and how to make the move in 2026.">
+  <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.webp">
 
   <!-- Article + Breadcrumb Schema -->
   <script type="application/ld+json">
@@ -60,12 +76,38 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between a Data Scientist and an AI Engineer in 2026?",
+        "acceptedAnswer": {"@type": "Answer", "text": "A Data Scientist focuses on statistical analysis, model experimentation, and insight generation — often in notebooks. An AI Engineer focuses on building, deploying, and maintaining AI systems in production — writing software that wraps models into reliable, scalable services. In 2026, AI Engineers command higher salaries in most markets due to the shift from analysis to deployment."}
+      },
+      {
+        "@type": "Question",
+        "name": "Should I transition from Data Scientist to AI Engineer?",
+        "acceptedAnswer": {"@type": "Answer", "text": "If you want to build systems that ship rather than reports that inform decisions, yes. The transition requires learning software engineering fundamentals — APIs, containers, CI/CD, and LLMOps tooling. Most data scientists can make this shift in 6–12 months with focused effort."}
+      },
+      {
+        "@type": "Question",
+        "name": "What skills does an AI Engineer need in 2026?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Core skills: Python, REST APIs, containerisation (Docker/Kubernetes), LLM prompt engineering, RAG pipeline design, vector databases, model evaluation, and observability. Bonus: MLOps platforms (MLflow, Weights & Biases), cloud ML services (AWS Bedrock, GCP Vertex), and fine-tuning workflows."}
+      }
+    ]
+  }
+  </script>
+
   <!-- Favicons -->
   <link href="../assets/img/favicon1.png" rel="icon">
   <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
@@ -115,7 +157,7 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy">
+        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" fetchpriority="high" width="200" height="200">
         <h1 class="text-light"><a href="/">Neil Dave</a></h1>
         <div class="social-links mt-3 text-center">
           <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
@@ -410,12 +452,12 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="../assets/vendor/aos/aos.js"></script>
-  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="../assets/js/main.js"></script>
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js" defer></script>
+  <script src="../assets/vendor/aos/aos.js" defer></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
 
 </body>
 </html>

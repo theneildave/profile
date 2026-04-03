@@ -2,11 +2,20 @@
 <html lang="en">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FF2576R3B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0FF2576R3B');
+  </script>
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Claude Code Without Subscription: Free + API-Key Setup Guide | Neil Dave</title>
-  <meta name="description" content="Claude Code works without any subscription — run it free with Ollama locally, or pay-as-you-go via API key ($5 free credits). Most developers miss the Ollama method entirely. 4 setups compared.">
+  <meta name="description" content="Claude Code works without a subscription — run free with Ollama or pay-as-you-go via API key. Most developers miss the Ollama method. 4 setups compared.">
   <link rel="canonical" href="https://theneildave.in/blog/claude-code-without-paid-plan.html">
   <meta name="author" content="Neil Dave">
   <meta name="robots" content="index, follow">
@@ -16,7 +25,7 @@
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://theneildave.in/blog/claude-code-without-paid-plan.html">
   <meta property="og:title" content="Claude Code Without Subscription: Free + API-Key Setup Guide | Neil Dave">
-  <meta property="og:description" content="Claude Code works without any subscription — run it free with Ollama locally, or pay-as-you-go via API key ($5 free credits). Most developers miss the Ollama method entirely. 4 setups compared.">
+  <meta property="og:description" content="Claude Code works without a subscription — run free with Ollama or pay-as-you-go via API key. Most developers miss the Ollama method. 4 setups compared.">
   <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.webp">
 
   <!-- Twitter Card -->
@@ -131,7 +140,9 @@
   <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
@@ -183,7 +194,7 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy">
+        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" fetchpriority="high" width="200" height="200">
         <h1 class="text-light"><a href="/">Neil Dave</a></h1>
         <div class="social-links mt-3 text-center">
           <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
@@ -584,12 +595,12 @@ gcloud auth application-default login</code></pre>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="../assets/vendor/aos/aos.js"></script>
-  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="../assets/js/main.js"></script>
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js" defer></script>
+  <script src="../assets/vendor/aos/aos.js" defer></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
 
 </body>
 </html>

@@ -2,10 +2,19 @@
 <html lang="en">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FF2576R3B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0FF2576R3B');
+  </script>
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Scaling Generative AI from Pilot to Production | Neil Dave — AI Solution Architect</title>
+  <title>Scaling Generative AI: Pilot to Production | Neil Dave</title>
   <meta name="description" content="Most AI pilots never reach production. This CTO playbook covers the architecture, governance, and team decisions that separate demos from deployed systems.">
   <link rel="canonical" href="https://theneildave.in/blog/scaling-generative-ai-pilot-to-production.html">
 
@@ -65,12 +74,38 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why do most generative AI pilots fail to reach production?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Most pilots fail because they are built for demo conditions — fixed prompts, curated inputs, and no error handling. Production requires latency budgets, fallback chains, cost controls, and integration with real enterprise data pipelines."}
+      },
+      {
+        "@type": "Question",
+        "name": "What is the most important step when scaling a GenAI pilot to production?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Establishing an evaluation framework before scaling. Without automated evals, you cannot detect regressions when you swap models, update prompts, or change retrieval logic. Evals are the safety net that makes iteration safe."}
+      },
+      {
+        "@type": "Question",
+        "name": "How long does it typically take to move a GenAI pilot to production?",
+        "acceptedAnswer": {"@type": "Answer", "text": "With a structured approach — including data pipelines, evals, observability, and security review — a well-scoped GenAI feature takes 8–16 weeks from pilot to production. Poorly scoped pilots with no evals can take 6–18 months or never ship."}
+      }
+    ]
+  }
+  </script>
+
   <!-- Favicons -->
   <link href="../assets/img/favicon1.png" rel="icon">
   <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
@@ -119,7 +154,7 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy">
+        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" fetchpriority="high" width="200" height="200">
         <h1 class="text-light"><a href="/">Neil Dave</a></h1>
         <div class="social-links mt-3 text-center">
           <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
@@ -447,12 +482,12 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="../assets/vendor/aos/aos.js"></script>
-  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="../assets/js/main.js"></script>
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js" defer></script>
+  <script src="../assets/vendor/aos/aos.js" defer></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
 
 </body>
 </html>

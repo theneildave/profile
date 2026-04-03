@@ -4,41 +4,49 @@
     <loc>https://theneildave.in/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <lastmod>2026-04-03</lastmod>
   </url>
   <url>
     <loc>https://theneildave.in/lead.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://theneildave.in/gen-ai.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://theneildave.in/sepsis.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://theneildave.in/rai.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://theneildave.in/run-prediction.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://theneildave.in/cv-object-detection.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://theneildave.in/cv.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://theneildave.in/speaking.html</loc>
@@ -62,6 +70,7 @@
     <loc>https://theneildave.in/blog.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <lastmod>2026-04-03</lastmod>
   </url>
   <url>
     <loc>https://theneildave.in/blog/llmops-vs-mlops.html</loc>
