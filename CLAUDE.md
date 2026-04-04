@@ -13,6 +13,10 @@ npx serve .
 python -m http.server 8080
 ```
 
+## Active Plugins / MCP
+
+`.mcp.json` (root) has `code-review-graph` wired as an MCP server — it's active in Claude Code sessions. Use its tools (`semantic_search_nodes_tool`, `query_graph_tool`, `get_impact_radius_tool`) before scanning files manually. The `.gstack/` directory holds gstack runtime artifacts (browse logs, QA reports) — treat as ephemeral, do not commit.
+
 ## Site Architecture
 
 ```
@@ -39,14 +43,39 @@ assets/vendor/          ← All JS/CSS vendors bundled locally (Bootstrap, AOS, 
 
 **Root pages** reference assets as `assets/...`. **Sub-pages** (inside `/blog/`) use `../assets/...`.
 
+## Design System
+
+All visual rules (typography, colours, component patterns, layout, icons, CTAs, accessibility) live in **`DESIGN.md`** — read it before building any new page or component. Critical rules:
+
+- **Font stack:** Raleway (headings) + Open Sans (body) + Poppins (labels). **Do NOT use Lato** — `gen-ai.html` uses it as a known inconsistency; new pages must not repeat it.
+- **Primary colour:** `#0d6efd`. Dark navy accent: `#1a3a6b`.
+- **Buttons:** always `rounded-pill`. Never square-cornered.
+- **Icons:** Boxicons (`bx` prefix) exclusively for content; Bootstrap Icons (`bi` prefix) for UI chrome only.
+- **Animations:** AOS only (`data-aos="fade-up"`). No additional animation libraries.
+
 ## Key Conventions
 
 ### Adding a Blog Post
 1. Copy `blog/post-template.html` → `blog/your-post-slug.html`
 2. Fill every `[FILL IN]` placeholder: title, description, canonical URL, published date, schema keywords, breadcrumb title
-3. Add a card to `blog.html` matching the existing card pattern (newest post first)
-4. Update the **Articles section on `index.html`** (`#articles`) — swap the pinned card to the newest post and shift the previous one to the second column
-5. Add the URL to `sitemap.xml`
+3. **Change `<meta name="robots">` from `noindex, nofollow` to `index, follow`** — the template ships with noindex to prevent accidental indexing of drafts
+4. Add Twitter Card meta tags (`twitter:card`, `twitter:site`, `twitter:title`, `twitter:description`, `twitter:image`) — newer posts include these; add them for every published post
+5. In `BlogPosting` schema, add `"wordCount"`, `"timeRequired"` (ISO 8601 duration, e.g. `"PT12M"`), and include `sameAs` in the author object: `["https://www.linkedin.com/in/neil-dave/", "https://www.wikidata.org/wiki/Q138716797", "https://www.youtube.com/@theneildave"]`
+6. Add a `FAQPage` schema block (3–4 Q&As) for AI citation extraction — see recent posts for the pattern
+7. Add a card to `blog.html` (Swiper carousel, newest slide first)
+8. Update the **Articles section on `index.html`** (`#articles`) — swap the pinned card to the newest post and shift the previous one to the second column
+9. Add the URL to `sitemap.xml`
+
+### Blog post `<body>` scripts
+Blog posts (`blog/*.html`) use a **lighter script set** than root pages — they do not need isotope, typed.js, waypoints, or php-email-form:
+```html
+<script src="../assets/vendor/purecounter/purecounter_vanilla.js" defer></script>
+<script src="../assets/vendor/aos/aos.js" defer></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+<script src="../assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+<script src="../assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+<script src="../assets/js/main.js" defer></script>
+```
 
 ### Schema Markup (JSON-LD)
 Every page must have inline `<script type="application/ld+json">` blocks. Minimum required per page type:
@@ -92,6 +121,8 @@ The left sidebar nav block is duplicated across every page. When adding or remov
 - `blog/*.html` (every individual blog post file, including `post-template.html`)
 
 Nav links on non-index pages use `index.html#section` format (e.g., `index.html#about`) rather than `#about`. Social links must use full URLs — never `href="#"`.
+
+The canonical nav structure (from `DESIGN.md`) includes Speaking and Enterprise as top-level links — verify `DESIGN.md` nav block is the source of truth when in doubt.
 
 ## GEO / AI-Citation Strategy
 
