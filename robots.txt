@@ -58,3 +58,6 @@ Disallow:
 
 # Sitemap for better indexing and AI/GEO/AEO discovery
 Sitemap: https://theneildave.in/sitemap.xml
+
+# llms.txt — machine-readable overview for AI language models
+# https://theneildave.in/llms.txt

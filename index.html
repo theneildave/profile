@@ -29,6 +29,7 @@
   
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
   <meta name="twitter:url" content="https://theneildave.in/">
   <meta name="twitter:title" content="Neil Dave — AI Solution Architect & Generative AI Engineer">
   <meta name="twitter:description" content="Seasoned AI Solution Architect with 7+ years expertise in Machine Learning, Deep Learning, NLP/LLM, and Computer Vision.">
@@ -47,8 +48,10 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 
-  <!-- LCP preload — profile image is the largest above-fold element -->
-  <link rel="preload" as="image" href="assets/img/profile-img.webp">
+  <!-- LCP preload — hero background is the largest above-fold element -->
+  <!-- Mobile: serve the smaller bg-mobile.webp; desktop: full bg.webp -->
+  <link rel="preload" as="image" href="assets/img/bg-mobile.webp" media="(max-width: 768px)">
+  <link rel="preload" as="image" href="assets/img/bg.webp" media="(min-width: 769px)">
 
   <!-- Preconnect — eliminates DNS + TLS latency for Google Fonts (FCP fix) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,19 +62,80 @@
   <link rel="dns-prefetch" href="https://assets.calendly.com">
   <link rel="dns-prefetch" href="https://open.spotify.com">
 
-  <!-- Google Fonts — display=swap prevents render-blocking (FCP fix) -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+  <!-- Google Fonts — loaded non-blocking via preload/onload; noscript fallback ensures fonts still load -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Raleway:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Raleway:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"></noscript>
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- ============================================================
+       CRITICAL CSS — inlined to eliminate render-blocking requests.
+       Covers: body reset, hero section, Bootstrap utilities used
+       above the fold (flex, btn, rounded-pill), mobile nav toggle,
+       and sidebar layout. Full Bootstrap + style.css load async below.
+       ============================================================ -->
+  <style>
+    /* Box model reset */
+    *,::after,::before{box-sizing:border-box}
+    /* Body */
+    body{margin:0;font-family:"Open Sans",sans-serif;color:#272829;background:#fff}
+    h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem;font-family:"Raleway",sans-serif;font-weight:500;line-height:1.2}
+    p{margin-top:0;margin-bottom:1rem}
+    a{color:#149ddd;text-decoration:none}
+    /* Sidebar layout — prevents main content jumping on load */
+    #header{position:fixed;top:0;left:0;bottom:0;width:300px;z-index:9997;padding:0 15px;background:#149ddd;overflow-y:auto;transition:all .5s}
+    #main{margin-left:300px}
+    @media(max-width:1199px){#header{left:-300px}#main{margin-left:0}}
+    /* Mobile nav toggle button — first visible element on mobile */
+    .mobile-nav-toggle{position:fixed;right:15px;top:15px;z-index:9998;border:0;font-size:24px;outline:none;background-color:#149ddd;color:#fff;width:48px;height:48px;display:inline-flex;align-items:center;justify-content:center;line-height:0;border-radius:50px;cursor:pointer}
+    @media(min-width:1200px){.d-xl-none{display:none!important}}
+    /* Hero — background-color is the instant fallback while the image loads */
+    #hero{position:relative;width:100%;height:100vh;background-color:#050d18;background-position:right center;background-size:cover;display:flex;flex-direction:column;justify-content:center;align-items:center}
+    /* Split media queries so each viewport only fetches its own image */
+    @media(max-width:768px){#hero{background-image:url(assets/img/bg-mobile.webp)}}
+    @media(min-width:769px){#hero{background-image:url(assets/img/bg.webp)}}
+    #hero:before{content:"";background:rgba(5,13,24,.3);position:absolute;inset:0;z-index:1}
+    #hero .hero-container{position:relative;z-index:2;min-width:300px}
+    #hero h1{margin:0 0 10px;font-size:64px;font-weight:700;line-height:56px;color:#fff}
+    #hero p{color:#fff;margin-bottom:50px;font-size:26px;font-family:"Poppins",sans-serif}
+    #hero p span{color:#cdf30c;padding-bottom:4px;letter-spacing:1px;border-bottom:3px solid #149ddd}
+    @media(max-width:768px){#hero h1{font-size:28px;line-height:36px}#hero p{font-size:18px;margin-bottom:30px}}
+    /* Bootstrap critical utilities for hero CTAs */
+    .d-flex{display:flex!important}.d-inline-flex{display:inline-flex!important}
+    .flex-column{flex-direction:column!important}
+    .justify-content-center{justify-content:center!important}
+    .align-items-center{align-items:center!important}
+    .btn{display:inline-block;font-weight:400;line-height:1.5;text-align:center;text-decoration:none;vertical-align:middle;cursor:pointer;user-select:none;background-color:transparent;border:1px solid transparent;padding:.375rem .75rem;font-size:1rem;border-radius:.375rem;transition:color .15s,background-color .15s,border-color .15s}
+    .btn-primary{color:#fff;background-color:#0d6efd;border-color:#0d6efd}
+    .btn-primary:hover{color:#fff;background-color:#0b5ed7;border-color:#0a58ca}
+    .btn-outline-light{color:#f8f9fa;border-color:#f8f9fa}
+    .btn-outline-light:hover{color:#000;background-color:#f8f9fa}
+    .btn-lg{padding:.5rem 1rem;font-size:1.25rem;border-radius:.5rem}
+    .px-4{padding-right:1.5rem!important;padding-left:1.5rem!important}
+    .rounded-pill{border-radius:50rem!important}
+    .ms-2{margin-left:.5rem!important}
+    .me-2{margin-right:.5rem!important}
+  </style>
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Bootstrap + site CSS — deferred, no longer render-blocking -->
+  <link rel="preload" as="style" href="assets/vendor/bootstrap/css/bootstrap.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="assets/css/style.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+  </noscript>
+
+  <!-- Non-critical CSS — deferred (below-fold: icons, animations, lightbox, swiper) -->
+  <link rel="preload" as="style" href="assets/vendor/aos/aos.css" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="assets/vendor/bootstrap-icons/bootstrap-icons.css" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="assets/vendor/boxicons/css/boxicons.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="assets/vendor/glightbox/css/glightbox.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="assets/vendor/swiper/swiper-bundle.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  </noscript>
 
   <!-- =======================================================
   * Template Name: iPortfolio
@@ -81,122 +145,6 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-  <!-- Person Schema — AI entity recognition -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Neil Dave",
-    "url": "https://theneildave.in",
-    "image": "https://theneildave.in/assets/img/profile-img.webp",
-    "sameAs": [
-      "https://www.wikidata.org/wiki/Q138716797",
-      "https://www.linkedin.com/in/neil-dave/",
-      "https://github.com/theneildave/",
-      "https://medium.com/@theneildave",
-      "https://theneildave.substack.com",
-      "https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en",
-      "https://www.youtube.com/@theneildave"
-    ],
-    "jobTitle": "AI Solution Architect",
-    "description": "AI Solution Architect with 7+ years of expertise in Machine Learning, Deep Learning, NLP/LLM Engineering, and Computer Vision. Delivers AI projects across healthcare, sports analytics, and enterprise tech. Mentors 120+ professionals on LinkedIn.",
-    "knowsAbout": [
-      "Machine Learning",
-      "Deep Learning",
-      "LLM Engineering",
-      "Generative AI",
-      "Computer Vision",
-      "MLOps",
-      "NLP",
-      "Python"
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Bangalore",
-      "addressRegion": "Karnataka",
-      "addressCountry": "IN"
-    },
-    "alumniOf": [
-      {
-        "@type": "EducationalOrganization",
-        "name": "Jio Institute",
-        "url": "https://www.jioinstitute.edu.in"
-      },
-      {
-        "@type": "EducationalOrganization",
-        "name": "Pandit Deendayal Petroleum University"
-      }
-    ],
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Mumbai Indians"
-    },
-    "email": "hello@theneildave.in"
-  }
-  </script>
-
-  <!-- BreadcrumbList Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"}
-    ]
-  }
-  </script>
-
-  <!-- Organization Schema — AI consulting entity recognition -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Neil Dave — AI Consulting & Solution Architecture",
-    "url": "https://theneildave.in",
-    "logo": "https://theneildave.in/assets/img/profile-img.webp",
-    "image": "https://theneildave.in/assets/img/profile-img.webp",
-    "description": "AI consulting and solution architecture services for SMBs and enterprises. Specialising in Generative AI, LLM Engineering, Computer Vision, MLOps, and AI strategy. Based in Bangalore, India.",
-    "founder": {
-      "@type": "Person",
-      "name": "Neil Dave",
-      "url": "https://theneildave.in",
-      "sameAs": "https://www.wikidata.org/wiki/Q138716797"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Bangalore",
-      "addressRegion": "Karnataka",
-      "addressCountry": "IN"
-    },
-    "email": "hello@theneildave.in",
-    "sameAs": [
-      "https://www.wikidata.org/wiki/Q138716797",
-      "https://www.linkedin.com/in/neil-dave/",
-      "https://www.youtube.com/@theneildave"
-    ],
-    "areaServed": "Worldwide",
-    "makesOffer": [
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Generative AI Consulting"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "LLM Engineering"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Machine Learning Development"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Computer Vision Solutions"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "MLOps & LLMOps"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Responsible AI Audits"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI Strategy for SMBs"}}
-    ],
-    "priceRange": "$$",
-    "knowsAbout": [
-      "Machine Learning",
-      "Deep Learning",
-      "LLM Engineering",
-      "Generative AI",
-      "Computer Vision",
-      "MLOps",
-      "NLP",
-      "Python"
-    ]
-  }
-  </script>
 </head>
 
 <body>
@@ -209,7 +157,7 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" fetchpriority="high" width="200" height="200">
+        <img src="assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy" width="200" height="200">
         <h2 class="text-light"><a href="/">Neil Dave</a></h2>
         <div class="social-links mt-3 text-center">
           <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
@@ -247,7 +195,7 @@
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center" aria-label="Neil Dave — AI Solution Architect, Bangalore">
-    <div class="hero-container" data-aos="fade-in">
+    <div class="hero-container">
       <h1>Neil Dave</h1>
       <!-- Static description for crawlers — typed animation is JS-only and not indexed -->
       <p class="visually-hidden">AI Solution Architect and Data Scientist with 7+ years of experience in Machine Learning, Deep Learning, Generative AI, LLM Engineering, and Computer Vision. Based in Bangalore, India.</p>
@@ -303,7 +251,7 @@
           <p><strong>Neil Dave is a Bangalore-based AI Solution Architect with 7+ years of experience in Machine Learning, Deep Learning, Generative AI, and Computer Vision.</strong> He has delivered end-to-end AI solutions across healthcare, sports analytics, and enterprise tech — including projects for <b>Mumbai Indians</b>. He mentors 120+ professionals on LinkedIn and consults SMBs on AI adoption and strategy.
             <br><br>He has helped businesses leverage data-driven AI to drive measurable growth — from building custom LLMs and computer vision pipelines to deploying production ML systems with MLOps/LLMOps practices. According to <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey's State of AI 2024</a>, organisations that deploy AI at scale report a <strong>20–30% reduction in operational costs</strong> and up to <strong>3× revenue growth</strong> compared to non-adopters — outcomes Neil has actively helped clients work toward.
             <br><br>The <a href="https://www.weforum.org/publications/the-future-of-jobs-report-2025/" target="_blank" rel="noopener">World Economic Forum Future of Jobs Report 2025</a> identifies AI and Machine Learning Specialists as the <strong>#1 fastest-growing job role globally</strong>, with demand rising 40% by 2027. Neil's mentorship of 120+ professionals directly addresses this skills gap in the Indian AI ecosystem.
-            <br><br><em>Last updated: March 2026</em></p>
+            <br><br><em>Last updated: April 2026</em></p>
         </div>
 
         <div class="row">
@@ -609,7 +557,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-genai">
             <div class="portfolio-wrap">
-              <img src="assets/img/ai.webp" class="img-fluid" alt="Gen AI and LLM Project" loading="lazy" width="800" height="450">
+              <img src="assets/img/ai.webp" srcset="assets/img/ai-mobile.webp 400w, assets/img/ai.webp 800w" sizes="(max-width: 576px) 400px, 800px" class="img-fluid" alt="Gen AI and LLM Project" loading="lazy" width="800" height="450">
               <div class="portfolio-links">
                 <a href="gen-ai.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -623,7 +571,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-ml">
             <div class="portfolio-wrap">
-              <img src="assets/img/sepsis.webp" class="img-fluid" alt="Sepsis Detection Machine Learning" loading="lazy" width="800" height="600">
+              <img src="assets/img/sepsis.webp" srcset="assets/img/sepsis-mobile.webp 400w, assets/img/sepsis.webp 800w" sizes="(max-width: 576px) 400px, 800px" class="img-fluid" alt="Sepsis Detection Machine Learning" loading="lazy" width="800" height="600">
               <div class="portfolio-links">
                 <a href="sepsis.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -637,7 +585,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-rai">
             <div class="portfolio-wrap">
-              <img src="assets/img/rai.webp" class="img-fluid" alt="Responsible AI Project" loading="lazy" width="800" height="534">
+              <img src="assets/img/rai.webp" srcset="assets/img/rai-mobile.webp 400w, assets/img/rai.webp 800w" sizes="(max-width: 576px) 400px, 800px" class="img-fluid" alt="Responsible AI Project" loading="lazy" width="800" height="534">
               <div class="portfolio-links">
                 <a href="rai.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -651,7 +599,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-dl">
             <div class="portfolio-wrap">
-              <img src="assets/img/run-prediction.webp" class="img-fluid" alt="Cricket Run Prediction Deep Learning" loading="lazy" width="800" height="507">
+              <img src="assets/img/run-prediction.webp" srcset="assets/img/run-prediction-mobile.webp 400w, assets/img/run-prediction.webp 800w" sizes="(max-width: 576px) 400px, 800px" class="img-fluid" alt="Cricket Run Prediction Deep Learning" loading="lazy" width="800" height="507">
               <div class="portfolio-links">
                 <a href="run-prediction.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -665,7 +613,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-cv">
             <div class="portfolio-wrap">
-              <img src="assets/img/object-detection.webp" class="img-fluid" alt="Computer Vision Object Detection" loading="lazy" width="800" height="527">
+              <img src="assets/img/object-detection.webp" srcset="assets/img/object-detection-mobile.webp 400w, assets/img/object-detection.webp 800w" sizes="(max-width: 576px) 400px, 800px" class="img-fluid" alt="Computer Vision Object Detection" loading="lazy" width="800" height="527">
               <div class="portfolio-links">
                 <a href="cv-object-detection.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -679,7 +627,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-cv">
             <div class="portfolio-wrap">
-              <img src="assets/img/cv.webp" class="img-fluid" alt="Thermal Imaging Computer Vision" loading="lazy" width="800" height="938">
+              <img src="assets/img/cv.webp" srcset="assets/img/cv-mobile.webp 400w, assets/img/cv.webp 800w" sizes="(max-width: 576px) 400px, 800px" class="img-fluid" alt="Thermal Imaging Computer Vision" loading="lazy" width="800" height="938">
               <div class="portfolio-links">
                 <a href="cv.html" title="More Details"><i class="bx bx-link"></i></a>
               </div>
@@ -875,7 +823,7 @@
           <div class="col-lg-8 mx-auto text-center">
             <p>I write about LLMs, MLOps, AI career growth, and the intersection of AI and business. Join professionals already reading <strong>TND Talks on Substack</strong>.</p>
             <br>
-            <iframe src="https://theneildave.substack.com/embed" width="100%" height="150" style="border:1px solid #EEE; background:white; border-radius:8px;" frameborder="0" scrolling="no" loading="lazy"></iframe>
+            <iframe data-src="https://theneildave.substack.com/embed" width="100%" height="150" style="border:1px solid #EEE; background:white; border-radius:8px;" frameborder="0" scrolling="no" class="lazy-iframe"></iframe>
             <br><br>
             <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-primary btn-lg px-4 rounded-pill">Read on Substack</a>
           </div>
@@ -920,7 +868,7 @@
         <div class="section-title">
           <h2>TND Talks</h2>
           <!-- Calendly inline widget begin -->
-          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/show/5yqM8poTUB7dLi4TgNIjBw/video?utm_source=generator&t=0" width="624" height="351" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          <iframe data-src="https://open.spotify.com/embed/show/5yqM8poTUB7dLi4TgNIjBw/video?utm_source=generator&t=0" style="border-radius:12px" width="624" height="351" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" class="lazy-iframe"></iframe>
           <!-- Calendly inline widget end -->
         </div>
       </div>
@@ -932,11 +880,28 @@
       <div class="container">
         <div class="section-title">
           <h2>Appointment</h2>
-          <!-- Calendly inline widget begin -->
-          <!-- <div class="calendly-inline-widget" data-url="https://calendly.com/theneildave/30min" style="min-width:320px;height:630px;"></div> -->
-          <div class="calendly-inline-widget" data-url="https://calendly.com/theneildave" style="min-width:320px;height:630px;"></div>
-          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-          <!-- Calendly inline widget end -->
+          <!-- Calendly lazy-load widget: script + iframe only injected on button click -->
+          <div id="calendly-placeholder" style="text-align:center;padding:40px 0;">
+            <p class="text-muted mb-3">Click to load the booking calendar</p>
+            <button id="calendly-load-btn" class="btn btn-primary btn-lg px-5 rounded-pill" onclick="loadCalendly()">
+              <i class="bx bx-calendar me-2"></i>Open Booking Calendar
+            </button>
+          </div>
+          <div id="calendly-widget" style="display:none;">
+            <div class="calendly-inline-widget" data-url="https://calendly.com/theneildave" style="min-width:320px;height:630px;"></div>
+          </div>
+          <script>
+            function loadCalendly() {
+              var ph = document.getElementById('calendly-placeholder');
+              var wdg = document.getElementById('calendly-widget');
+              ph.style.display = 'none';
+              wdg.style.display = 'block';
+              var s = document.createElement('script');
+              s.src = 'https://assets.calendly.com/assets/external/widget.js';
+              s.async = true;
+              document.head.appendChild(s);
+            }
+          </script>
         </div>
       </div>
     </section>
@@ -1130,6 +1095,30 @@
     }
     </script>
 
+    <!-- PodcastSeries Schema — TND Talks on Spotify -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "PodcastSeries",
+      "name": "TND Talks",
+      "url": "https://open.spotify.com/show/5yqM8poTUB7dLi4TgNIjBw",
+      "description": "TND Talks — a podcast by Neil Dave on AI, Machine Learning, Generative AI, and building real-world AI systems. Practical insights for practitioners and builders.",
+      "author": {
+        "@type": "Person",
+        "name": "Neil Dave",
+        "url": "https://theneildave.in",
+        "sameAs": "https://www.wikidata.org/wiki/Q138716797"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Neil Dave",
+        "url": "https://theneildave.in"
+      },
+      "webFeed": "https://theneildave.substack.com/feed",
+      "inLanguage": "en"
+    }
+    </script>
+
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
@@ -1281,6 +1270,88 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js" defer></script>
+
+  <!-- Lazy-load iframes (Substack, Spotify) via IntersectionObserver -->
+  <script>
+    (function () {
+      if (!('IntersectionObserver' in window)) {
+        // Fallback: load all immediately in old browsers
+        document.querySelectorAll('iframe.lazy-iframe').forEach(function (f) {
+          f.src = f.dataset.src;
+        });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var f = entry.target;
+            f.src = f.dataset.src;
+            obs.unobserve(f);
+          }
+        });
+      }, { rootMargin: '200px' });
+      document.querySelectorAll('iframe.lazy-iframe').forEach(function (f) {
+        io.observe(f);
+      });
+    })();
+  </script>
+
+  <!-- ============================================================
+       JSON-LD Schemas — moved to end of body so they don't delay
+       the browser reaching </head> and starting the first render.
+       Search engines and AI crawlers read these regardless of position.
+       ============================================================ -->
+  <!-- Person Schema — AI entity recognition -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Neil Dave",
+    "url": "https://theneildave.in",
+    "image": "https://theneildave.in/assets/img/profile-img.webp",
+    "sameAs": [
+      "https://www.wikidata.org/wiki/Q138716797",
+      "https://www.linkedin.com/in/neil-dave/",
+      "https://github.com/theneildave/",
+      "https://medium.com/@theneildave",
+      "https://theneildave.substack.com",
+      "https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en",
+      "https://www.youtube.com/@theneildave"
+    ],
+    "jobTitle": "AI Solution Architect",
+    "description": "AI Solution Architect with 7+ years of expertise in Machine Learning, Deep Learning, NLP/LLM Engineering, and Computer Vision. Delivers AI projects across healthcare, sports analytics, and enterprise tech. Mentors 120+ professionals on LinkedIn.",
+    "knowsAbout": ["Machine Learning","Deep Learning","LLM Engineering","Generative AI","Computer Vision","MLOps","NLP","Python"],
+    "address": {"@type": "PostalAddress","addressLocality": "Bangalore","addressRegion": "Karnataka","addressCountry": "IN"},
+    "alumniOf": [{"@type": "EducationalOrganization","name": "Jio Institute","url": "https://www.jioinstitute.edu.in"},{"@type": "EducationalOrganization","name": "Pandit Deendayal Petroleum University"}],
+    "worksFor": {"@type": "Organization","name": "Mumbai Indians","url": "https://www.mumbaiindians.com","sameAs": "https://en.wikipedia.org/wiki/Mumbai_Indians"},
+    "hasCredential": [{"@type": "EducationalOccupationalCredential","name": "Post Graduate Programme in AI & Data Science","credentialCategory": "degree","recognizedBy": {"@type": "EducationalOrganization","name": "Jio Institute","url": "https://www.jioinstitute.edu.in"}},{"@type": "EducationalOccupationalCredential","name": "Bachelor of Technology (Mechanical Engineering)","credentialCategory": "degree","recognizedBy": {"@type": "EducationalOrganization","name": "Pandit Deendayal Petroleum University"}}],
+    "contactPoint": {"@type": "ContactPoint","contactType": "customer service","email": "hello@theneildave.in","availableLanguage": "English","contactOption": "TollFree"},
+    "email": "hello@theneildave.in"
+  }
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://theneildave.in/"}]}</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Neil Dave — AI Consulting & Solution Architecture",
+    "url": "https://theneildave.in",
+    "logo": "https://theneildave.in/assets/img/profile-img.webp",
+    "image": "https://theneildave.in/assets/img/profile-img.webp",
+    "description": "AI consulting and solution architecture services for SMBs and enterprises. Specialising in Generative AI, LLM Engineering, Computer Vision, MLOps, and AI strategy. Based in Bangalore, India.",
+    "founder": {"@type": "Person","name": "Neil Dave","url": "https://theneildave.in","sameAs": "https://www.wikidata.org/wiki/Q138716797"},
+    "address": {"@type": "PostalAddress","addressLocality": "Bangalore","addressRegion": "Karnataka","addressCountry": "IN"},
+    "email": "hello@theneildave.in",
+    "sameAs": ["https://www.wikidata.org/wiki/Q138716797","https://www.linkedin.com/in/neil-dave/","https://www.youtube.com/@theneildave"],
+    "areaServed": "Worldwide",
+    "makesOffer": [{"@type":"Offer","itemOffered":{"@type":"Service","name":"Generative AI Consulting"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"LLM Engineering"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Machine Learning Development"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Computer Vision Solutions"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"MLOps & LLMOps"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Responsible AI Audits"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"AI Strategy for SMBs"}}],
+    "priceRange": "$$",
+    "knowsAbout": ["Machine Learning","Deep Learning","LLM Engineering","Generative AI","Computer Vision","MLOps","NLP","Python"]
+  }
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SiteLinksSearchBox","url":"https://theneildave.in","potentialAction":[{"@type":"SearchAction","target":"https://theneildave.in/blog.html?q={search_term_string}","query-input":"required name=search_term_string"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Neil Dave — AI Solution Architect","url":"https://theneildave.in","description":"Portfolio and consulting site for Neil Dave, AI Solution Architect and Generative AI Engineer based in Bangalore, India.","author":{"@type":"Person","name":"Neil Dave","sameAs":"https://www.wikidata.org/wiki/Q138716797"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://theneildave.in/blog.html?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Neil Dave — AI Solution Architect & Generative AI Engineer","url":"https://theneildave.in","speakable":{"@type":"SpeakableSpecification","cssSelector":["#about .section-title p","#faq .accordion-body",".visually-hidden"]}}</script>
 
 </body>
 

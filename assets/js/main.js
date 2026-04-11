@@ -250,7 +250,8 @@
       duration: 1000,
       easing: 'ease-in-out',
       once: true,
-      mirror: false
+      mirror: false,
+      offset: 50
     })
   });
 
