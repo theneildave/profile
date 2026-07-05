@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FF2576R3B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0FF2576R3B');
+  </script>
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Loop Engineering in Enterprise AI: What the Viral Posts Got Wrong | Neil Dave</title>
+  <meta name="description" content="Loop engineering went viral in June 2026. Every post covers coding agents. Here's what actually happens when you run autonomous AI loops in healthcare, regulated data pipelines, and enterprise production.">
+  <link rel="canonical" href="https://theneildave.in/blog/loop-engineering-enterprise-ai.html">
+  <meta name="author" content="Neil Dave">
+  <meta name="robots" content="index, follow">
+  <meta name="article:published_time" content="2026-06-28">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://theneildave.in/blog/loop-engineering-enterprise-ai.html">
+  <meta property="og:title" content="Loop Engineering in Enterprise AI: What the Viral Posts Got Wrong | Neil Dave">
+  <meta property="og:description" content="Loop engineering went viral in June 2026. Every post covers coding agents. Here's what happens when you run autonomous AI loops in real enterprise cost compounding, compliance drift, and verifier blindness.">
+  <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.webp">
+  <meta property="og:site_name" content="Neil Dave">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
+  <meta name="twitter:title" content="Loop Engineering in Enterprise AI: What the Viral Posts Got Wrong">
+  <meta name="twitter:description" content="The viral loop engineering posts all talk about coding agents. This is what running autonomous AI loops in enterprise healthcare, regulated pipelines, and production actually looks like.">
+  <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.webp">
+
+  <!-- BlogPosting Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Loop Engineering in Enterprise AI: What the Viral Posts Got Wrong",
+    "description": "Loop engineering went viral in June 2026. Every post covers coding agents. Here's what actually happens when you run autonomous AI loops in healthcare, regulated data pipelines, and enterprise production.",
+    "url": "https://theneildave.in/blog/loop-engineering-enterprise-ai.html",
+    "datePublished": "2026-06-28",
+    "dateModified": "2026-06-28",
+    "author": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in",
+      "jobTitle": "AI Solution Architect",
+      "sameAs": [
+        "https://www.linkedin.com/in/neil-dave/",
+        "https://www.wikidata.org/wiki/Q138716797",
+        "https://www.youtube.com/@theneildave"
+      ]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in"
+    },
+    "keywords": [
+      "loop engineering", "loop engineering enterprise AI", "agentic loop design", "AI agent production",
+      "enterprise agentic AI", "AI agent observability", "LLMOps", "AI solution architect",
+      "loop verifier", "human in the loop AI", "AI agent failure modes", "agentic AI enterprise"
+    ],
+    "mainEntityOfPage": "https://theneildave.in/blog/loop-engineering-enterprise-ai.html",
+    "wordCount": 3200,
+    "timeRequired": "PT14M"
+  }
+  </script>
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"},
+      {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://theneildave.in/blog.html"},
+      {"@type": "ListItem", "position": 3, "name": "Loop Engineering in Enterprise AI", "item": "https://theneildave.in/blog/loop-engineering-enterprise-ai.html"}
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is loop engineering in AI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Loop engineering is the practice of designing autonomous cycles where an AI agent performs a task, evaluates the output against a verifiable criterion, and automatically retries or continues without a human prompt at each step. It defines four components: a trigger (what starts the loop), a topology (how the agent works each cycle), a verifier (how the loop decides if output is good enough), and a stop rule (when the loop exits on success, failure, or budget exceeded). It is the 2026 successor to prompt engineering and context engineering."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is loop engineering different for enterprise AI vs coding agents?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Coding-agent loops check whether tests pass or lint is clean binary, fast, cheap to verify. Enterprise loops must verify business correctness against rules that change (regulatory frameworks, data policies), maintain audit trails for every cycle, manage token costs that multiply across dozens of business processes running 24/7, and handle state recovery when loops crash mid-cycle. A failed coding loop means a broken PR. A failed enterprise loop in healthcare can mean decisions made on stale or corrupted data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the most common enterprise loop failure modes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The four critical enterprise loop failure modes are: (1) Compliance drift loops run hundreds of cycles with no audit trail, making it impossible to explain decisions to regulators; (2) Cost explosion sub-agents on short cadences multiply token spend to thousands of dollars per day before anyone notices; (3) Verifier blindness the success condition is never actually met, so the loop runs forever or exits with a false-positive; (4) Stale state cascade a crash mid-loop corrupts intermediate state, and subsequent runs build on bad data for hours or days."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is loopmaxxing and why should enterprise teams avoid it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Loopmaxxing is the anti-pattern of over-engineering loops with unnecessary sub-agents, overly short cadences, and excessive parallel spawning all in the name of thoroughness. In practice it inflates token costs exponentially, creates debugging nightmares when something goes wrong in a deeply nested agent graph, and makes audit trails almost impossible to follow. The fix is to separate probabilistic agent steps from deterministic verification code, and add human checkpoints at any step where the error cost exceeds the automation saving."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon1.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .post-content { font-size: 1.05rem; line-height: 1.85; color: #333; }
+    .post-content h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.4rem; margin-bottom: 0.8rem; color: #173b6c; }
+    .post-content h3 { font-size: 1.18rem; font-weight: 600; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #1a3a6b; }
+    .post-content p { margin-bottom: 1.2rem; }
+    .post-content ul, .post-content ol { margin-bottom: 1.2rem; padding-left: 1.5rem; }
+    .post-content li { margin-bottom: 0.5rem; }
+    .post-content pre { background: #f6f8fa; border-radius: 8px; padding: 1rem 1.2rem; overflow-x: auto; margin-bottom: 1.4rem; border-left: 4px solid #0d6efd; }
+    .post-content code { font-size: 0.88rem; background: #f0f2f5; padding: 2px 6px; border-radius: 4px; }
+    .post-content pre code { background: none; padding: 0; }
+    .post-content blockquote { border-left: 4px solid #0d6efd; padding: 0.8rem 1.2rem; color: #444; background: #f8f9ff; border-radius: 0 8px 8px 0; margin: 1.6rem 0; font-style: italic; }
+    .post-content a { color: #0d6efd; text-decoration: underline; text-underline-offset: 2px; }
+    .post-content a:hover { color: #0b5ed7; }
+    .post-content a.btn { color: #fff; text-decoration: none; }
+    .post-content a.btn:hover { color: #fff; }
+    .blog-tag { font-size: 0.75rem; background: #e8f4fd; color: #0d6efd; border-radius: 20px; padding: 3px 12px; margin-right: 6px; display: inline-block; }
+    .author-box { background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1.5rem; margin-top: 3rem; display: flex; align-items: center; gap: 1rem; }
+    .author-box img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+    .substack-cta { background: linear-gradient(135deg, #ff6719 0%, #ff8c00 100%); color: white; border-radius: 12px; padding: 1.5rem 2rem; margin-top: 3rem; text-align: center; }
+    .substack-cta a { color: white; font-weight: 600; text-decoration: underline; }
+    .loop-template { background: #0d1117; border-radius: 10px; padding: 1.4rem 1.6rem; color: #e6edf3; font-family: monospace; font-size: 0.88rem; line-height: 1.7; margin: 1.6rem 0; overflow-x: auto; }
+    .loop-template .key { color: #79c0ff; }
+    .loop-template .value { color: #a5f3a5; }
+    .loop-template .comment { color: #8b949e; }
+    .stat-callout { background: #e8f4fd; border-radius: 10px; padding: 1rem 1.4rem; margin: 1.4rem 0; font-size: 0.95rem; border-left: 4px solid #0d6efd; }
+    .internal-link-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem 1.2rem; margin: 1.8rem 0; font-size: 0.9rem; }
+    .internal-link-box strong { color: #173b6c; }
+  </style>
+</head>
+
+<body>
+
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <header id="header">
+    <div class="d-flex flex-column">
+      <div class="profile">
+        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" fetchpriority="high" width="200" height="200">
+        <h2 class="text-light"><a href="/">Neil Dave</a></h2>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="github" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener" title="Neil Dave on Substack"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Google Scholar"><i class="bx bx-book-alt"></i></a>
+          <a href="https://www.youtube.com/@theneildave" class="youtube" target="_blank" rel="noopener" title="Neil Dave on YouTube"><i class="bx bxl-youtube"></i></a>
+          <a href="https://twitter.com/theneildave" class="twitter" target="_blank" rel="noopener" title="Neil Dave on Twitter"><i class="bx bxl-twitter"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar" aria-label="Main navigation">
+        <ul>
+          <li><a href="/#hero" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="/#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="/#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="../blog.html" class="nav-link active"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="../collaborate.html" class="nav-link"><i class="bx bx-group"></i> <span>Collaborate</span></a></li>
+          <li><a href="/#substack" class="nav-link scrollto"><i class="bx bx-envelope-open"></i><span>Newsletter</span></a></li>
+          <li><a href="/#tndtalks" class="nav-link scrollto"><i class="bx bx-podcast"></i> <span>TND Talks</span></a></li>
+          <li><a href="/#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
+          <li><a href="/#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Article</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="../blog.html">Articles</a></li>
+            <li>Loop Engineering in Enterprise AI</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio-details" style="padding: 40px 0 60px;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+            <div class="mb-4">
+              <span class="blog-tag">Loop Engineering</span>
+              <span class="blog-tag">Agentic AI</span>
+              <span class="blog-tag">Enterprise AI</span>
+              <span class="blog-tag">LLMOps</span>
+            </div>
+
+            <h1 style="font-size:1.9rem; font-weight:700; line-height:1.3; margin-bottom:0.8rem;">
+              Loop Engineering in Enterprise AI: What the Viral Posts Got Wrong
+            </h1>
+
+            <div class="d-flex align-items-center gap-3 mb-4" style="font-size:0.85rem; color:#888;">
+              <span><i class="bx bx-calendar"></i> 28 June 2026</span>
+              <span><i class="bx bx-time"></i> 14 min read</span>
+              <span><i class="bx bx-user"></i> Neil Dave</span>
+            </div>
+
+            <hr class="mb-4">
+
+            <div class="post-content">
+
+              <p>On 7 June 2026, a single post by Peter Steinberger crossed 6.5 million views in under a week. The argument was simple: stop prompting your coding agent turn by turn, and start designing the <em>loop</em> that prompts it for you. The phrase "loop engineering" stuck.</p>
+
+              <p>Boris Cherny, who leads the Claude Code team at Anthropic, backed it up with a thread explaining how his own workflow had shifted away from typing into agents, toward writing external execution loops that coordinate model actions over time. <a href="https://www.langchain.com/blog/the-art-of-loop-engineering" target="_blank" rel="noopener">LangChain published its take</a>. O'Reilly published a primer. By the third week of June, there were more than 2,200 posts on X about it.</p>
+
+              <p>I've read most of them. Every single one talks about coding agents: Claude Code, Cursor, GitHub Copilot. Run a loop that writes tests. Run a loop that reviews PRs. Run a loop that refactors your codebase while you sleep.</p>
+
+              <p><strong>None of them talk about what happens when you try to run these loops in an enterprise in a hospital system, a regulated financial pipeline, or a production data platform handling millions of records.</strong></p>
+
+              <p>That's what I want to cover here. I've been building and deploying agentic AI systems in regulated and high-stakes environments clinical decision support, live sports analytics for IPL, enterprise AI at scale. The challenges I've hit running autonomous loops in those contexts are fundamentally different from anything in the viral posts. And I think they need to be said before another team ships a beautiful loop design into production and discovers the hard way what "done" means when the business changes the rules on you.</p>
+
+              <h2>What Loop Engineering Actually Is</h2>
+
+              <p>Before I tell you where the tutorials fall short, I want to make sure we're using the same definition. Loop engineering is the practice of designing the <em>system</em> that runs an AI agent, rather than prompting the agent yourself each turn.</p>
+
+              <p>Every well-designed loop has four components:</p>
+
+              <ul>
+                <li><strong>Trigger</strong> — what starts a cycle. This could be a schedule (cron), an event (a new data batch arrives, a PR is pushed), a goal condition, or a heartbeat on a short interval.</li>
+                <li><strong>Topology</strong> — what the agent does each cycle. Single model, or a planner-executor-verifier multi-agent graph. Simple linear chain or a state machine with branching.</li>
+                <li><strong>Verifier</strong> — how the loop decides if this cycle's output is good enough to move on. The binary test in a coding loop: do the unit tests pass? In enterprise: is this risk score compliant with the policy that was updated last quarter?</li>
+                <li><strong>Stop rule</strong> — the hard exit condition. Success verifier met. Maximum retries exceeded. Cost budget hit. Human review flagged. Time window closed.</li>
+              </ul>
+
+              <p>The most important insight from the June 2026 conversation: <strong>in any loop, the verifier is the bottleneck not the model.</strong> Defining what "good" and "done" mean is the scarce skill. Getting GPT-4o or Claude to produce decent output on most tasks is table stakes now. Knowing when that output is trustworthy enough to act on without a human that's the hard part.</p>
+
+              <div class="stat-callout">
+                According to <a href="https://www.langchain.com/state-of-agent-engineering" target="_blank" rel="noopener">LangChain's State of Agent Engineering 2026</a>, 57.3% of organisations now have agents running in production but more than 60% of production incidents are tied to state management failures. The loop isn't breaking because the model is bad. It's breaking because the loop wasn't designed to handle the world changing around it.
+              </div>
+
+              <p>With that foundation in place, let me explain why enterprise loops are a different problem entirely.</p>
+
+              <h2>Why Enterprise Loops Are Fundamentally Different</h2>
+
+              <p>The coding-agent use case that went viral has a beautiful property: the verifier is deterministic. Tests either pass or they don't. Lint either cleans or it doesn't. The loop can run unattended because failure is cheap and obvious.</p>
+
+              <p>Enterprise loops don't have that luxury. Here are the four dimensions where the difference matters most.</p>
+
+              <h3>1. Compliance doesn't sleep</h3>
+
+              <p>A coding agent loop that fails at 2am produces a broken PR. A clinical decision support loop that fails at 2am or worse, succeeds silently on stale data produces a risk score that a clinician acts on.</p>
+
+              <p>In the sepsis detection system I worked on, every model inference cycle had to be traceable: what vitals data did the model see, what score did it produce, what threshold triggered an alert, and which care team received the notification. Not because we wanted to build elaborate logging. Because the hospital's clinical governance framework required it, and because the EU AI Act's Article 13 transparency requirements make audit trails a legal obligation for high-risk AI systems.</p>
+
+              <p>None of the loop engineering tutorials mention audit trails. They mention observability in passing usually with a link to LangFuse or LangSmith. But there's a difference between tracing for debugging and logging for regulatory compliance. The latter requires immutable records, retention policies, and the ability to reconstruct exactly what happened in cycle 4,847 six months from now if a regulator asks.</p>
+
+              <div class="internal-link-box">
+                <strong>Related:</strong> I covered the regulatory compliance dimension in more depth in <a href="../blog/responsible-ai-in-practice.html">Responsible AI in Practice: What "Fairness" Actually Means in Production</a>. The same EU AI Act requirements that govern model decisions govern the loops that run those models.
+              </div>
+
+              <h3>2. Cost compounds at enterprise scale in ways the tutorials don't show</h3>
+
+              <p>Here's the math that nobody puts in their loop engineering post.</p>
+
+              <p>Take a heartbeat loop running every 5 minutes, 24 hours a day, across 10 business processes in a mid-size enterprise. That's 2,880 cycles per process per day. At current pricing for a planner-executor-verifier multi-agent topology call it 3,000 input tokens and 800 output tokens per cycle you're looking at roughly $0.07 per cycle on GPT-4o.</p>
+
+              <p>Ten processes × 2,880 cycles × $0.07 = <strong>$2,016 per day, before you've written a single line of business logic.</strong> (I broke down the full cost structure behind numbers like these in <a href="../blog/enterprise-llm-cost-2026.html">The True Cost of Running Enterprise LLMs in Production (2026 Data)</a> — it applies directly to loop operating costs.)</p>
+
+              <p>That number isn't scary by itself. The scary part is that it's invisible until someone looks at the cloud bill at the end of the month. I've seen enterprise teams spin up what they thought was a "lightweight" agentic pipeline and discover they'd burned through their quarterly AI budget in 11 days.</p>
+
+              <p>The fix isn't to not build loops. It's to treat token cost as a first-class constraint when designing the loop's topology and cadence the same way you treat latency or memory when designing any production system. Short cadences need micro-topologies. Long-horizon goals can afford richer models and more sub-agent steps.</p>
+
+              <h3>3. State corruption in production is not an edge case</h3>
+
+              <p>The coding-agent tutorials wave at "durable state" as a best practice. In enterprise, it's a survival requirement.</p>
+
+              <p>Your loop runs a Friday evening batch. Halfway through cycle 312, the LLM provider returns a 529 rate-limit error. The loop crashes. The intermediate state a partial aggregation of this week's risk scores, half-written to your feature store is now corrupted. On Monday morning, the next run picks up from the last checkpoint and builds downstream outputs on top of corrupted inputs. Nobody notices until a data scientist flags an anomaly on Wednesday.</p>
+
+              <p>I've seen this exact failure mode. The fix is straightforward but non-negotiable: checkpoint external state before every cycle, not after. Use an external store (Postgres, Redis) rather than in-memory state. Write the stop-rule to detect no-progress conditions if the loop has run 10 cycles without changing state, something is wrong and a human should know about it.</p>
+
+              <h3>4. "Done" is a moving target when business rules change</h3>
+
+              <p>A coding loop's verifier is static: pass the test suite. An enterprise verifier is dynamic: comply with the policy framework, which was updated last quarter, and which varies by jurisdiction.</p>
+
+              <p>This is the deepest problem in enterprise loop engineering. I worked on a credit risk pipeline where the verifier checked loan approval decisions against the institution's internal risk policy. The policy was updated mid-quarter to reflect new regulatory guidance. Every loop cycle before that update was technically compliant. Every cycle after needed to use the new rules. But nothing in the loop architecture knew that the rules had changed the verifier was hardcoded to the old policy document. (I tackled this exact problem of versioning business rules inside AI systems in the <a href="../rai.html">Responsible AI Audit portfolio project</a>.)</p>
+
+              <p>Enterprise verifiers need to be: versioned (so you can audit which policy was active at each cycle), hot-swappable (so a policy update doesn't require redeploying the loop), and testable (so you can run a shadow loop against the new rules before switching production).</p>
+
+              <h2>The Four Enterprise Loop Failure Modes</h2>
+
+              <p>Based on what I've seen in production deployments, I want to name four specific failure modes that don't appear in any of the June 2026 loop engineering posts. Naming them makes them easier to design against.</p>
+
+              <h3>1. Compliance Drift</h3>
+              <p><strong>What it looks like:</strong> the loop runs 500+ cycles with no audit trail. A regulator or internal auditor asks to reconstruct what the agent decided on a specific date and you have nothing.</p>
+              <p><strong>Design against it:</strong> log every cycle with an immutable trace ID (OpenTelemetry + LangFuse). Include trigger timestamp, input hash, topology path taken, verifier result, stop-rule outcome, and token cost. Store to S3 with a retention policy matching your compliance framework.</p>
+
+              <h3>2. Cost Explosion</h3>
+              <p><strong>What it looks like:</strong> sub-agents on short cadences multiply token spend geometrically. You hit a budget alert at the end of the month or worse, you don't because nobody set one.</p>
+              <p><strong>Design against it:</strong> set a hard token budget per cycle at the loop-design stage. Add a Slack/PagerDuty alert at 50% of monthly budget. Use lighter models (Haiku, Flash) for verifier steps and only escalate to expensive models when the verifier flags uncertainty.</p>
+
+              <h3>3. Verifier Blindness</h3>
+              <p><strong>What it looks like:</strong> the success condition is never actually met either because the verifier is miscalibrated or because the task is impossible with the current inputs. The loop runs to its iteration cap and exits with a false-positive "done" signal.</p>
+              <p><strong>Design against it:</strong> always pair a success verifier with a circuit breaker if no meaningful state change occurs in N consecutive cycles, halt and alert. Run a no-op test before deploying any new verifier give it deliberately bad output and confirm it fails.</p>
+
+              <h3>4. Stale State Cascade</h3>
+              <p><strong>What it looks like:</strong> a crash mid-cycle corrupts intermediate state. The next run potentially hours or days later builds downstream outputs on the corrupted base. Errors compound silently.</p>
+              <p><strong>Design against it:</strong> checkpoint state to an external durable store <em>before</em> each cycle starts, not after it completes. Write a recovery function that validates state integrity on loop startup. Never trust in-memory state across cycle boundaries.</p>
+
+              <h2>How to Design an Enterprise-Grade Loop</h2>
+
+              <p>Here's the template I use when architecting agentic loops for production enterprise deployments. It extends the four-component model with enterprise-specific layers.</p>
+
+              <div class="loop-template">
+<span class="comment"># Enterprise Loop Architecture Template</span>
+
+<span class="key">TRIGGER:</span>    <span class="value">New data batch arrives via event queue (SQS / Pub-Sub)</span>
+             <span class="comment"># Prefer event-driven over heartbeat where possible cheaper</span>
+
+<span class="key">TOPOLOGY:</span>   <span class="value">Planner (Claude Sonnet) → Executor (Claude Haiku) → Verifier</span>
+             <span class="comment"># Use cheaper model for verifier unless flagging uncertainty</span>
+
+<span class="key">VERIFIER:</span>   <span class="value">Score delta &lt; 5% from last cycle AND confidence &gt; 0.87</span>
+             <span class="value">AND policy_version == current_active_policy_id</span>
+             <span class="comment"># Policy version check — catches rule-change drift</span>
+
+<span class="key">STOP RULE:</span>  <span class="value">SUCCESS: verifier passes</span>
+             <span class="value">FAILURE: 3 retries exceeded OR cost &gt; $0.50/cycle</span>
+             <span class="value">CIRCUIT:  No state change in 5 consecutive cycles → HALT + ALERT</span>
+
+<span class="key">STATE:</span>      <span class="value">Checkpoint to Postgres before each cycle starts</span>
+             <span class="value">In-memory state never trusted across cycle boundary</span>
+
+<span class="key">AUDIT:</span>      <span class="value">Every cycle → OpenTelemetry trace → LangFuse → S3 archive</span>
+             <span class="value">Immutable. 7-year retention (matches financial compliance)</span>
+
+<span class="key">HUMAN:</span>      <span class="value">Any verifier confidence &lt; 0.75 → flags human review queue</span>
+             <span class="value">Human approval required before action taken</span>
+              </div>
+
+              <p>Every enterprise loop I deploy starts with this template and adapts the specifics. The key discipline: <strong>every component has a failure mode, and every failure mode has a handler before you write a single line of agent logic.</strong></p>
+
+              <p>This approach is what I described in my earlier piece on <a href="../blog/agentic-ai-system-design.html">redesigning agentic AI systems in production</a> the third redesign of that system happened precisely because we hadn't thought carefully enough about the verifier and state management from the start.</p>
+
+              <h2>Loop Types for Enterprise Contexts</h2>
+
+              <p>Not all loops are the same. The four loop types from the viral posts heartbeat, cron, hook, goal map differently to enterprise use cases than they do to coding agents.</p>
+
+              <h3>Hook loops (event-driven)</h3>
+              <p>The best default for enterprise. The loop fires when something meaningful happens a new data batch, a document upload, an alert condition. Token cost scales with actual work, not with clock time. Easier to audit because every cycle has a clear trigger event in the log.</p>
+
+              <h3>Goal loops</h3>
+              <p>Powerful for complex multi-step workflows a loan processing pipeline that needs to gather documents, validate, assess risk, and generate a decision letter. The danger: if the goal is ill-defined or the verifier can't reliably detect completion, goal loops become infinite loops. Define the goal in terms of state conditions, not output quality judgements.</p>
+
+              <h3>Cron loops</h3>
+              <p>Fine for scheduled reports and batch processing where timing matters. Problematic when the scheduled cadence doesn't match the rate at which meaningful data arrives you pay for cycles that do nothing.</p>
+
+              <h3>Heartbeat loops</h3>
+              <p>Use sparingly in enterprise. The cost model is brutal at scale (see the calculation above). Reserve for monitoring use cases where you genuinely need continuous presence — anomaly detection, live system health. Even then, consider whether a push-based hook architecture achieves the same goal for a fraction of the cost.</p>
+
+              <h2>The Loopmaxxing Trap</h2>
+
+              <p>I want to name one more anti-pattern that's already appearing in enterprise AI discussions: <strong>loopmaxxing</strong>.</p>
+
+              <p>Loopmaxxing is what happens when a team discovers loop engineering and immediately builds a nine-agent orchestration graph with parallel sub-agents spawning sub-sub-agents on a 30-second heartbeat, because more agents feels more thorough. In practice:</p>
+
+              <ul>
+                <li>Token costs scale with the square of agent depth in complex topologies.</li>
+                <li>Debugging a failure in nested agent graphs is vastly harder than debugging a single-model loop.</li>
+                <li>Audit trails become nearly unreadable when you're tracing a decision through seven model hops.</li>
+                <li>Each agent step adds a failure probability — <a href="https://bdtechtalks.com/2026/06/22/ai-loop-engineering/amp/" target="_blank" rel="noopener">as BDTechTalks notes</a>, a five-step chain at 95% per-step reliability completes cleanly about 77% of the time. Add three more steps and you're at 63%.</li>
+              </ul>
+
+              <p>The fix is what <a href="https://www.truefoundry.com/blog/loop-engineering-enterprise-agent-runtime" target="_blank" rel="noopener">TrueFoundry calls "separating probabilistic and deterministic parts"</a>: let the LLM handle the reasoning steps where flexibility is needed, and replace every step that can be deterministic validation, formatting, rule checks, state updates with regular code. Deterministic code is faster, cheaper, auditable, and doesn't hallucinate.</p>
+
+              <div class="internal-link-box">
+                <strong>Related:</strong> For the operational side of managing loops at scale monitoring, cost tracking, evaluation — see <a href="../blog/llmops-vs-mlops.html">LLMOps vs MLOps: What's Actually Different in 2026</a>. The LLMOps stack is what keeps enterprise loops observable and controllable.
+              </div>
+
+              <h2>Where to Start: A Practical Checklist</h2>
+
+              <p>If you're designing your first enterprise agentic loop, here's how I'd sequence the work:</p>
+
+              <ol>
+                <li><strong>Define the verifier first, before any agent code.</strong> Write the function that decides whether a loop cycle succeeded. Test it with deliberately bad output. If you can't write it, the loop isn't ready to build.</li>
+                <li><strong>Choose the trigger type based on your data arrival pattern.</strong> Hook &gt; Cron &gt; Heartbeat in most enterprise contexts. Don't default to heartbeat because it's the simplest to implement.</li>
+                <li><strong>Size the topology to the verifier's cost tolerance.</strong> If a failed cycle is cheap (a document summary), use a richer model. If a failed cycle is expensive (a patient risk score that gets acted on), use a lighter model for first-pass and escalate only when uncertain.</li>
+                <li><strong>Build the audit layer before the agent logic.</strong> Seriously — wire up your OpenTelemetry spans and LangFuse traces before you write your first prompt. Retrofitting observability into a running loop is painful.</li>
+                <li><strong>Set hard limits on everything.</strong> Token budget per cycle. Max iterations per run. Cost alert threshold. Circuit breaker on no-progress detection. These aren't nice-to-haves they're the difference between a controlled system and a runaway process.</li>
+                <li><strong>Plan for policy versioning from day one.</strong> Your verifier will need to know which version of your business rules it's applying. Build the version check into the loop architecture, not as an afterthought.</li>
+              </ol>
+
+              <h2>The Bottom Line</h2>
+
+              <p>Loop engineering is real, it's valuable, and the June 2026 conversation around it correctly identified something important: the scarce skill has shifted from prompting models to designing the systems that run them.</p>
+
+              <p>But most of what's been written is written for individual developers shipping code faster. Enterprise AI is a different context one where "done" is legally defined, where cost compounds across hundreds of business processes, where a corrupted loop state can affect real clinical or financial decisions, and where the audit trail isn't optional.</p>
+
+              <p>The four components of a loop (trigger, topology, verifier, stop rule) are necessary but not sufficient for enterprise. The enterprise additions compliance audit layer, cost budgeting, durable state with recovery, versioned verifiers, and human-in-the-loop checkpoints are what make autonomous loops trustworthy enough to deploy in a context where the stakes matter.</p>
+
+              <p>If you're building agentic systems in enterprise AI and want to talk through your loop architecture before you ship it to production, <a href="../enterprise.html">I consult specifically on this</a> bringing the same thinking I've applied in healthcare, sports analytics, and large-scale enterprise data platforms.</p>
+
+              <a href="https://calendly.com/theneildave" target="_blank" rel="noopener" class="btn btn-primary btn-lg px-4 rounded-pill d-inline-block mt-2 mb-4">
+                <i class="bx bx-calendar me-2"></i>Book a Loop Architecture Review
+              </a>
+
+              <hr class="my-5">
+
+              <h2>Frequently Asked Questions</h2>
+
+              <h3>What is loop engineering in AI?</h3>
+              <p>Loop engineering is the practice of designing autonomous cycles where an AI agent performs a task, evaluates the output against a verifiable criterion, and automatically retries or continues without a human prompt at each step. It has four components: trigger, topology, verifier, and stop rule. It is the 2026 successor to prompt engineering, driven by the reality that frontier models are now capable enough that orchestration design not prompting quality is the primary bottleneck.</p>
+
+              <h3>How is loop engineering different for enterprise AI vs. coding agents?</h3>
+              <p>Coding-agent loops check whether tests pass or lint is clean binary, fast, cheap to verify. Enterprise loops must verify business correctness against rules that change (regulatory frameworks, data policies), maintain audit trails for every cycle, manage token costs that multiply across dozens of business processes running 24/7, and handle state recovery when loops crash mid-cycle. A failed coding loop means a broken PR. A failed enterprise loop in healthcare can mean decisions made on stale or corrupted data.</p>
+
+              <h3>What are the most common enterprise loop failure modes?</h3>
+              <p>The four critical enterprise loop failure modes are: (1) Compliance drift loops run hundreds of cycles with no audit trail; (2) Cost explosion sub-agents on short cadences multiply token spend before anyone notices; (3) Verifier blindness the success condition is never met, so the loop runs forever or exits with a false positive; (4) Stale state cascade a crash mid-loop corrupts intermediate state and subsequent runs build on bad data.</p>
+
+              <h3>What is loopmaxxing and why should enterprise teams avoid it?</h3>
+              <p>Loopmaxxing is over-engineering loops with unnecessary sub-agents, overly short cadences, and excessive parallel spawning. It inflates token costs exponentially, makes debugging failures in nested agent graphs extremely difficult, and produces audit trails that are nearly impossible to follow. The fix: replace every loop step that can be deterministic validation, formatting, rule checks with regular code, and reserve LLM calls for the reasoning steps where genuine flexibility is needed.</p>
+
+            </div>
+
+            <hr class="mt-5 mb-4">
+
+            <div class="author-box">
+              <img src="../assets/img/profile-img.webp" alt="Neil Dave" width="60" height="60" loading="lazy">
+              <div>
+                <strong>Neil Dave</strong><br>
+                <span style="font-size:0.85rem; color:#666;">AI Solution Architect · Bangalore, India</span><br>
+                <span style="font-size:0.82rem; color:#888;">7+ years building production AI in healthcare, sports analytics, and enterprise. 3 peer-reviewed publications (IEEE, Springer). 120+ professionals mentored.</span>
+              </div>
+            </div>
+
+            <div class="substack-cta">
+              <p class="mb-2" style="font-size:1rem; font-weight:600;">Get more articles like this in your inbox.</p>
+              <p class="mb-3" style="font-size:0.9rem; opacity:0.9;">I write about LLMs, LLMOps, and agentic AI from real production experience no hype, no tutorials that don't survive contact with enterprise reality.</p>
+              <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-light btn-sm rounded-pill px-4">Subscribe on Substack →</a>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <a href="../blog.html" style="font-size:0.9rem;">← Back to all articles</a>
+              <div style="font-size:0.85rem; color:#888;">
+                Share:
+                <a href="https://twitter.com/intent/tweet?text=Loop+Engineering+in+Enterprise+AI+%E2%80%94+what+the+viral+posts+got+wrong%2C+by+%40theneildave&url=https%3A%2F%2Ftheneildave.in%2Fblog%2Floop-engineering-enterprise-ai.html" target="_blank" rel="noopener" style="color:#0d6efd; margin-left:8px;">X / Twitter</a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftheneildave.in%2Fblog%2Floop-engineering-enterprise-ai.html" target="_blank" rel="noopener" style="color:#0d6efd; margin-left:8px;">LinkedIn</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Made with ❤️ by <strong><span>Neil Dave</span></strong>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js" defer></script>
+  <script src="../assets/vendor/aos/aos.js" defer></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+
+</body>
+</html>

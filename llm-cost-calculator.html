@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FF2576R3B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0FF2576R3B');
+  </script>
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>LLM Cost Calculator India 2026 — GPT-4o, Claude & Gemini in INR</title>
+  <meta name="description" content="Free LLM cost calculator for India 2026. Compare OpenAI GPT-4o, Anthropic Claude, Google Gemini API pricing in Indian Rupees. Calculate your monthly AI API spend instantly.">
+  <meta name="keywords" content="LLM cost calculator India, GPT-4o cost INR, Claude API price India, Gemini API cost India, LLM pricing 2026, AI API cost calculator India, ChatGPT API cost India">
+  <meta name="author" content="Neil Dave">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://theneildave.in/llm-cost-calculator.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://theneildave.in/llm-cost-calculator.html">
+  <meta property="og:title" content="LLM Cost Calculator India 2026 — GPT, Claude, Gemini in INR">
+  <meta property="og:description" content="Free tool to calculate and compare LLM API costs in INR. OpenAI, Anthropic, Google, Mistral, Groq — all in one place.">
+  <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.webp">
+  <meta property="og:site_name" content="Neil Dave">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
+  <meta name="twitter:title" content="LLM Cost Calculator India 2026 — GPT, Claude, Gemini in INR">
+  <meta name="twitter:description" content="Free tool to calculate and compare LLM API costs in Indian Rupees — 2026 pricing.">
+  <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.webp">
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"},
+      {"@type": "ListItem", "position": 2, "name": "LLM Cost Calculator India 2026", "item": "https://theneildave.in/llm-cost-calculator.html"}
+    ]
+  }
+  </script>
+
+  <!-- SoftwareApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "LLM Cost Calculator India 2026",
+    "url": "https://theneildave.in/llm-cost-calculator.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "INR"
+    },
+    "description": "Free tool to calculate and compare LLM API costs in Indian Rupees (INR) for 2026. Covers OpenAI GPT-4o, Anthropic Claude 3.5, Google Gemini, Mistral, Cohere, and Groq.",
+    "author": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in",
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q138716797",
+        "https://www.linkedin.com/in/neil-dave/",
+        "https://www.youtube.com/@theneildave"
+      ]
+    },
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "keywords": ["LLM cost", "AI API pricing", "India", "INR", "GPT-4o", "Claude", "Gemini", "2026"]
+  }
+  </script>
+
+  <!-- FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Which is the cheapest LLM API available in India in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As of 2026, the most affordable LLM APIs include Google Gemini 1.5 Flash-8B (approx ₹3.15 per million input tokens), Llama 3.1 8B via Groq (approx ₹4.25 per million input tokens), and Mistral 7B (approx ₹4.25/M). For production quality with strong reasoning, Gemini 1.5 Flash and Claude 3.5 Haiku offer the best value. GPT-4o mini is the top budget choice for teams preferring OpenAI."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does the GPT-4o API cost per month in INR?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GPT-4o is priced at $2.50 per million input tokens and $10.00 per million output tokens. For a startup processing 100,000 requests per month with 500 input and 500 output tokens each, the monthly cost is approximately ₹53,125 at ₹85/USD — or ₹62,688 including 18% GST. GPT-4o mini cuts this to roughly ₹3,188/month pre-GST."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there GST on LLM API costs in India?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Indian businesses importing cloud API services from foreign providers like OpenAI, Anthropic, and Google are subject to 18% GST under the Reverse Charge Mechanism (RCM). The Indian entity must self-assess and pay this GST. A $100/month API bill becomes approximately ₹9,912 at ₹85/USD including GST. This calculator shows pre-GST costs — add 18% for accurate budgeting."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I estimate tokens for Indian language prompts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "English text uses roughly 1 token per 0.75 words. Indian languages like Hindi, Tamil, and Telugu are less efficient — typically using 2–4x more tokens per word than English due to limited vocabulary coverage in base tokenisers. Use a 2x multiplier when estimating token costs for Indic language workloads and always test with your actual prompts using each provider's tokeniser."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon1.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .calc-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 2rem;
+    }
+    .result-box {
+      background: linear-gradient(135deg, rgba(13,110,253,0.06), rgba(26,58,107,0.04));
+      border: 1px solid rgba(13,110,253,0.2);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+    }
+    .result-primary {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0d6efd;
+      font-family: 'Raleway', sans-serif;
+      line-height: 1.1;
+    }
+    .result-inr {
+      font-size: 1.05rem;
+      color: #1a3a6b;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+    }
+    .result-label {
+      font-size: 0.72rem;
+      color: #6c757d;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 0.4rem;
+    }
+    .provider-btn {
+      border: 2px solid #dee2e6;
+      background: #fff;
+      border-radius: 20px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.82rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+      color: #272829;
+    }
+    .provider-btn.active {
+      border-color: #0d6efd;
+      background: #0d6efd;
+      color: #fff;
+    }
+    .provider-btn:hover:not(.active) {
+      border-color: #0d6efd;
+      color: #0d6efd;
+    }
+    .calc-input {
+      border-radius: 8px;
+      border: 1.5px solid #dee2e6;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.9rem;
+      padding: 0.5rem 0.75rem;
+      transition: border-color 0.15s;
+    }
+    .calc-input:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.12);
+      outline: none;
+    }
+    .gst-notice {
+      background: #fff8e1;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      font-size: 0.8rem;
+      color: #664d03;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .compare-table th {
+      background: #1a3a6b;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    .compare-table th:hover { background: #223f75; }
+    .compare-table td {
+      font-size: 0.85rem;
+      font-family: 'Open Sans', sans-serif;
+      vertical-align: middle;
+    }
+    .provider-label {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: #6c757d;
+    }
+    .model-name { font-weight: 600; color: #272829; }
+    .cheapest-badge {
+      font-size: 0.68rem;
+      background: #d1e7dd;
+      color: #0a3622;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+    .inr-cost { font-weight: 700; color: #1a3a6b; font-family: 'Poppins', sans-serif; }
+    tr.cheapest-row { background: #f0f7ff !important; }
+    .tip-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      height: 100%;
+    }
+    .tip-card h5 { font-family: 'Raleway', sans-serif; font-size: 1rem; margin-bottom: 0.5rem; }
+    .sort-icon { font-size: 0.7rem; opacity: 0.7; }
+    @media (max-width: 768px) {
+      .result-primary { font-size: 1.4rem; }
+      .calc-card { padding: 1.25rem; }
+      .compare-table { font-size: 0.78rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="visually-hidden-focusable" href="#main">Skip to main content</a>
+
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- ======= Header / Sidebar ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="assets/img/profile-img.webp" alt="Neil Dave AI Practitioner" class="img-fluid rounded-circle">
+        <h2 class="text-light"><a href="/">Neil Dave</a></h2>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin" target="_blank" rel="noopener" title="Neil Dave on LinkedIn"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="github" target="_blank" rel="noopener" title="Neil Dave on GitHub"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Medium"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener" title="Neil Dave on Substack"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Google Scholar"><i class="bx bx-book-alt"></i></a>
+          <a href="https://www.youtube.com/@theneildave" class="youtube" target="_blank" rel="noopener" title="Neil Dave on YouTube"><i class="bx bxl-youtube"></i></a>
+          <a href="https://twitter.com/theneildave" class="twitter" target="_blank" rel="noopener" title="Neil Dave on Twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="https://www.instagram.com/theneildave.ai" class="instagram" target="_blank" rel="noopener" title="Neil Dave on Instagram"><i class="bx bxl-instagram"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar" aria-label="Main navigation">
+        <ul>
+          <li><a href="/#hero" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="/#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="/#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="speaking.html" class="nav-link"><i class="bx bx-microphone"></i> <span>Speaking</span></a></li>
+          <li><a href="enterprise.html" class="nav-link"><i class="bx bx-briefcase"></i> <span>For Enterprise</span></a></li>
+          <li><a href="collaborate.html" class="nav-link"><i class="bx bx-group"></i> <span>Collaborate</span></a></li>
+          <li><a href="blog.html" class="nav-link"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="/#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>LLM Cost Calculator — India 2026</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li>LLM Cost Calculator</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= Calculator ======= -->
+    <section id="calculator" class="py-5 section-bg">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h1>LLM API Cost Calculator — India 2026</h1>
+          <p>Calculate your monthly AI API spend in <strong>Indian Rupees (₹)</strong>. Compare GPT-4o, Claude 3.5, Gemini, Mistral, Groq and more — with live INR conversion and India-specific GST guidance.</p>
+        </div>
+
+        <div class="row g-4" data-aos="fade-up">
+
+          <!-- Inputs -->
+          <div class="col-lg-6">
+            <div class="calc-card h-100">
+              <h5 class="mb-4" style="font-family:'Raleway',sans-serif;color:#1a3a6b;">
+                <i class="bx bx-slider-alt text-primary me-2"></i>Your Usage
+              </h5>
+
+              <div class="mb-3">
+                <label class="form-label result-label mb-2">Provider</label>
+                <div class="d-flex flex-wrap gap-2" id="providerBtns">
+                  <button class="provider-btn active" data-provider="openai">OpenAI</button>
+                  <button class="provider-btn" data-provider="anthropic">Anthropic</button>
+                  <button class="provider-btn" data-provider="google">Google</button>
+                  <button class="provider-btn" data-provider="mistral">Mistral</button>
+                  <button class="provider-btn" data-provider="cohere">Cohere</button>
+                  <button class="provider-btn" data-provider="groq">Groq</button>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="modelSelect" class="form-label result-label mb-1">Model</label>
+                <select id="modelSelect" class="form-select calc-input w-100"></select>
+              </div>
+
+              <div class="row g-3 mb-3">
+                <div class="col-sm-6">
+                  <label for="monthlyRequests" class="form-label result-label mb-1">Requests / Month</label>
+                  <input type="number" class="form-control calc-input" id="monthlyRequests" value="10000" min="1" step="1000">
+                </div>
+                <div class="col-sm-6">
+                  <label for="exchangeRate" class="form-label result-label mb-1">USD → INR Rate</label>
+                  <input type="number" class="form-control calc-input" id="exchangeRate" value="85" min="1" step="0.5">
+                </div>
+              </div>
+
+              <div class="row g-3 mb-4">
+                <div class="col-sm-6">
+                  <label for="inputTokens" class="form-label result-label mb-1">Avg Input Tokens / Request</label>
+                  <input type="number" class="form-control calc-input" id="inputTokens" value="500" min="1">
+                  <div class="form-text small" id="inputWordHint">≈ 375 words in English</div>
+                </div>
+                <div class="col-sm-6">
+                  <label for="outputTokens" class="form-label result-label mb-1">Avg Output Tokens / Request</label>
+                  <input type="number" class="form-control calc-input" id="outputTokens" value="300" min="1">
+                  <div class="form-text small" id="outputWordHint">≈ 225 words in English</div>
+                </div>
+              </div>
+
+              <!-- Pricing display -->
+              <div class="p-3 rounded mb-3" style="background:#f8f9fa;border:1px solid #e9ecef;">
+                <div class="row text-center">
+                  <div class="col-6">
+                    <div class="result-label">Input Price</div>
+                    <div class="fw-semibold text-primary" id="displayInputPrice" style="font-family:'Poppins',sans-serif;font-size:0.95rem;">—</div>
+                    <div class="text-muted" style="font-size:0.72rem;">per million tokens</div>
+                  </div>
+                  <div class="col-6">
+                    <div class="result-label">Output Price</div>
+                    <div class="fw-semibold text-primary" id="displayOutputPrice" style="font-family:'Poppins',sans-serif;font-size:0.95rem;">—</div>
+                    <div class="text-muted" style="font-size:0.72rem;">per million tokens</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="gst-notice">
+                <i class="bx bx-info-circle me-1"></i>
+                <strong>GST note for India:</strong> Add 18% GST (reverse charge mechanism) for Indian businesses importing foreign cloud API services. This calculator shows pre-GST costs.
+              </div>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="col-lg-6">
+            <div class="calc-card h-100">
+              <h5 class="mb-4" style="font-family:'Raleway',sans-serif;color:#1a3a6b;">
+                <i class="bx bx-rupee text-primary me-2"></i>Your Cost Estimate
+              </h5>
+
+              <div class="result-box mb-3">
+                <div class="result-label">Cost Per Request</div>
+                <div class="d-flex align-items-end gap-4">
+                  <div>
+                    <div class="result-primary" id="costPerReqUSD">—</div>
+                    <div class="text-muted" style="font-size:0.75rem;">USD</div>
+                  </div>
+                  <div>
+                    <div class="result-inr" id="costPerReqINR">—</div>
+                    <div class="text-muted" style="font-size:0.75rem;">INR</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-box mb-3" style="background:linear-gradient(135deg,rgba(13,110,253,0.09),rgba(26,58,107,0.06));border-color:rgba(13,110,253,0.25);">
+                <div class="result-label">Monthly Cost</div>
+                <div class="d-flex align-items-end gap-4">
+                  <div>
+                    <div class="result-primary" id="monthlyCostUSD">—</div>
+                    <div class="text-muted" style="font-size:0.75rem;">USD</div>
+                  </div>
+                  <div>
+                    <div class="result-inr" id="monthlyCostINR">—</div>
+                    <div class="text-muted" style="font-size:0.75rem;">INR</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-box mb-4" style="background:linear-gradient(135deg,rgba(26,58,107,0.08),rgba(13,110,253,0.05));border-color:rgba(26,58,107,0.2);">
+                <div class="result-label">Annual Cost</div>
+                <div class="d-flex align-items-end gap-4">
+                  <div>
+                    <div class="result-primary" id="annualCostUSD">—</div>
+                    <div class="text-muted" style="font-size:0.75rem;">USD</div>
+                  </div>
+                  <div>
+                    <div class="result-inr" id="annualCostINR">—</div>
+                    <div class="text-muted" style="font-size:0.75rem;">INR</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Breakdown -->
+              <div class="border rounded p-3" style="background:#fff;">
+                <div class="result-label mb-2">Monthly Token Breakdown</div>
+                <div class="d-flex justify-content-between small mb-1">
+                  <span class="text-muted">Total input tokens</span>
+                  <span class="fw-semibold" id="totalInputTokens">—</span>
+                </div>
+                <div class="d-flex justify-content-between small mb-1">
+                  <span class="text-muted">Input cost</span>
+                  <span class="fw-semibold text-primary" id="inputCostUSD">—</span>
+                </div>
+                <div class="d-flex justify-content-between small mb-1">
+                  <span class="text-muted">Total output tokens</span>
+                  <span class="fw-semibold" id="totalOutputTokens">—</span>
+                </div>
+                <div class="d-flex justify-content-between small mb-2">
+                  <span class="text-muted">Output cost</span>
+                  <span class="fw-semibold text-primary" id="outputCostUSD">—</span>
+                </div>
+                <div class="d-flex justify-content-between small pt-2" style="border-top:1px solid #e9ecef;">
+                  <span class="text-muted">With 18% GST (INR)</span>
+                  <span class="fw-semibold" id="monthlyCostGST" style="color:#664d03;">—</span>
+                </div>
+              </div>
+
+              <p class="text-muted mt-3 mb-0" style="font-size:0.76rem;">
+                Pricing as of Q1 2026. Verify at provider pricing pages before budgeting.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= Comparison Table ======= -->
+    <section id="comparison" class="py-5">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>All Models — India Price Comparison 2026</h2>
+          <p>Monthly ₹ cost for <strong id="compWorkloadDesc">10,000 requests × 500 input × 300 output tokens</strong> at ₹<span id="compRate">85</span>/USD. Click any column header to sort.</p>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 mb-3" data-aos="fade-up" id="tableFilterBtns">
+          <button class="provider-btn active" data-filter="all">All</button>
+          <button class="provider-btn" data-filter="openai">OpenAI</button>
+          <button class="provider-btn" data-filter="anthropic">Anthropic</button>
+          <button class="provider-btn" data-filter="google">Google</button>
+          <button class="provider-btn" data-filter="mistral">Mistral</button>
+          <button class="provider-btn" data-filter="cohere">Cohere</button>
+          <button class="provider-btn" data-filter="groq">Groq</button>
+        </div>
+
+        <div class="table-responsive" data-aos="fade-up">
+          <table class="table table-hover compare-table">
+            <thead>
+              <tr>
+                <th onclick="sortTable(0)">Provider <span class="sort-icon">↕</span></th>
+                <th onclick="sortTable(1)">Model <span class="sort-icon">↕</span></th>
+                <th onclick="sortTable(2)">Input $/M <span class="sort-icon">↕</span></th>
+                <th onclick="sortTable(3)">Output $/M <span class="sort-icon">↕</span></th>
+                <th onclick="sortTable(4)">Monthly ₹ <span class="sort-icon">↕</span></th>
+                <th onclick="sortTable(5)">Monthly $ <span class="sort-icon">↕</span></th>
+              </tr>
+            </thead>
+            <tbody id="comparisonTableBody"></tbody>
+          </table>
+        </div>
+        <p class="text-muted small">Prices exclude GST. Based on workload inputs above — adjust the calculator to update this table.</p>
+
+      </div>
+    </section>
+
+    <!-- ======= Tips ======= -->
+    <section id="tips" class="py-5 section-bg">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Cost Optimisation Tips for Indian Teams</h2>
+        </div>
+        <div class="row g-4" data-aos="fade-up">
+          <div class="col-md-6 col-lg-3">
+            <div class="tip-card">
+              <i class="bx bx-git-branch text-primary mb-3" style="font-size:2rem;"></i>
+              <h5>Route by Complexity</h5>
+              <p class="text-muted small mb-0">Route simple queries to GPT-4o mini or Gemini Flash. Reserve Sonnet and GPT-4o for hard reasoning tasks. A tiered approach typically cuts costs 60–80%.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="tip-card">
+              <i class="bx bx-memory-card text-primary mb-3" style="font-size:2rem;"></i>
+              <h5>Cache Repeated Prompts</h5>
+              <p class="text-muted small mb-0">Anthropic offers prompt caching at a 90% discount on cached input tokens. OpenAI has similar for GPT-4o. Cache system prompts and shared context that repeats across requests.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="tip-card">
+              <i class="bx bx-cut text-primary mb-3" style="font-size:2rem;"></i>
+              <h5>Trim Your Context Window</h5>
+              <p class="text-muted small mb-0">Every token costs money. Summarise conversation history instead of passing full logs. Removing 500 tokens per request × 100K requests/month saves roughly ₹2,125/month on GPT-4o.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="tip-card">
+              <i class="bx bx-receipt text-primary mb-3" style="font-size:2rem;"></i>
+              <h5>Budget 18% GST from Day 1</h5>
+              <p class="text-muted small mb-0">Indian businesses pay 18% GST on foreign API imports (RCM). A ₹50,000/month API bill becomes ₹59,000 with GST. This is often missed in early-stage unit economics — factor it in early.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= FAQ ======= -->
+    <section id="faq" class="py-5">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="row justify-content-center" data-aos="fade-up">
+          <div class="col-lg-8">
+            <div class="accordion" id="faqAccordion">
+
+              <div class="accordion-item border-0 mb-3 shadow-sm rounded overflow-hidden">
+                <h2 class="accordion-header">
+                  <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" style="font-family:'Raleway',sans-serif;">
+                    Which is the cheapest LLM API in India in 2026?
+                  </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted small">
+                    The most affordable options are <strong>Google Gemini 1.5 Flash-8B</strong> (~₹3.19/M input tokens), <strong>Llama 3.1 8B via Groq</strong> (~₹4.25/M), and <strong>Mistral 7B</strong> (~₹4.25/M). For production-grade quality, <strong>Gemini 1.5 Flash</strong> (~₹6.38/M input) and <strong>Claude 3.5 Haiku</strong> (~₹68/M input) offer strong value. GPT-4o mini is the go-to for teams preferring OpenAI infrastructure.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item border-0 mb-3 shadow-sm rounded overflow-hidden">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" style="font-family:'Raleway',sans-serif;">
+                    How much does GPT-4o cost per month in INR for a startup?
+                  </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted small">
+                    GPT-4o costs $2.50/M input tokens and $10.00/M output tokens. For 100,000 requests/month with 500 input and 500 output tokens each, that's approximately <strong>₹53,125/month</strong> at ₹85/USD — or <strong>₹62,688 including 18% GST</strong>. GPT-4o mini handles the same workload for ~₹3,188/month (pre-GST). Use the calculator above to tailor this to your exact numbers.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item border-0 mb-3 shadow-sm rounded overflow-hidden">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" style="font-family:'Raleway',sans-serif;">
+                    Is there GST on LLM API costs in India?
+                  </button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted small">
+                    Yes. Indian businesses importing cloud API services from foreign providers (OpenAI, Anthropic, Google) are subject to <strong>18% GST under the Reverse Charge Mechanism (RCM)</strong>. The Indian entity self-assesses and pays this GST — the foreign provider does not collect it. A $100 API bill becomes ~₹9,912 at ₹85/USD including GST. Consult your CA for specifics on input tax credit eligibility.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item border-0 mb-3 shadow-sm rounded overflow-hidden">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" style="font-family:'Raleway',sans-serif;">
+                    How do I estimate tokens for Hindi or other Indian languages?
+                  </button>
+                </h2>
+                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted small">
+                    English uses ~1 token per 0.75 words. <strong>Hindi, Tamil, Telugu, and other Indic scripts typically use 2–4× more tokens per word</strong> than English because most LLM tokenisers have limited Indic vocabulary. For Indic language workloads, multiply your token estimates by 2× as a conservative buffer and test with actual prompts using each provider's tokeniser tool. Gemini models have the most improved Indic tokenisation among current providers.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= CTA ======= -->
+    <section class="py-5 section-bg">
+      <div class="container text-center" data-aos="fade-up">
+        <h3 class="mb-3">Need Help Choosing the Right LLM for Your Budget?</h3>
+        <p class="text-muted mb-4" style="max-width:520px;margin:0 auto 1.5rem;">I help Indian enterprises and startups architect cost-efficient AI systems — right model, right architecture, right unit economics.</p>
+        <a href="mailto:hello@theneildave.in?subject=LLM%20Cost%20Consultation"
+           class="btn btn-primary btn-lg px-4 rounded-pill"
+           aria-label="Book a free LLM cost consultation with Neil Dave">
+          Book a Free Consult
+        </a>
+        <p class="text-muted small mt-2">Or email: <a href="mailto:hello@theneildave.in">hello@theneildave.in</a></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Made with ❤️ by <strong><span>Neil Dave</span></strong>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js" defer></script>
+  <script src="assets/vendor/aos/aos.js" defer></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+
+  <!-- Calculator -->
+  <script>
+  (function () {
+    'use strict';
+
+    // ── Pricing data (USD per million tokens, Q1 2026) ──────────────────────
+    const PROVIDER_NAMES = {
+      openai: 'OpenAI', anthropic: 'Anthropic', google: 'Google',
+      mistral: 'Mistral', cohere: 'Cohere', groq: 'Groq'
+    };
+
+    const MODELS = {
+      openai: [
+        // GPT-4.1 family (Apr 2025)
+        { name: 'GPT-4.1',          input: 2.00,   output: 8.00   },
+        { name: 'GPT-4.1 mini',     input: 0.40,   output: 1.60   },
+        { name: 'GPT-4.1 nano',     input: 0.10,   output: 0.40   },
+        // o-series reasoning
+        { name: 'o3',               input: 10.00,  output: 40.00  },
+        { name: 'o4-mini',          input: 1.10,   output: 4.40   },
+        { name: 'o1',               input: 15.00,  output: 60.00  },
+        { name: 'o1-mini',          input: 3.00,   output: 12.00  },
+        // GPT-4o family
+        { name: 'GPT-4o',           input: 2.50,   output: 10.00  },
+        { name: 'GPT-4o mini',      input: 0.15,   output: 0.60   },
+        { name: 'GPT-3.5 Turbo',    input: 0.50,   output: 1.50   },
+      ],
+      anthropic: [
+        // Claude 4.x family (latest)
+        { name: 'Claude Opus 4.6',   input: 15.00, output: 75.00  },
+        { name: 'Claude Sonnet 4.6', input: 3.00,  output: 15.00  },
+        { name: 'Claude Haiku 4.5',  input: 0.80,  output: 4.00   },
+        // Claude 3.x family
+        { name: 'Claude 3.7 Sonnet', input: 3.00,  output: 15.00  },
+        { name: 'Claude 3.5 Sonnet', input: 3.00,  output: 15.00  },
+        { name: 'Claude 3.5 Haiku',  input: 0.80,  output: 4.00   },
+        { name: 'Claude 3 Opus',     input: 15.00, output: 75.00  },
+        { name: 'Claude 3 Haiku',    input: 0.25,  output: 1.25   },
+      ],
+      google: [
+        // Gemini 2.x family
+        { name: 'Gemini 2.5 Pro',       input: 1.25,   output: 10.00  },
+        { name: 'Gemini 2.0 Flash',     input: 0.10,   output: 0.40   },
+        { name: 'Gemini 2.0 Flash-Lite',input: 0.075,  output: 0.30   },
+        // Gemini 1.5 family
+        { name: 'Gemini 1.5 Pro',       input: 1.25,   output: 5.00   },
+        { name: 'Gemini 1.5 Flash',     input: 0.075,  output: 0.30   },
+        { name: 'Gemini 1.5 Flash-8B',  input: 0.0375, output: 0.15   },
+      ],
+      mistral: [
+        { name: 'Mistral Large 2',  input: 3.00,  output: 9.00   },
+        { name: 'Mistral Small 3.1',input: 0.10,  output: 0.30   },
+        { name: 'Codestral',        input: 0.30,  output: 0.90   },
+        { name: 'Pixtral 12B',      input: 0.15,  output: 0.15   },
+        { name: 'Mistral Nemo',     input: 0.15,  output: 0.15   },
+        { name: 'Mistral 7B',       input: 0.05,  output: 0.05   },
+      ],
+      cohere: [
+        { name: 'Command R+',         input: 2.50,   output: 10.00  },
+        { name: 'Command R',          input: 0.15,   output: 0.60   },
+        { name: 'Command R7B',        input: 0.0375, output: 0.15   },
+      ],
+      groq: [
+        // Llama 4 family (Apr 2025)
+        { name: 'Llama 4 Maverick',  input: 0.50,  output: 0.77   },
+        { name: 'Llama 4 Scout',     input: 0.11,  output: 0.34   },
+        // Llama 3.x
+        { name: 'Llama 3.3 70B',    input: 0.59,  output: 0.79   },
+        { name: 'Llama 3.1 8B',     input: 0.05,  output: 0.08   },
+        // Other models on Groq
+        { name: 'DeepSeek R1 70B',  input: 0.75,  output: 0.99   },
+        { name: 'Mixtral 8x7B',     input: 0.24,  output: 0.24   },
+        { name: 'Gemma 2 9B',       input: 0.20,  output: 0.20   },
+      ],
+    };
+
+    // ── State ────────────────────────────────────────────────────────────────
+    let currentProvider = 'openai';
+    let tableFilter     = 'all';
+    let sortCol         = 4;
+    let sortAsc         = true;
+
+    // ── Formatters ───────────────────────────────────────────────────────────
+    function fmtUSD(v) {
+      if (v === 0) return '$0.00';
+      if (v < 0.0001) return '$' + v.toFixed(7);
+      if (v < 0.01)   return '$' + v.toFixed(5);
+      if (v < 1)      return '$' + v.toFixed(4);
+      if (v < 1000)   return '$' + v.toFixed(2);
+      return '$' + v.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+    }
+
+    function fmtINR(v) {
+      if (v === 0) return '₹0';
+      if (v < 0.01) return '₹' + v.toFixed(4);
+      if (v < 1)    return '₹' + v.toFixed(2);
+      return '₹' + Math.round(v).toLocaleString('en-IN');
+    }
+
+    function fmtTokens(n) {
+      if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+      if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+      if (n >= 1e3) return (n / 1e3).toFixed(0) + 'K';
+      return n.toString();
+    }
+
+    function priceFmt(p) {
+      return '$' + (p < 0.1 ? p.toFixed(4) : p.toFixed(2));
+    }
+
+    // ── Word-count hints (1 token ≈ 0.75 English words) ─────────────────────
+    function updateWordHints() {
+      var inTok  = parseFloat(document.getElementById('inputTokens').value)  || 0;
+      var outTok = parseFloat(document.getElementById('outputTokens').value) || 0;
+      var inWords  = Math.round(inTok  * 0.75);
+      var outWords = Math.round(outTok * 0.75);
+      document.getElementById('inputWordHint').textContent  = '≈ ' + inWords.toLocaleString()  + ' words in English';
+      document.getElementById('outputWordHint').textContent = '≈ ' + outWords.toLocaleString() + ' words in English';
+    }
+
+    // ── DOM helpers ──────────────────────────────────────────────────────────
+    function getInputs() {
+      return {
+        requests: parseFloat(document.getElementById('monthlyRequests').value) || 0,
+        inTok:    parseFloat(document.getElementById('inputTokens').value)     || 0,
+        outTok:   parseFloat(document.getElementById('outputTokens').value)    || 0,
+        rate:     parseFloat(document.getElementById('exchangeRate').value)    || 85,
+      };
+    }
+
+    function calcCost(model, requests, inTok, outTok) {
+      const totalInput   = requests * inTok;
+      const totalOutput  = requests * outTok;
+      const inputCost    = (totalInput  / 1e6) * model.input;
+      const outputCost   = (totalOutput / 1e6) * model.output;
+      return { totalInput, totalOutput, inputCost, outputCost, monthlyUSD: inputCost + outputCost };
+    }
+
+    // ── Populate model dropdown ──────────────────────────────────────────────
+    function populateModels(provider) {
+      const sel = document.getElementById('modelSelect');
+      sel.innerHTML = '';
+      (MODELS[provider] || []).forEach((m, i) => {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = m.name;
+        sel.appendChild(opt);
+      });
+      updateCalculator();
+    }
+
+    // ── Update calculator results ────────────────────────────────────────────
+    function updateCalculator() {
+      updateWordHints();
+      const { requests, inTok, outTok, rate } = getInputs();
+      const idx   = parseInt(document.getElementById('modelSelect').value) || 0;
+      const model = MODELS[currentProvider]?.[idx];
+      if (!model) return;
+
+      const { totalInput, totalOutput, inputCost, outputCost, monthlyUSD } = calcCost(model, requests, inTok, outTok);
+      const annualUSD    = monthlyUSD * 12;
+      const perReqUSD    = requests > 0 ? monthlyUSD / requests : 0;
+      const monthlyINR   = monthlyUSD * rate;
+      const monthlyGST   = monthlyINR * 1.18;
+
+      document.getElementById('displayInputPrice').textContent  = priceFmt(model.input)  + '/M';
+      document.getElementById('displayOutputPrice').textContent = priceFmt(model.output) + '/M';
+
+      document.getElementById('costPerReqUSD').textContent  = fmtUSD(perReqUSD);
+      document.getElementById('costPerReqINR').textContent  = fmtINR(perReqUSD * rate);
+      document.getElementById('monthlyCostUSD').textContent = fmtUSD(monthlyUSD);
+      document.getElementById('monthlyCostINR').textContent = fmtINR(monthlyINR);
+      document.getElementById('annualCostUSD').textContent  = fmtUSD(annualUSD);
+      document.getElementById('annualCostINR').textContent  = fmtINR(annualUSD * rate);
+
+      document.getElementById('totalInputTokens').textContent  = fmtTokens(totalInput)  + ' tokens';
+      document.getElementById('inputCostUSD').textContent      = fmtUSD(inputCost);
+      document.getElementById('totalOutputTokens').textContent = fmtTokens(totalOutput) + ' tokens';
+      document.getElementById('outputCostUSD').textContent     = fmtUSD(outputCost);
+      document.getElementById('monthlyCostGST').textContent    = fmtINR(monthlyGST);
+
+      updateComparisonTable();
+    }
+
+    // ── Comparison table ─────────────────────────────────────────────────────
+    function updateComparisonTable() {
+      const { requests, inTok, outTok, rate } = getInputs();
+
+      document.getElementById('compWorkloadDesc').textContent =
+        `${requests.toLocaleString()} requests × ${inTok.toLocaleString()} input × ${outTok.toLocaleString()} output tokens`;
+      document.getElementById('compRate').textContent = rate;
+
+      let rows = [];
+      Object.entries(MODELS).forEach(([provKey, models]) => {
+        models.forEach(model => {
+          const { monthlyUSD } = calcCost(model, requests, inTok, outTok);
+          rows.push({
+            provKey,
+            provider:   PROVIDER_NAMES[provKey],
+            model:      model.name,
+            input:      model.input,
+            output:     model.output,
+            monthlyUSD,
+            monthlyINR: monthlyUSD * rate,
+          });
+        });
+      });
+
+      if (tableFilter !== 'all') {
+        rows = rows.filter(r => r.provKey === tableFilter);
+      }
+
+      rows.sort((a, b) => {
+        const cols = ['provider', 'model', 'input', 'output', 'monthlyINR', 'monthlyUSD'];
+        const key  = cols[sortCol] || 'monthlyINR';
+        const va = a[key], vb = b[key];
+        if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+        return sortAsc ? va - vb : vb - va;
+      });
+
+      const minINR = rows.length ? Math.min(...rows.map(r => r.monthlyINR)) : 0;
+
+      const tbody = document.getElementById('comparisonTableBody');
+      tbody.innerHTML = '';
+      rows.forEach(row => {
+        const cheapest = rows.length > 1 && Math.abs(row.monthlyINR - minINR) < 0.0001;
+        const tr = document.createElement('tr');
+        if (cheapest) tr.classList.add('cheapest-row');
+        tr.innerHTML =
+          `<td class="provider-label">${row.provider}</td>` +
+          `<td class="model-name">${row.model}${cheapest ? ' <span class="cheapest-badge">Cheapest</span>' : ''}</td>` +
+          `<td>${priceFmt(row.input)}</td>` +
+          `<td>${priceFmt(row.output)}</td>` +
+          `<td class="inr-cost">${fmtINR(row.monthlyINR)}</td>` +
+          `<td class="text-muted">${fmtUSD(row.monthlyUSD)}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // ── Sort ─────────────────────────────────────────────────────────────────
+    window.sortTable = function (col) {
+      if (sortCol === col) sortAsc = !sortAsc;
+      else { sortCol = col; sortAsc = true; }
+      updateComparisonTable();
+    };
+
+    // ── Event listeners ──────────────────────────────────────────────────────
+    document.getElementById('providerBtns').addEventListener('click', function (e) {
+      const btn = e.target.closest('.provider-btn[data-provider]');
+      if (!btn) return;
+      currentProvider = btn.dataset.provider;
+      document.querySelectorAll('#providerBtns .provider-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      populateModels(currentProvider);
+    });
+
+    document.getElementById('tableFilterBtns').addEventListener('click', function (e) {
+      const btn = e.target.closest('.provider-btn[data-filter]');
+      if (!btn) return;
+      tableFilter = btn.dataset.filter;
+      document.querySelectorAll('#tableFilterBtns .provider-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateComparisonTable();
+    });
+
+    ['monthlyRequests', 'inputTokens', 'outputTokens', 'exchangeRate', 'modelSelect'].forEach(function (id) {
+      document.getElementById(id).addEventListener('input', updateCalculator);
+    });
+
+    // ── Init ─────────────────────────────────────────────────────────────────
+    updateWordHints();
+    populateModels('openai');
+
+  }());
+  </script>
+
+</body>
+</html>
