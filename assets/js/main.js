@@ -38,7 +38,15 @@
    * Easy on scroll event listener 
    */
   const onscroll = (el, listener) => {
-    el.addEventListener('scroll', listener)
+    let framePending = false
+    el.addEventListener('scroll', () => {
+      if (framePending) return
+      framePending = true
+      window.requestAnimationFrame(() => {
+        listener()
+        framePending = false
+      })
+    }, { passive: true })
   }
 
   /**
@@ -192,14 +200,14 @@
   /**
    * Initiate portfolio lightbox 
    */
-  const portfolioLightbox = GLightbox({
-    selector: '.portfolio-lightbox'
-  });
+  if (typeof GLightbox !== 'undefined' && select('.portfolio-lightbox')) {
+    GLightbox({ selector: '.portfolio-lightbox' });
+  }
 
   /**
    * Portfolio details slider
    */
-  new Swiper('.portfolio-details-slider', {
+  if (typeof Swiper !== 'undefined' && select('.portfolio-details-slider')) new Swiper('.portfolio-details-slider', {
     speed: 400,
     loop: true,
     autoplay: {
@@ -216,7 +224,7 @@
   /**
    * Testimonials slider
    */
-  new Swiper('.testimonials-slider', {
+  if (typeof Swiper !== 'undefined' && select('.testimonials-slider')) new Swiper('.testimonials-slider', {
     speed: 600,
     loop: true,
     autoplay: {
@@ -246,7 +254,7 @@
    * Animation on scroll
    */
   window.addEventListener('load', () => {
-    AOS.init({
+    if (typeof AOS !== 'undefined') AOS.init({
       duration: 1000,
       easing: 'ease-in-out',
       once: true,
@@ -258,7 +266,7 @@
   /**
    * Initiate Pure Counter 
    */
-  new PureCounter();
+  if (typeof PureCounter !== 'undefined') new PureCounter();
 
 })()
 

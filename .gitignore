@@ -3,3 +3,6 @@
 .gstack
 .mcp.json
 .opencode.json
+/seo-audit-output
+.codex-bin
+.gstack/

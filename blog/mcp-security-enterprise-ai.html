@@ -14,7 +14,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>MCP Security: What Every Enterprise AI Architect Must Know | Neil Dave</title>
+  <title>MCP Security for Enterprise AI: Practical Guide | Neil Dave</title>
   <meta name="description" content="MCP (Model Context Protocol) expands what AI agents can do — and dramatically expands your attack surface. A deep-dive into every threat vector, with real examples and a production hardening checklist.">
   <link rel="canonical" href="https://theneildave.in/blog/mcp-security-enterprise-ai.html">
   <meta name="author" content="Neil Dave">
@@ -287,6 +287,10 @@
             <hr class="mb-4">
 
             <div class="post-content">
+
+              <aside style="border-left:4px solid #0d6efd;background:#f3f8ff;padding:1rem 1.25rem;margin:0 0 2rem;border-radius:0 8px 8px 0;">
+                <strong>Quick answer:</strong> Enterprise MCP security requires six controls: an explicit tool allowlist, OAuth 2.1 scopes, structured audit logs, output sanitisation, sandboxed server processes, and human approval for irreversible actions. MCP servers should be treated like production dependencies, not trusted plugins. Pin versions, review updates, isolate credentials, and monitor every tool call. These controls reduce the risk of prompt injection, tool poisoning, privilege escalation, data exfiltration, and compromised third-party servers. Start with the allowlist and logging first, then add isolation and approval gates as the system moves toward production.
+              </aside>
 
               <p>
                 The Model Context Protocol (MCP) is one of the most important infrastructure primitives introduced for AI agents in the past two years. It gives language models a standardised interface to call tools — databases, APIs, file systems, calendars, code executors — across any client and any server. Anthropic open-sourced the spec in late 2024; by early 2026 there are hundreds of community MCP servers and every major AI IDE has native support.
