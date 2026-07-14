@@ -162,6 +162,11 @@
     .blog-tag { font-size: 0.75rem; background: #e8f4fd; color: #0d6efd; border-radius: 20px; padding: 2px 10px; margin-right: 4px; display: inline-block; margin-bottom: 6px; }
     .read-time { font-size: 0.78rem; color: #999; }
     .post-date { font-size: 0.8rem; color: #aaa; margin-bottom: 0.5rem; }
+    /* Local articles stay visible even when the optional Substack feed is unavailable. */
+    #local-posts .swiper-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    #local-posts .swiper-slide { width: auto !important; height: auto; }
+    #local-posts .swiper-button-next, #local-posts .swiper-button-prev, #local-posts .swiper-pagination { display: none; }
+    #archive-empty { display: none !important; }
     /* Articles carousel */
     .articles-swiper { padding-bottom: 44px !important; }
     .articles-swiper .swiper-slide { height: auto; }
@@ -470,28 +475,6 @@
             <div class="swiper-button-next"></div>
           </div>
         </div>
-
-        <script>
-          document.addEventListener('DOMContentLoaded', function () {
-            new Swiper('.articles-swiper', {
-              slidesPerView: 1,
-              spaceBetween: 20,
-              loop: false,
-              navigation: {
-                nextEl: '.articles-swiper .swiper-button-next',
-                prevEl: '.articles-swiper .swiper-button-prev'
-              },
-              pagination: {
-                el: '.articles-swiper .swiper-pagination',
-                clickable: true
-              },
-              breakpoints: {
-                768: { slidesPerView: 2, spaceBetween: 20 },
-                992: { slidesPerView: 3, spaceBetween: 24 }
-              }
-            });
-          });
-        </script>
 
         <!-- Substack archive divider — only shown once RSS loads -->
         <div id="substack-archive-header" class="mb-3" style="display:none;">
