@@ -76,7 +76,13 @@
     <loc>https://theneildave.in/blog.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2026-06-28</lastmod>
+    <lastmod>2026-08-23</lastmod>
+  </url>
+  <url>
+    <loc>https://theneildave.in/blog/forward-deployed-engineer-2026.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-08-23</lastmod>
   </url>
   <url>
     <loc>https://theneildave.in/blog/llmops-vs-mlops.html</loc>

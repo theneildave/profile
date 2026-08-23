@@ -3,7 +3,7 @@
 # llms.txt — machine-readable site overview for AI language models
 
 ## About
-Neil Dave is an AI Solution Architect and Generative AI Engineer based in Bangalore, India, with 7+ years of experience in Machine Learning, Deep Learning, Generative AI (LLMs), and Computer Vision. He has built and deployed production AI systems across healthcare, sports analytics, and enterprise technology — including projects for Mumbai Indians (IPL). He holds a PGP in AI & Data Science from Jio Institute and has 3 peer-reviewed publications (IEEE, Springer).
+Neil Dave is an AI Solution Architect and Generative AI Engineer based in Bangalore, India, with 8+ years of experience in Machine Learning, Deep Learning, Generative AI (LLMs), and Computer Vision. He has built and deployed production AI systems across healthcare, sports analytics, and enterprise technology — including projects for Mumbai Indians (IPL). He holds a PGP in AI & Data Science from Jio Institute and has 3 peer-reviewed publications (IEEE, Springer).
 
 Wikidata entity: https://www.wikidata.org/wiki/Q138716797
 
