@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FF2576R3B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0FF2576R3B');
+  </script>
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Palantir FDE Decomposition Interview Guide | Neil Dave</title>
+  <meta name="description" content="Crack the Palantir Forward Deployed Engineer (FDSE) decomposition round. 10 real interview prompts, the 4-phase scoring rubric, and battle-tested answers.">
+  <link rel="canonical" href="https://theneildave.in/blog/palantir-fde-decomposition-interview.html">
+  <meta name="author" content="Neil Dave">
+  <meta name="robots" content="index, follow">
+  <meta name="article:published_time" content="2026-10-27">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://theneildave.in/blog/palantir-fde-decomposition-interview.html">
+  <meta property="og:title" content="Palantir FDE Decomposition Interview: 10 Real Questions & Rubric | Neil Dave">
+  <meta property="og:description" content="Crack the Palantir Forward Deployed Engineer (FDSE) decomposition round. 10 real interview prompts, the 4-phase scoring rubric, and battle-tested answers.">
+  <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.webp">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
+  <meta name="twitter:title" content="Palantir FDE Decomposition Interview: 10 Questions & Solutions">
+  <meta name="twitter:description" content="Crack the Palantir FDSE decomposition round: 10 real prompts, grading rubrics, and the step-by-step engineering framework.">
+  <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.webp">
+
+  <!-- BlogPosting Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "10 Real Palantir FDE Decomposition Interview Questions (And How to Crack Them)",
+    "description": "Crack the Palantir Forward Deployed Engineer (FDSE) decomposition round. 10 real interview prompts, the 4-phase scoring rubric, and battle-tested answers from production AI deployments.",
+    "url": "https://theneildave.in/blog/palantir-fde-decomposition-interview.html",
+    "datePublished": "2026-10-27",
+    "dateModified": "2026-10-27",
+    "author": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in",
+      "jobTitle": "AI Solution Architect",
+      "sameAs": [
+        "https://www.linkedin.com/in/neil-dave/",
+        "https://www.wikidata.org/wiki/Q138716797",
+        "https://www.youtube.com/@theneildave"
+      ]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in"
+    },
+    "keywords": [
+      "palantir fdse interview questions",
+      "palantir decomposition interview",
+      "forward deployed software engineer interview",
+      "fde interview case study",
+      "palantir interview questions 2026",
+      "forward deployed engineer interview roadmap",
+      "openai forward deployed engineer interview",
+      "ai solution architect interview"
+    ],
+    "mainEntityOfPage": "https://theneildave.in/blog/palantir-fde-decomposition-interview.html",
+    "wordCount": 4200,
+    "timeRequired": "PT18M"
+  }
+  </script>
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"},
+      {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://theneildave.in/blog.html"},
+      {"@type": "ListItem", "position": 3, "name": "Palantir FDE Decomposition Interview", "item": "https://theneildave.in/blog/palantir-fde-decomposition-interview.html"}
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the Palantir FDE decomposition interview round?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The decomposition round is a 45 to 60-minute technical problem-solving interview where the candidate is given a deliberately vague, multi-million-dollar customer problem and must structure it into concrete data pipelines, engineering constraints, an MVP model or heuristic, and measurable business KPIs without writing algorithmic code."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does the decomposition round have such a low pass rate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The pass rate hovers around 35-40% because typical software engineers immediately jump into designing complex neural networks or microservice architectures without clarifying the real customer bottleneck, asking about data dirty state, or considering edge-case business constraints like HIPAA, air-gapped networks, or union rules."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How should you structure your 45 minutes in a decomposition interview?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Allocate your time into 4 structured phases: Phase 1 (0-10m) Scoping and clarification; Phase 2 (10-22m) Data inventory and ingress realities; Phase 3 (22-35m) Core engineering architecture and MVP heuristic/ML baseline; Phase 4 (35-45m) Production deployment, failure modes, and feedback loops."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between an FDE decomposition round and standard System Design?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard system design tests scalability (sharding, caching, load balancers, QPS). An FDE decomposition round tests applied judgment in ambiguity: data untidiness, stakeholder conflict, legacy ERP integration, regulatory boundaries, and establishing an MVP that delivers verifiable dollar value in 30 days."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon1.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <!-- Mermaid.js for architectural illustrations -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+          primaryColor: '#dbeafe',
+          primaryTextColor: '#1e3a8a',
+          primaryBorderColor: '#3b82f6',
+          lineColor: '#64748b',
+          secondaryColor: '#dcfce7',
+          tertiaryColor: '#fef9c3',
+          background: '#f8fafc',
+          fontFamily: 'Poppins, sans-serif',
+          fontSize: '13px'
+        },
+        flowchart: { htmlLabels: true, curve: 'basis', padding: 20, nodeSpacing: 45, rankSpacing: 50 }
+      });
+    });
+  </script>
+
+  <style>
+    .post-content { font-size: 1.05rem; line-height: 1.85; color: #333; }
+    .post-content h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.4rem; margin-bottom: 0.8rem; color: #173b6c; }
+    .post-content h3 { font-size: 1.18rem; font-weight: 600; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #1a3a5c; }
+    .post-content p { margin-bottom: 1.2rem; }
+    .post-content ul, .post-content ol { margin-bottom: 1.2rem; padding-left: 1.5rem; }
+    .post-content li { margin-bottom: 0.5rem; }
+    .quick-answer { border-left: 4px solid #0d6efd; background: #f3f8ff; padding: 1.1rem 1.3rem; margin: 0 0 2rem; border-radius: 0 8px 8px 0; }
+    .prompt-box { background: #0b1528; color: #e2e8f0; border-radius: 10px; padding: 1.2rem 1.4rem; margin: 1.5rem 0; border-left: 5px solid #3b82f6; font-family: monospace; font-size: 0.95rem; }
+    .rubric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .rubric-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.2rem; border-top: 4px solid #0d6efd; }
+    .rubric-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: #1e293b; }
+    .case-card { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 1.5rem; margin: 1.8rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .case-title { font-weight: 700; font-size: 1.15rem; color: #173b6c; margin-bottom: 0.5rem; }
+    .trap-alert { background: #fef2f2; border-left: 4px solid #ef4444; padding: 0.9rem 1.2rem; margin: 1rem 0; font-size: 0.92rem; border-radius: 0 6px 6px 0; }
+    .solve-alert { background: #f0fdf4; border-left: 4px solid #22c55e; padding: 0.9rem 1.2rem; margin: 1rem 0; font-size: 0.92rem; border-radius: 0 6px 6px 0; }
+    .author-box { background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1.5rem; margin-top: 3rem; display: flex; align-items: center; gap: 1rem; }
+    .author-box img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+    .substack-cta { background: linear-gradient(135deg, #ff6719 0%, #ff8c00 100%); color: white; border-radius: 12px; padding: 1.5rem 2rem; margin-top: 3rem; text-align: center; }
+    .substack-cta a { color: white; font-weight: 600; text-decoration: underline; }
+    .mermaid { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem 1rem; margin: 1.5rem 0; overflow-x: auto; text-align: center; }
+  </style>
+</head>
+
+<body>
+
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" fetchpriority="high" width="200" height="200">
+        <h2 class="text-light"><a href="/">Neil Dave</a></h2>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="github" target="_blank" rel="noopener" title="Neil Dave on GitHub"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Medium"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener" title="Neil Dave on Substack"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Google Scholar"><i class="bx bx-book-alt"></i></a>
+          <a href="https://www.youtube.com/@theneildave" class="youtube" target="_blank" rel="noopener" title="Neil Dave on YouTube"><i class="bx bxl-youtube"></i></a>
+          <a href="https://twitter.com/theneildave" class="twitter" target="_blank" rel="noopener" title="Neil Dave on Twitter"><i class="bx bxl-twitter"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="/#hero" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="/#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="/#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="../blog.html" class="nav-link active"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="../speaking.html" class="nav-link"><i class="bx bx-microphone"></i> <span>Speaking</span></a></li>
+          <li><a href="../enterprise.html" class="nav-link"><i class="bx bx-briefcase"></i> <span>For Enterprise</span></a></li>
+          <li><a href="../collaborate.html" class="nav-link"><i class="bx bx-group"></i> <span>Collaborate</span></a></li>
+          <li><a href="/#substack" class="nav-link scrollto"><i class="bx bx-envelope-open"></i><span>Newsletter</span></a></li>
+          <li><a href="/#tndtalks" class="nav-link scrollto"><i class="bx bx-podcast"></i> <span>TND Talks</span></a></li>
+          <li><a href="/#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
+          <li><a href="/#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Article</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="../blog.html">Articles</a></li>
+            <li>Palantir FDE Decomposition Interview</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio-details" style="padding: 40px 0 60px;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+            <div class="mb-4">
+              <span class="blog-tag">Palantir FDSE</span>
+              <span class="blog-tag">Decomposition Round</span>
+              <span class="blog-tag">Interview Prep</span>
+              <span class="blog-tag" style="background:#fff3cd;color:#856404;">Interview Playbook</span>
+            </div>
+
+            <h1 style="font-size: 2.1rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.8rem;">
+              10 Real Palantir FDE "Decomposition" Interview Questions (And How to Crack Them)
+            </h1>
+
+            <div class="d-flex align-items-center gap-3 mb-4" style="font-size: 0.85rem; color: #888;">
+              <span><i class="bx bx-calendar"></i> 27 October 2026</span>
+              <span><i class="bx bx-time"></i> 18 min read</span>
+            </div>
+
+            <hr class="mb-4">
+
+            <div class="post-content">
+              <!-- Quick answer box for AEO extraction -->
+              <div class="quick-answer">
+                <strong>Quick answer:</strong> The Palantir Forward Deployed Software Engineer (FDSE) "Decomposition" round is a 45-60 minute interview testing your ability to turn an ambiguous, high-stakes customer problem into an executable technical roadmap. Rather than testing LeetCode or theoretical scaling (QPS, CDN sharding), it evaluates four signals: problem framing under ambiguity, messy data realities (legacy ERPs, schema rot), practical MVP heuristic architecture, and measurable business ROI. Candidates fail when they immediately pitch complex deep learning before isolating the primary workflow bottleneck.
+              </div>
+
+              <p>In my previous guide on <a href="forward-deployed-engineer-2026.html">how to become a Forward Deployed Engineer in 2026</a>, we analyzed how FDE roles grew 729% YoY at companies like Palantir, OpenAI, Anthropic, and Scale AI. But the single most common question I received from engineers preparing for interviews was this:</p>
+
+              <blockquote>
+                "How do I actually prepare for Palantir's 'Decomposition' interview round? It's not LeetCode, and it's not standard System Design."
+              </blockquote>
+
+              <p>The Decomposition round carries the <strong>lowest pass rate (~35-40%)</strong> and the highest evaluative weight in the Palantir hiring loop. It is designed to simulate your first 72 hours embedded with an enterprise customer: you are thrown into a room with an anxious VP, messy fragmented data, legacy mainframes, and zero documentation.</p>
+
+              <p>Below is the complete engineering breakdown: how the round is graded, the 4-phase whiteboard roadmap, and 10 real-world decomposition scenarios with exact model answers.</p>
+
+              <h2>The 4-Phase Decomposition Framework</h2>
+              <p>When the interviewer gives you a vague prompt, do not start drawing databases. Divide your 45 minutes into four disciplined milestones:</p>
+
+              <!-- Mermaid Architecture Diagram -->
+              <div class="mermaid">
+flowchart TD
+    A["Phase 1: 0-10m<br><b>Problem Framing & Constraints</b><br>Define $ metric, stakeholders, regulatory boundaries"] --> B["Phase 2: 10-22m<br><b>Data Reality & Ingestion</b><br>Telemetry latency, schema mismatch, missing ground truth"]
+    B --> C["Phase 3: 22-35m<br><b>MVP Architecture & Heuristics</b><br>Rules + Light ML first, human-in-the-loop triage"]
+    C --> D["Phase 4: 35-45m<br><b>Deployment & Feedback Loop</b><br>Drift monitoring, air-gapped security, adoption ROI"]
+              </div>
+
+              <div class="rubric-grid">
+                <div class="rubric-card">
+                  <h4>1. Ambiguity Scoping</h4>
+                  <p class="small text-muted mb-0">Isolating the real operational fire from executive noise. Identifying what constitutes success in dollars, hours, or lives saved.</p>
+                </div>
+                <div class="rubric-card">
+                  <h4>2. Data Skepticism</h4>
+                  <p class="small text-muted mb-0">Assuming customer data is dirty, delayed, unindexed, siloed across SAP/Oracle, and missing ground-truth labels.</p>
+                </div>
+                <div class="rubric-card">
+                  <h4>3. Pragmatic MVP</h4>
+                  <p class="small text-muted mb-0">Proposing deterministic heuristics and simple classifiers first before introducing billion-parameter LLMs.</p>
+                </div>
+                <div class="rubric-card">
+                  <h4>4. Enterprise Reality</h4>
+                  <p class="small text-muted mb-0">Addressing air-gapped VPCs, SAML/OIDC auth, audit logs, model explainability, and operator change management.</p>
+                </div>
+              </div>
+
+              <hr class="my-4">
+
+              <h2>10 Real Palantir Decomposition Interview Scenarios</h2>
+
+              <!-- Question 1 -->
+              <div class="case-card">
+                <div class="case-title">Scenario 1: The Commercial Airline Fuel Optimization Crisis</div>
+                <div class="prompt-box">
+                  "A major airline burns $4.2B in jet fuel annually. Flight dispatchers routinely upload 15% extra fuel 'just in case,' costing $180M in unnecessary payload weight. Design a system to optimize fuel uplift without compromising safety."
+                </div>
+
+                <div class="trap-alert">
+                  <strong>The Trap:</strong> Candidates immediately propose training an LSTM or reinforcement learning agent to predict exact fuel weights down to the kilogram. The interviewer dings you because FAA regulations mandate hard minimum reserves, and unionized pilots will refuse to fly a black-box AI recommendation.
+                </div>
+
+                <div class="solve-alert">
+                  <strong>The Winning Decomposition:</strong>
+                  <ol>
+                    <li><strong>Stakeholder & Legal Alignment:</strong> State that FAA reserve rules (FAR 121.639) are non-negotiable hard constraints. The optimization target is strictly the discretionary "contingency fuel" above regulatory minimums.</li>
+                    <li><strong>Data Unification:</strong> Ingest three distinct data velocities: historical flight telemetry (ACARS data, latency 15 min), real-time weather and jet stream forecasts (NOAA/GRIB2), and air traffic control hold-pattern probabilities.</li>
+                    <li><strong>Heuristic Baseline:</strong> Build a transparent regression model with explainable SHAP features (e.g., "adding 400kg because runway 28L at ORD has a 62% historical de-icing congestion probability today").</li>
+                    <li><strong>Pilot Adoption UI:</strong> Deliver a confidence band to the pilot's EFB (Electronic Flight Bag) tablet showing <em>why</em> the recommendation was generated, with a 1-click override option. Track override rates as an operational eval metric.</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Question 2 -->
+              <div class="case-card">
+                <div class="case-title">Scenario 2: Hospital Sepsis False Alarm Fatigue in the ICU</div>
+                <div class="prompt-box">
+                  "A hospital network's bedside monitors trigger 80,000 physiological alerts a day. 96% are false positives. Nurses suffer alarm fatigue and disable alerts; two patients died last month from septic shock. Scope the intervention."
+                </div>
+
+                <div class="trap-alert">
+                  <strong>The Trap:</strong> Building a deep transformer on raw EHR data that predicts sepsis 12 hours earlier but operates as a black box. If an alert triggers without clinical rationale, nurses will continue to silence it.
+                </div>
+
+                <div class="solve-alert">
+                  <strong>The Winning Decomposition:</strong>
+                  <ol>
+                    <li><strong>Deconstruct the Signal:</strong> Sepsis criteria (SIRS / SOFA scores) are clinical standards. Instead of replacing clinical rules with ML, use ML to filter out the mechanical noise (e.g., sensor disconnections, postural blood pressure drops, patient moving).</li>
+                    <li><strong>Latency & Streaming:</strong> Bedside telemetry operates on HL7/FHIR streams. Buffer time-series data at the edge ward gateway. Do not send raw 100Hz telemetry to a remote cloud; compute sliding-window vital trends locally.</li>
+                    <li><strong>Triage Escalation Architecture:</strong> Define tiered alerts. Tier 1 (Low confidence): Silent log in nursing dashboard. Tier 2 (Moderate trend): Highlight on ward monitor. Tier 3 (High clinical confidence + rising lactate): Pager alert requiring physician acknowledgment within 8 minutes.</li>
+                    <li><strong>Feedback Loop:</strong> If a clinician silences an alert and administers IV antibiotics within 1 hour, flag that as a false negative event for the model retraining pipeline.</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Question 3 -->
+              <div class="case-card">
+                <div class="case-title">Scenario 3: Global Automotive Supply Chain Part Shortage Prediction</div>
+                <div class="prompt-box">
+                  "An automotive OEM has 4,200 Tier-1 and Tier-2 suppliers. A single missing $4 semiconductor stops an entire $65,000 EV assembly line. Design an early warning system to detect supply disruption 30 days before assembly shuts down."
+                </div>
+
+                <div class="solve-alert">
+                  <strong>The Winning Decomposition:</strong>
+                  <ol>
+                    <li><strong>Multi-Tier Bill of Materials (BOM) Ontology:</strong> Palantir loves ontology design. Create an object graph connecting Supplier -> Part -> Sub-assembly -> Vehicle Model. Map single points of failure (parts with only 1 supplier).</li>
+                    <li><strong>External Risk Signal Ingestion:</strong> Connect port congestion data (AIS ship transponders), geopolitical sanctions lists, raw material pricing indices (lithium, copper), and public financial health filings of suppliers.</li>
+                    <li><strong>Simulation Engine:</strong> Run daily Monte Carlo simulations: "If Supplier X in Taiwan halts production for 14 days, what is the assembly impact date?" Give procurement leads a 30-day buffer to source alternative second-source suppliers.</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Question 4 -->
+              <div class="case-card">
+                <div class="case-title">Scenario 4: Defense Logistics Fleet Maintenance in Contested Environments</div>
+                <div class="prompt-box">
+                  "A fleet of 800 armored transport vehicles operates in forward operating bases with sporadic satellite connectivity. Unplanned engine failures in transit cause convoy vulnerability. Design a predictive maintenance platform."
+                </div>
+
+                <div class="solve-alert">
+                  <strong>The Winning Decomposition:</strong>
+                  <ol>
+                    <li><strong>Edge-First Store-and-Forward:</strong> Emphasize disconnected operations (DDIL: Disconnected, Denied, Intermittent, Limited). Telemetry must process on an onboard ruggedized edge node.</li>
+                    <li><strong>Anomaly Detection on Oil & Vibration:</strong> Rather than an uninterpretable neural network, train a lightweight isolation forest or autoencoder on vibration Fourier transforms and fluid viscosity sensor values.</li>
+                    <li><strong>Tactical Sync:</strong> When the vehicle enters a forward base with local Wi-Fi or tactical mesh radio, compress and sync model weights and diagnostic summaries back to central Foundry.</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Question 5 -->
+              <div class="case-card">
+                <div class="case-title">Scenario 5: Anti-Money Laundering (AML) Transaction Monitoring</div>
+                <div class="prompt-box">
+                  "A retail bank processes 40M daily wire transfers. Compliance analysts are drowning in 12,000 suspicious activity alerts daily with a 98% false-positive rate. Regulators are threatening a $200M consent decree. How do you deploy AI here?"
+                </div>
+
+                <div class="solve-alert">
+                  <strong>The Winning Decomposition:</strong>
+                  <ol>
+                    <li><strong>Graph-Based Entity Resolution:</strong> Traditional rules evaluate single transactions in isolation. Decompose accounts into a dynamic knowledge graph (shared phone numbers, physical addresses, beneficial ownership registries) to detect layering rings.</li>
+                    <li><strong>Supervised Re-ranking with Human Feedback:</strong> Run the bank's mandated legacy rules engine first (to keep regulators satisfied). Pass flagged alerts to an ML ranking tier that orders the queue by probability of a Suspicious Activity Report (SAR) filing.</li>
+                    <li><strong>Automated Narrative Generation:</strong> Use an LLM agent with structured schema extraction to pre-draft the SAR narrative summarizing transaction history, reducing analyst investigation time from 45 min to 10 min.</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Questions 6 to 10 Summary -->
+              <h2>Scenarios 6 through 10: Quick-Fire Decompositions</h2>
+
+              <div class="case-card">
+                <div class="case-title">Scenario 6: Municipal Water Utility Leakage Detection</div>
+                <p><strong>Core Challenge:</strong> 25% of treated water is lost underground before reaching meters. Ingest acoustic pipe sensors + pressure transients. Cluster pressure drops and correlate with ground moisture satellite maps to dispatch repair crews.</p>
+              </div>
+
+              <div class="case-card">
+                <div class="case-title">Scenario 7: Pharmaceutical Cold-Chain Vaccine Spoilage</div>
+                <p><strong>Core Challenge:</strong> Insulin and vaccines degrade if temperature leaves 2-8°C during transit across 14 logistics handoffs. Implement predictive thermal decay algorithms taking ambient transit forecasts into account, triggering dry-ice replenishment alerts before critical thresholds are breached.</p>
+              </div>
+
+              <div class="case-card">
+                <div class="case-title">Scenario 8: Semiconductor Fab Wafer Defect Localization</div>
+                <p><strong>Core Challenge:</strong> Defective microchips detected at final testing cost $400k/batch. Decompose 800-step lithography and etching steps into sensor anomaly traces. Use causal inference to isolate faulty chamber vacuum pumps within minutes rather than weeks.</p>
+              </div>
+
+              <div class="case-card">
+                <div class="case-title">Scenario 9: Retail E-Commerce Return Fraud Ring Detection</div>
+                <p><strong>Core Challenge:</strong> Wardrobing and empty-box return scams cost $80M/yr. Map device fingerprints, delivery driver drop-off geofences, and customer returns histories into an ensemble score that routes high-risk refunds to physical warehouse inspection before issuing payout.</p>
+              </div>
+
+              <div class="case-card">
+                <div class="case-title">Scenario 10: Port Container Terminal Congestion Scheduling</div>
+                <p><strong>Core Challenge:</strong> 60 container vessels waiting at anchor, costing $40k/day in demurrage fees. Build an operational twin balancing crane availability, drayage truck gate reservations, and customs inspection queues to eliminate berth idling.</p>
+              </div>
+
+              <hr class="my-4">
+
+              <h2>The Top 3 Mistakes That Disqualify Candidates</h2>
+              <ul>
+                <li><strong>1. Proposing End-to-End Deep Learning for Structured Workflow Problems:</strong> If a simple rule or XGBoost baseline solves 80% of the problem with full interpretability, proposing a multi-million-dollar neural model shows lack of business maturity.</li>
+                <li><strong>2. Treating Data as Clean and Unified:</strong> In enterprise reality, data lives in 14 silos: SAP, Oracle, handwritten logs, and Excel sheets maintained by someone who retired 3 years ago. You must address data cleaning and entity resolution upfront.</li>
+                <li><strong>3. Forgetting the Human Operator:</strong> Software that operators reject is zero-value software. Always describe how the frontline nurse, pilot, or factory technician interacts with and overrides the recommendation.</li>
+              </ul>
+
+              <div class="author-box">
+                <img src="../assets/img/profile-img.webp" alt="Neil Dave" width="60" height="60" loading="lazy">
+                <div>
+                  <div style="font-weight: 600; font-size: 0.95rem;">Neil Dave</div>
+                  <div style="font-size: 0.8rem; color: #666; margin-top: 2px;">
+                    AI Solution Architect & Generative AI Engineer · Bangalore, India
+                  </div>
+                  <div style="font-size: 0.8rem; color: #888; margin-top: 4px;">
+                    <a href="https://www.linkedin.com/in/neil-dave/" target="_blank" rel="noopener">LinkedIn</a> ·
+                    <a href="https://theneildave.substack.com" target="_blank" rel="noopener">Substack</a> ·
+                    <a href="https://calendly.com/theneildave" target="_blank" rel="noopener">Book a Strategy Call</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="substack-cta">
+                <div style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem;">Get Practical AI Engineering in Your Inbox</div>
+                <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 1rem;">No hype. Real production breakdowns, salary data, and system design tear-downs.</div>
+                <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-light rounded-pill px-4" style="color: #ff6719; font-weight: 700;">Subscribe to Newsletter →</a>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Made with ❤️ by <strong><span>Neil Dave</span></strong>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js" defer></script>
+  <script src="../assets/vendor/aos/aos.js" defer></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+
+</body>
+</html>

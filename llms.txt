@@ -25,17 +25,32 @@ Wikidata entity: https://www.wikidata.org/wiki/Q138716797
 - Enterprise consulting: https://theneildave.in/enterprise.html
 - Speaking: https://theneildave.in/speaking.html
 - Collaboration: https://theneildave.in/collaborate.html
-- Articles: https://theneildave.in/blog.html
+- Free LLM Cost Calculator: https://theneildave.in/llm-cost-calculator.html
+- Articles & Blog: https://theneildave.in/blog.html
 - Portfolio — Gen AI & LLM: https://theneildave.in/gen-ai.html
-- Portfolio — Healthcare AI: https://theneildave.in/sepsis.html
+- Portfolio — Healthcare AI (Sepsis): https://theneildave.in/sepsis.html
+- Portfolio — Thermal Imaging AI: https://theneildave.in/cv.html
+- Portfolio — Object Detection: https://theneildave.in/cv-object-detection.html
+- Portfolio — Sports Deep Learning: https://theneildave.in/run-prediction.html
 - Portfolio — Responsible AI: https://theneildave.in/rai.html
+- Free AI Resume Template: https://theneildave.in/lead.html
 
-## Recent articles
+## Articles & Technical Guides
+- 10 Real Palantir FDE Decomposition Interview Questions: https://theneildave.in/blog/palantir-fde-decomposition-interview.html
+- The LLM System Design Interview Cheatsheet (2026): https://theneildave.in/blog/llm-system-design-interview-cheatsheet.html
+- How to Become a Forward Deployed Engineer in 2026: https://theneildave.in/blog/forward-deployed-engineer-2026.html
+- Reverse Information Paradox — Protecting Enterprise AI IP: https://theneildave.in/blog/reverse-information-paradox-enterprise-ai.html
+- MCP Security — What Every Enterprise AI Architect Must Know: https://theneildave.in/blog/mcp-security-enterprise-ai.html
+- Loop Engineering for Enterprise AI — Beyond Coding Agents: https://theneildave.in/blog/loop-engineering-enterprise-ai.html
 - 5 Claude Code Plugins That Are Changing How Developers Build in 2026: https://theneildave.in/blog/top-claude-code-plugins-2026.html
-- Responsible AI in Practice: https://theneildave.in/blog/responsible-ai-in-practice.html
-- Agentic AI System Design: https://theneildave.in/blog/agentic-ai-system-design.html
+- Responsible AI in Practice — What Fairness Means in Production: https://theneildave.in/blog/responsible-ai-in-practice.html
+- Agentic AI System Design — 3 Production Redesigns: https://theneildave.in/blog/agentic-ai-system-design.html
 - The True Cost of Running Enterprise LLMs in 2026: https://theneildave.in/blog/enterprise-llm-cost-2026.html
-- Scaling Generative AI from Pilot to Production: https://theneildave.in/blog/scaling-generative-ai-pilot-to-production.html
+- Data Scientist vs. AI Engineer — What Changes in 2026: https://theneildave.in/blog/data-scientist-vs-ai-engineer-2026.html
+- The CTO's Playbook — Scaling Generative AI from Pilot to Production: https://theneildave.in/blog/scaling-generative-ai-pilot-to-production.html
+- I Ran a GEO Audit on My Own Portfolio Site: https://theneildave.in/blog/geo-audit-portfolio-site.html
+- How to Run Claude Code Without a Claude Paid Plan: https://theneildave.in/blog/claude-code-without-paid-plan.html
+- LLMOps vs MLOps — A Real Comparison After Running Both in Production: https://theneildave.in/blog/llmops-vs-mlops.html
 
 ## Contact
 Email: hello@theneildave.in

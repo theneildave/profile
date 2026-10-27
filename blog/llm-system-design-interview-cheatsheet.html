@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FF2576R3B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0FF2576R3B');
+  </script>
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>LLM System Design Interview Cheatsheet | Neil Dave</title>
+  <meta name="description" content="Master the LLM System Design interview in 2026. 7 production architectures covering high-scale serving, semantic caching, hybrid RAG, and agentic loops.">
+  <link rel="canonical" href="https://theneildave.in/blog/llm-system-design-interview-cheatsheet.html">
+  <meta name="author" content="Neil Dave">
+  <meta name="robots" content="index, follow">
+  <meta name="article:published_time" content="2026-10-27">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://theneildave.in/blog/llm-system-design-interview-cheatsheet.html">
+  <meta property="og:title" content="LLM System Design Interview Cheatsheet: 7 Production Architectures | Neil Dave">
+  <meta property="og:description" content="Master the LLM System Design interview in 2026. 7 production architectures covering high-scale serving, semantic caching, hybrid RAG, and agentic loops.">
+  <meta property="og:image" content="https://theneildave.in/assets/img/profile-img.webp">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
+  <meta name="twitter:title" content="LLM System Design Interview Cheatsheet: 7 Production Questions">
+  <meta name="twitter:description" content="Production architectures for high-throughput gateways, hybrid RAG, semantic caching, and resilient multi-agent loops.">
+  <meta name="twitter:image" content="https://theneildave.in/assets/img/profile-img.webp">
+
+  <!-- BlogPosting Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "The LLM System Design Interview Cheatsheet: 7 Production Architectures (2026)",
+    "description": "Master the LLM System Design interview in 2026. 7 production architectures covering high-scale serving, semantic caching, hybrid RAG, and resilient agentic loops.",
+    "url": "https://theneildave.in/blog/llm-system-design-interview-cheatsheet.html",
+    "datePublished": "2026-10-27",
+    "dateModified": "2026-10-27",
+    "author": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in",
+      "jobTitle": "AI Solution Architect",
+      "sameAs": [
+        "https://www.linkedin.com/in/neil-dave/",
+        "https://www.wikidata.org/wiki/Q138716797",
+        "https://www.youtube.com/@theneildave"
+      ]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in"
+    },
+    "keywords": [
+      "llm system design interview questions",
+      "llm system design cheatsheet 2026",
+      "enterprise rag system design interview",
+      "generative ai system design questions",
+      "ai engineer system design interview",
+      "machine learning system design",
+      "rag architecture interview",
+      "semantic caching llm system design"
+    ],
+    "mainEntityOfPage": "https://theneildave.in/blog/llm-system-design-interview-cheatsheet.html",
+    "wordCount": 4400,
+    "timeRequired": "PT19M"
+  }
+  </script>
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"},
+      {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://theneildave.in/blog.html"},
+      {"@type": "ListItem", "position": 3, "name": "LLM System Design Interview Cheatsheet", "item": "https://theneildave.in/blog/llm-system-design-interview-cheatsheet.html"}
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is an LLM system design interview different from classical system design?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Classical system design tests deterministic bottlenecks (network throughput, disk I/O, database sharding, caching). LLM system design tests non-deterministic probabilistic constraints: token economics, GPU memory bounds (KV cache), latency metrics like Time-to-First-Token (TTFT), hallucination evaluation guardrails, and dynamic model routing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the most common metrics tested in LLM system design?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The key metrics interviewers look for are: Time-to-First-Token (TTFT < 800ms for conversational UI), Inter-Token Latency (ITL < 40ms for human reading speed), tokens per second per GPU (throughput), retrieval Recall@K for RAG, cache hit ratio for semantic caches, and cost per 1,000 successful queries."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does semantic caching work in production?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A semantic cache converts incoming prompts into vector embeddings and checks a low-latency vector store (like Redis or Qdrant) with an exact cosine similarity threshold (typically 0.92-0.96). If a match is found, the pre-computed LLM completion is returned in under 20ms, bypassing the model inference layer and slashing API costs by 30-65%."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is hybrid search (Dense + BM25) mandatory in enterprise RAG designs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Vector-only embeddings struggle with exact identifier queries (part numbers, error codes, legal statute numbers, drug names). BM25 handles exact keyword lexical matching, while vector embeddings capture semantic intent. Reciprocal Rank Fusion (RRF) and a cross-encoder reranker combine the two to deliver 95%+ precision."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon1.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <!-- Mermaid.js for architectural illustrations -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+          primaryColor: '#dbeafe',
+          primaryTextColor: '#1e3a8a',
+          primaryBorderColor: '#3b82f6',
+          lineColor: '#64748b',
+          secondaryColor: '#dcfce7',
+          tertiaryColor: '#fef9c3',
+          background: '#f8fafc',
+          fontFamily: 'Poppins, sans-serif',
+          fontSize: '13px'
+        },
+        flowchart: { htmlLabels: true, curve: 'basis', padding: 20, nodeSpacing: 45, rankSpacing: 50 }
+      });
+    });
+  </script>
+
+  <style>
+    .post-content { font-size: 1.05rem; line-height: 1.85; color: #333; }
+    .post-content h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.4rem; margin-bottom: 0.8rem; color: #173b6c; }
+    .post-content h3 { font-size: 1.18rem; font-weight: 600; margin-top: 1.8rem; margin-bottom: 0.6rem; color: #1a3a5c; }
+    .post-content p { margin-bottom: 1.2rem; }
+    .post-content ul, .post-content ol { margin-bottom: 1.2rem; padding-left: 1.5rem; }
+    .post-content li { margin-bottom: 0.5rem; }
+    .quick-answer { border-left: 4px solid #0d6efd; background: #f3f8ff; padding: 1.1rem 1.3rem; margin: 0 0 2rem; border-radius: 0 8px 8px 0; }
+    .arch-card { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 1.5rem; margin: 2rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .arch-badge { display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .arch-title { font-weight: 700; font-size: 1.25rem; color: #173b6c; margin-bottom: 0.5rem; }
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
+    .metric-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.9rem; text-align: center; }
+    .metric-value { font-size: 1.3rem; font-weight: 700; color: #0d6efd; display: block; }
+    .metric-label { font-size: 0.78rem; color: #64748b; }
+    .tradeoff-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.92rem; }
+    .tradeoff-table th { background: #173b6c; color: white; padding: 10px 14px; text-align: left; }
+    .tradeoff-table td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; }
+    .tradeoff-table tr:nth-child(even) td { background: #f8fafc; }
+    .author-box { background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1.5rem; margin-top: 3rem; display: flex; align-items: center; gap: 1rem; }
+    .author-box img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+    .substack-cta { background: linear-gradient(135deg, #ff6719 0%, #ff8c00 100%); color: white; border-radius: 12px; padding: 1.5rem 2rem; margin-top: 3rem; text-align: center; }
+    .substack-cta a { color: white; font-weight: 600; text-decoration: underline; }
+    .mermaid { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem 1rem; margin: 1.5rem 0; overflow-x: auto; text-align: center; }
+  </style>
+</head>
+
+<body>
+
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" fetchpriority="high" width="200" height="200">
+        <h2 class="text-light"><a href="/">Neil Dave</a></h2>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="github" target="_blank" rel="noopener" title="Neil Dave on GitHub"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Medium"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener" title="Neil Dave on Substack"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en" class="google-plus" target="_blank" rel="noopener" title="Neil Dave on Google Scholar"><i class="bx bx-book-alt"></i></a>
+          <a href="https://www.youtube.com/@theneildave" class="youtube" target="_blank" rel="noopener" title="Neil Dave on YouTube"><i class="bx bxl-youtube"></i></a>
+          <a href="https://twitter.com/theneildave" class="twitter" target="_blank" rel="noopener" title="Neil Dave on Twitter"><i class="bx bxl-twitter"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="/#hero" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="/#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="/#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="../blog.html" class="nav-link active"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="../speaking.html" class="nav-link"><i class="bx bx-microphone"></i> <span>Speaking</span></a></li>
+          <li><a href="../enterprise.html" class="nav-link"><i class="bx bx-briefcase"></i> <span>For Enterprise</span></a></li>
+          <li><a href="../collaborate.html" class="nav-link"><i class="bx bx-group"></i> <span>Collaborate</span></a></li>
+          <li><a href="/#substack" class="nav-link scrollto"><i class="bx bx-envelope-open"></i><span>Newsletter</span></a></li>
+          <li><a href="/#tndtalks" class="nav-link scrollto"><i class="bx bx-podcast"></i> <span>TND Talks</span></a></li>
+          <li><a href="/#appointment" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Appointment</span></a></li>
+          <li><a href="/#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Article</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="../blog.html">Articles</a></li>
+            <li>LLM System Design Cheatsheet</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio-details" style="padding: 40px 0 60px;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+            <div class="mb-4">
+              <span class="blog-tag">System Design</span>
+              <span class="blog-tag">LLMOps</span>
+              <span class="blog-tag">AI Engineering</span>
+              <span class="blog-tag" style="background:#fff3cd;color:#856404;">Interview Cheatsheet</span>
+            </div>
+
+            <h1 style="font-size: 2.1rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.8rem;">
+              The LLM System Design Interview Cheatsheet: 7 Production Architectures (2026)
+            </h1>
+
+            <div class="d-flex align-items-center gap-3 mb-4" style="font-size: 0.85rem; color: #888;">
+              <span><i class="bx bx-calendar"></i> 27 October 2026</span>
+              <span><i class="bx bx-time"></i> 19 min read</span>
+            </div>
+
+            <hr class="mb-4">
+
+            <div class="post-content">
+              <!-- Quick answer box for AEO extraction -->
+              <div class="quick-answer">
+                <strong>Quick answer:</strong> In 2026, the traditional System Design interview ("Design Twitter" or "Design a URL Shortener") has been superseded by LLM System Design at Meta, OpenAI, Anthropic, Google, and top AI startups. Rather than testing relational sharding and microservice queues, interviewers evaluate seven core building blocks: high-throughput gateway orchestration, semantic caching, hybrid RAG retrieval pipelines, TTFT streaming optimization, guardrail and injection defense, multi-agent loop termination, and continuous offline/online evals.
+              </div>
+
+              <p>When interviewing for Senior AI Engineer, Staff ML Engineer, or AI Solution Architect positions in 2026, you will inevitably face an end-to-end LLM System Design round. Candidates who treat LLMs like standard stateless microservices fail quickly.</p>
+
+              <p>LLM systems have unique constraints that break classical assumptions:</p>
+              <ul>
+                <li><strong>Extreme Compute Asymmetry:</strong> A traditional API handler takes 5ms of CPU; an LLM generation takes 800ms–8,000ms of high-cost H100/A100 GPU compute.</li>
+                <li><strong>Stateful KV Caches:</strong> High concurrency is bounded by GPU High Bandwidth Memory (VRAM), not network bandwidth.</li>
+                <li><strong>Probabilistic Failure Modes:</strong> Systems do not simply return 200 or 500; they return syntactically valid yet factually hallucinated, toxic, or non-deterministic outputs.</li>
+              </ul>
+
+              <p>Below is your complete whiteboard blueprint: the master gateway architecture and 7 battle-tested system designs you can deploy directly in your interview loops.</p>
+
+              <h2>The Canonical Enterprise LLM Gateway Architecture</h2>
+              <p>Every production LLM interview question requires a variation of this end-to-end gateway:</p>
+
+              <!-- Mermaid Architecture Diagram -->
+              <div class="mermaid">
+flowchart TD
+    Client["Client / SDK"] --> Gateway["API Gateway<br>(Rate Limiting, Auth, Org Quotas)"]
+    Gateway --> Cache{"Semantic Cache<br>(Redis / Vector Store)"}
+    Cache -->|Cache Hit < 25ms| Client
+    Cache -->|Cache Miss| Guard["Prompt Guardrails<br>(Llama-Guard / Injection Check)"]
+    Guard --> Router["Dynamic Model Router<br>(Complexity Classifier)"]
+    Router -->|Simple Query| Cheap["Fast Model<br>(Gemini Flash / Llama-3.1-8B)"]
+    Router -->|Complex Reasoning| Frontier["Frontier Model<br>(GPT-4o / Claude 3.5 Sonnet)"]
+    Cheap & Frontier --> Stream["Streaming Evaluator<br>(Chunked PII & Hallucination Filter)"]
+    Stream --> Client
+    Stream -.-> AsyncLog["Async Data Lake<br>(Traces, Evals, E2E Latency)"]
+              </div>
+
+              <div class="metric-grid">
+                <div class="metric-item">
+                  <span class="metric-value">&lt; 800ms</span>
+                  <span class="metric-label">Target TTFT (Time to First Token)</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-value">&lt; 35ms</span>
+                  <span class="metric-label">Target ITL (Inter-Token Latency)</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-value">35% – 60%</span>
+                  <span class="metric-label">Typical Semantic Cache Hit Rate</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-value">99.9%</span>
+                  <span class="metric-label">Gateway Availability SLA</span>
+                </div>
+              </div>
+
+              <hr class="my-4">
+
+              <h2>7 Production LLM System Design Questions</h2>
+
+              <!-- Question 1 -->
+              <div class="arch-card">
+                <span class="arch-badge">Architecture 1</span>
+                <div class="arch-title">Design a High-Throughput LLM Gateway Serving 10,000 QPS</div>
+                <p><strong>The Prompt:</strong> "Design an internal LLM Gateway for a 50,000-person enterprise that routes requests across multiple vendors (OpenAI, Anthropic, Bedrock, self-hosted vLLM) with rate limiting, org chargebacks, and semantic caching."</p>
+
+                <p><strong>Key Components to Draw:</strong></p>
+                <ol>
+                  <li><strong>Token-Bucket Rate Limiter per Tenant:</strong> Track both <em>Requests Per Minute (RPM)</em> and <em>Tokens Per Minute (TPM)</em> in Redis using sliding window logs.</li>
+                  <li><strong>Semantic Caching Layer:</strong> Generate embeddings using a lightweight local model (e.g. <code>all-MiniLM-L6-v2</code>, ~15ms). Query a vector index with a strict cosine threshold (0.95). Return the cached answer if matched, saving 90% latency and 100% downstream API cost.</li>
+                  <li><strong>Circuit Breaker & Fallback Chain:</strong> If Claude 3.5 Sonnet returns 429 or 503, automatically fallback to GPT-4o, then to self-hosted vLLM Llama-3.1-70B on internal Kubernetes clusters.</li>
+                  <li><strong>Asynchronous Tracing & Telemetry:</strong> Log full prompts, completions, token usage, and latency to an Apache Kafka / OpenTelemetry queue. Never block the user-facing response on database persistence.</li>
+                </ol>
+              </div>
+
+              <!-- Question 2 -->
+              <div class="arch-card">
+                <span class="arch-badge">Architecture 2</span>
+                <div class="arch-title">Design an Enterprise Hybrid RAG System Over 50 Million Documents</div>
+                <p><strong>The Prompt:</strong> "Design a search-and-answer assistant over millions of corporate PDFs, Confluence pages, and Jira tickets. The system must never quote stale permissions or hallucinate internal policies."</p>
+
+                <p><strong>Key Components to Draw:</strong></p>
+                <ol>
+                  <li><strong>Structure-Aware Document Chunking:</strong> Do not use naive 500-character fixed splits. Parse PDF hierarchies with layout-aware tools (e.g. Unstructured / PDFMiner). Preserve markdown tables as single self-contained chunks with parent document metadata.</li>
+                  <li><strong>Hybrid Search (Dense + Lexical):</strong> Run parallel retrieval: BM25 for exact part numbers, acronyms, and employee IDs; dense vector search (e.g. BGE-large) for conceptual questions.</li>
+                  <li><strong>Reciprocal Rank Fusion (RRF) & Cross-Encoder Reranker:</strong> Merge candidate sets using RRF. Pass the top 50 candidates through a cross-encoder reranker (e.g. Cohere Rerank or BGE-Reranker-large) to select the final top 5 context chunks.</li>
+                  <li><strong>Document-Level Access Control (ACL) Filtering:</strong> Filter vector retrieval using metadata pre-filtering (<code>user_groups IN document_read_permissions</code>) so users never see context from unauthorized departments.</li>
+                </ol>
+              </div>
+
+              <!-- Question 3 -->
+              <div class="arch-card">
+                <span class="arch-badge">Architecture 3</span>
+                <div class="arch-title">Design a Low-Latency AI Code Completion Engine (Copilot)</div>
+                <p><strong>The Prompt:</strong> "Design a code completion system for an IDE extension with latency strictly under 250ms end-to-end, serving 100,000 concurrent developers."</p>
+
+                <p><strong>Key Engineering Signals:</strong></p>
+                <ul>
+                  <li><strong>Speculative Decoding & Prefix Caching:</strong> Pre-cache the current file's AST (Abstract Syntax Tree) and import tree in GPU KV cache using RadixAttention (vLLM / SGLang).</li>
+                  <li><strong>Fill-in-the-Middle (FIM) Architecture:</strong> Format prompts with explicit <code>&lt;PRE&gt;</code>, <code>&lt;SUF&gt;</code>, and <code>&lt;MID&gt;</code> tokens to allow the model to condition on both preceding and succeeding code lines.</li>
+                  <li><strong>Client-Side Debounce & Cancellation:</strong> If the user types another character while an inference request is in transit, immediately send an HTTP/2 <code>RST_STREAM</code> cancellation frame to the server to free GPU compute.</li>
+                </ul>
+              </div>
+
+              <!-- Question 4 -->
+              <div class="arch-card">
+                <span class="arch-badge">Architecture 4</span>
+                <div class="arch-title">Design an Autonomous Multi-Agent Customer Support Escalator</div>
+                <p><strong>The Prompt:</strong> "Design an agentic support system that resolves tier-1 tickets by calling internal database APIs, reading documentation, and initiating refunds up to $100."</p>
+
+                <p><strong>Key Engineering Signals:</strong></p>
+                <ul>
+                  <li><strong>Deterministic State Machine over Free-Form ReAct:</strong> Use graph-based orchestration (LangGraph / StateGraph) where agent nodes have bounded execution limits rather than open-ended recursive loops.</li>
+                  <li><strong>Human-in-the-Loop (HITL) Guardrail Checkpoints:</strong> For financial actions > $100 or account cancellations, freeze agent state and emit a webhook to an internal support dashboard. Resume execution only upon human OAuth approval.</li>
+                  <li><strong>Loop Termination Safeguards:</strong> Hard limit tool executions to a maximum of 6 steps per ticket; if uncompleted, gracefully downgrade to human triage with full execution trace logs.</li>
+                </ul>
+              </div>
+
+              <!-- Question 5 -->
+              <div class="arch-card">
+                <span class="arch-badge">Architecture 5</span>
+                <div class="arch-title">Design a Continuous Offline and Online LLM Evaluation Pipeline</div>
+                <p><strong>The Prompt:</strong> "How do you know if your new prompt or fine-tuned model is better before deploying it to production? Design the automated testing and drift monitoring harness."</p>
+
+                <p><strong>Key Engineering Signals:</strong></p>
+                <ul>
+                  <li><strong>Golden Evaluation Dataset:</strong> Version 1,000 curated prompt-response pairs with ground truth assertions and edge cases stored in Git-LFS.</li>
+                  <li><strong>LLM-as-a-Judge with Dual-Model Cross-Scoring:</strong> Use two independent judge models (e.g., GPT-4o and Claude 3.5 Sonnet) with randomized presentation order to eliminate position bias.</li>
+                  <li><strong>Shadow Deployments & RAGAS Metrics:</strong> Shadow 5% of production traffic through the challenger pipeline and compute Faithfulness, Answer Relevance, and Context Precision in real-time.</li>
+                </ul>
+              </div>
+
+              <!-- Questions 6 & 7 Summary -->
+              <h2>Architectures 6 & 7: Knowledge Graphs & Edge Serving</h2>
+
+              <div class="arch-card">
+                <span class="arch-badge">Architecture 6</span>
+                <div class="arch-title">Real-Time Unstructured Document to Knowledge Graph Extraction</div>
+                <p><strong>The Core Challenge:</strong> Extracting entities, relationships, and temporal events from 10,000 clinical trials or SEC filings daily into a Neo4j / Amazon Neptune graph with schema constraints, entity deduplication, and relationship verification.</p>
+              </div>
+
+              <div class="arch-card">
+                <span class="arch-badge">Architecture 7</span>
+                <div class="arch-title">Air-Gapped Multi-Tenant Private VPC Model Serving with vLLM</div>
+                <p><strong>The Core Challenge:</strong> Serving quantized models (AWQ/FP8) on Kubernetes across AWS GovCloud / on-premise H100 clusters. Implementing dynamic batching, PagedAttention, and automated GPU node scaling while guaranteeing zero internet telemetry egress.</p>
+              </div>
+
+              <hr class="my-4">
+
+              <h2>System Design Trade-Off Matrix for the Whiteboard</h2>
+              <table class="tradeoff-table">
+                <thead>
+                  <tr>
+                    <th>Design Dimension</th>
+                    <th>Option A</th>
+                    <th>Option B</th>
+                    <th>When to Choose Which</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Inference Engine</strong></td>
+                    <td>Managed API (OpenAI/Anthropic)</td>
+                    <td>Self-Hosted vLLM / SGLang</td>
+                    <td>Choose API for fast time-to-market; choose vLLM for data sovereignty, strict PII, and > 50M tokens/month where GPU amortizes cheaper.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>RAG Retrieval</strong></td>
+                    <td>Dense Vector Only</td>
+                    <td>Hybrid (BM25 + Dense + Rerank)</td>
+                    <td>Always choose Hybrid in enterprise production. Dense alone drops recall on serial numbers, SKU codes, and legal citations.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Agent Orchestration</strong></td>
+                    <td>Autonomous ReAct Loop</td>
+                    <td>Deterministic State Machine</td>
+                    <td>Choose State Machines for enterprise workflows with compliance/financial liability; choose ReAct only for exploratory open-ended research tools.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Evaluation Strategy</strong></td>
+                    <td>Pure Human Review</td>
+                    <td>LLM-as-a-Judge + Golden Testbed</td>
+                    <td>Human review fails to scale beyond 200 samples. Use LLM-as-a-judge for continuous CI/CD gating, calibrated by human audits on 2% sample sets.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="author-box">
+                <img src="../assets/img/profile-img.webp" alt="Neil Dave" width="60" height="60" loading="lazy">
+                <div>
+                  <div style="font-weight: 600; font-size: 0.95rem;">Neil Dave</div>
+                  <div style="font-size: 0.8rem; color: #666; margin-top: 2px;">
+                    AI Solution Architect & Generative AI Engineer · Bangalore, India
+                  </div>
+                  <div style="font-size: 0.8rem; color: #888; margin-top: 4px;">
+                    <a href="https://www.linkedin.com/in/neil-dave/" target="_blank" rel="noopener">LinkedIn</a> ·
+                    <a href="https://theneildave.substack.com" target="_blank" rel="noopener">Substack</a> ·
+                    <a href="https://calendly.com/theneildave" target="_blank" rel="noopener">Book a Strategy Call</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="substack-cta">
+                <div style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem;">Get Advanced AI System Design in Your Inbox</div>
+                <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 1rem;">No hype. Real architectural breakdowns, latency formulas, and production code.</div>
+                <a href="https://theneildave.substack.com" target="_blank" rel="noopener" class="btn btn-light rounded-pill px-4" style="color: #ff6719; font-weight: 700;">Subscribe to Newsletter →</a>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Made with ❤️ by <strong><span>Neil Dave</span></strong>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js" defer></script>
+  <script src="../assets/vendor/aos/aos.js" defer></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+
+</body>
+</html>

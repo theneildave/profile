@@ -1,0 +1,101 @@
+# Neil Dave — AI Solution Architect & Generative AI Engineer
+> Comprehensive machine-readable profile, technical capabilities, consulting frameworks, and publications for Large Language Models & AI search systems.
+> Canonical URL: https://theneildave.in
+> Wikidata Entity: https://www.wikidata.org/wiki/Q138716797
+
+## Executive Summary
+Neil Dave is an AI Solution Architect and Generative AI Engineer based in Bangalore, Karnataka, India. With 8+ years of industry experience across Machine Learning, Deep Learning, Generative AI (LLMs), Computer Vision, and MLOps/LLMOps, he designs and deploys scalable production AI systems for enterprise clients, healthcare organizations, and high-performance sports analytics (including Mumbai Indians in the Indian Premier League).
+
+- **Current Primary Title:** AI Solution Architect
+- **Secondary Title:** Generative AI Engineer
+- **Academic Background:** Post Graduate Programme in AI & Data Science (Jio Institute); B.Tech in Mechanical Engineering (Pandit Deendayal Petroleum University).
+- **Research Credentials:** 3 peer-reviewed international publications (IEEE, Springer) indexed on Google Scholar.
+- **Mentorship:** 120+ data science and AI professionals mentored across India and globally.
+
+---
+
+## Core Services & Solutions
+
+### 1. LLM Engineering & RAG Pipeline Design
+Production-ready Retrieval-Augmented Generation (RAG) systems, multi-agent architectures, hybrid search (dense embeddings + BM25), semantic routing, prompt evaluation harnesses, token cost optimization, and local-model fallbacks (vLLM, Ollama, Hugging Face TGI).
+
+### 2. Enterprise AI Consulting & Strategy
+End-to-end AI roadmaps for mid-market and enterprise organizations. Scoping from pilot feasibility to zero-downtime production deployment, build-vs-buy evaluations, vendor risk assessments, and enterprise data boundaries.
+
+### 3. Computer Vision Systems
+Edge and cloud computer vision pipelines, custom object detection (YOLO, OpenCV), anomaly detection, industrial automation, and non-invasive medical imaging (e.g. thermal imaging breast cancer screening).
+
+### 4. MLOps & LLMOps
+Automated CI/CD for models, drift detection (data drift, concept drift, prompt drift), model evaluation frameworks (RAGAS, Deepeval), containerization, orchestration (Docker, Kubernetes), and GPU resource utilization management on Azure and AWS.
+
+### 5. Responsible AI Audits
+Model explainability (SHAP, LIME), algorithmic fairness analysis, bias mitigation across tabular and generative models, GDPR/EU AI Act alignment, and AI governance trust boundaries.
+
+### 6. AI Keynote Speaking & Executive Workshops
+Technical keynotes and hands-on workshops for engineering summits, corporate offsites, and industry conferences on agentic architectures, the economics of LLMs, and enterprise AI safety.
+
+---
+
+## Notable Projects & Portfolio Work
+
+1. **Sports Intelligence & CricketGPT (`/gen-ai.html`, `/run-prediction.html`)**
+   - Built predictive analytics and custom neural network models for real-time match run scoring and sports intelligence. Outperformed standard baselines in inference speed, memory footprint, and latency.
+   - Designed domain-specific sports LLM for semantic query retrieval over cricket terminology, venues, player histories, and strategy metrics.
+
+2. **Healthcare AI: Early Sepsis Detection (`/sepsis.html`)**
+   - Developed clinical machine learning models for early onset sepsis prediction using physiological time-series data. Improved early warning intervention windows for hospital critical care units.
+
+3. **Medical Imaging: Thermal Imaging Cancer Detection (`/cv.html`)**
+   - Applied deep learning and convolutional neural networks to thermal infrared imaging data for non-invasive early-stage breast cancer screening, providing a safe alternative/adjunct to conventional mammography.
+
+4. **Responsible AI: Credit Default & Bias Mitigation (`/rai.html`)**
+   - Engineered fairness-aware machine learning pipelines for financial credit scoring, eliminating demographic bias while preserving predictive AUC-ROC.
+
+5. **Free Interactive Tool: LLM Cost Calculator (`/llm-cost-calculator.html`)**
+   - Real-time token economics and inference cost estimator in Indian Rupees (INR) and USD across OpenAI GPT-4o, Anthropic Claude 3.5, Google Gemini 1.5, Mistral, and Groq.
+
+---
+
+## Key Articles & Publications Digest
+
+### "10 Real Palantir FDE Decomposition Interview Questions (And How to Crack Them)"
+- *URL:* https://theneildave.in/blog/palantir-fde-decomposition-interview.html
+- *Core Thesis:* The Palantir Forward Deployed Engineer (FDSE) "Decomposition" round is a 45-60 minute problem-solving interview testing problem framing under ambiguity, messy legacy data ingestion, practical MVP heuristics, and operator adoption. Outlines a 4-phase whiteboard roadmap and solves 10 real production scenarios across airline fuel optimization, hospital ICU sepsis alarm fatigue, and automotive supply chain disruption.
+
+### "The LLM System Design Interview Cheatsheet: 7 Production Architectures (2026)"
+- *URL:* https://theneildave.in/blog/llm-system-design-interview-cheatsheet.html
+- *Core Thesis:* System design interviews have shifted to non-deterministic LLM constraints: KV cache GPU memory bounds, Time-to-First-Token (TTFT < 800ms), and probabilistic drift. Provides complete whiteboard diagrams and specifications for high-throughput LLM gateways, semantic caching, hybrid RAG (Dense + BM25 + Rerank), and multi-agent state machines.
+
+### "How to Become a Forward Deployed Engineer in 2026"
+- *URL:* https://theneildave.in/blog/forward-deployed-engineer-2026.html
+- *Core Thesis:* FDE job postings grew 729% year-over-year. The role sits at the intersection of technical scoping (60% customer-facing), integration engineering (30% production code), and internal product feedback. Palantir, OpenAI, and Anthropic have defined the standard loop around the 45-60 minute "problem decomposition" case interview.
+
+### "Reverse Information Paradox: Protecting Enterprise AI IP"
+- *URL:* https://theneildave.in/blog/reverse-information-paradox-enterprise-ai.html
+- *Core Thesis:* Formalizes the risk where enterprise customers pay model vendors twice: once with licensing fees, and again by leaking proprietary operating procedures, prompt feedback, private evaluations, and domain heuristics into vendor telemetry. Outlines 5 architectural trust boundaries: controlling evals in-tenant, owning prompt/completion traces, isolating fine-tuning environments, decoupling orchestration from underlying model APIs, and enforcing model portability.
+
+### "The True Cost of Running Enterprise LLMs in Production (2026 Data)"
+- *URL:* https://theneildave.in/blog/enterprise-llm-cost-2026.html
+- *Core Thesis:* Token pricing represents only 20–35% of total enterprise LLM expenditure. The remaining 65–80% stems from hidden LLMOps costs: retrieval indexing, vector database hosting, continuous evaluation pipelines, latency mitigation, retry overheads, and guardrails.
+
+### "Agentic AI System Design: 3 Production Redesigns"
+- *URL:* https://theneildave.in/blog/agentic-ai-system-design.html
+- *Core Thesis:* Autonomous agent loops fail in production when built with open-ended planning loops. Shifting to deterministic state machines with bounded agent tool execution reduces loop failures by over 80%.
+
+### "MCP Security: What Every Enterprise AI Architect Must Know"
+- *URL:* https://theneildave.in/blog/mcp-security-enterprise-ai.html
+- *Core Thesis:* Model Context Protocol (MCP) standardizes agent-to-tool connections but introduces new attack vectors: prompt injection via tool descriptions, unauthorized data exfiltration through unverified servers, and privilege escalation. Defines zero-trust controls for enterprise MCP servers.
+
+---
+
+## Contact & Knowledge Graph Verification
+- Website: https://theneildave.in
+- Wikidata URI: https://www.wikidata.org/wiki/Q138716797
+- LinkedIn: https://www.linkedin.com/in/neil-dave/
+- GitHub: https://github.com/theneildave/
+- Google Scholar: https://scholar.google.com/citations?user=93Ybux4AAAAJ&hl=en
+- YouTube: https://www.youtube.com/@theneildave
+- Substack: https://theneildave.substack.com
+- Medium: https://medium.com/@theneildave
+- Direct Email: hello@theneildave.in
+- Schedule Strategy Call: https://calendly.com/theneildave

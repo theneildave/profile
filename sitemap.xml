@@ -160,6 +160,24 @@
     <loc>https://theneildave.in/llms.txt</loc>
     <changefreq>monthly</changefreq>
     <priority>0.1</priority>
-    <lastmod>2026-06-28</lastmod>
+    <lastmod>2026-10-27</lastmod>
+  </url>
+  <url>
+    <loc>https://theneildave.in/llms-full.txt</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.1</priority>
+    <lastmod>2026-10-27</lastmod>
+  </url>
+  <url>
+    <loc>https://theneildave.in/blog/palantir-fde-decomposition-interview.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-27</lastmod>
+  </url>
+  <url>
+    <loc>https://theneildave.in/blog/llm-system-design-interview-cheatsheet.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-27</lastmod>
   </url>
 </urlset>
