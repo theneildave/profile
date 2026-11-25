@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FF2576R3B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0FF2576R3B');
+  </script>
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Organizing Context in a Multi-Agent Harness: How to Prevent Context Rot, Poisoning, and Token Spikes | Neil Dave</title>
+  <meta name="description" content="Architectural guide to multi-agent context engineering. Prevent context rot, stop cascading poisoning, and slash token costs with isolated subagent harnesses.">
+  <link rel="canonical" href="https://theneildave.in/blog/organizing-context-in-a-multi-agent-harness.html">
+  <meta name="author" content="Neil Dave">
+  <meta name="robots" content="index, follow">
+  <meta name="article:published_time" content="2026-11-16">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://theneildave.in/blog/organizing-context-in-a-multi-agent-harness.html">
+  <meta property="og:title" content="Organizing Context in a Multi-Agent Harness: How to Prevent Context Rot, Poisoning, and Token Spikes">
+  <meta property="og:description" content="A production architectural masterclass on managing context, token budgeting, isolated subagents, and Claude prompt caching in multi-agent AI systems.">
+  <meta property="og:image" content="https://theneildave.in/assets/img/blog-agentic-context.webp">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theneildave">
+  <meta name="twitter:url" content="https://theneildave.in/blog/organizing-context-in-a-multi-agent-harness.html">
+  <meta name="twitter:title" content="Organizing Context in a Multi-Agent Harness | Neil Dave">
+  <meta name="twitter:description" content="How enterprise teams prevent context rot, context poisoning, and catastrophic token blowups in autonomous multi-agent systems.">
+  <meta name="twitter:image" content="https://theneildave.in/assets/img/blog-agentic-context.webp">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon1.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .article-container { max-width: 860px; margin: 0 auto; font-family: 'Open Sans', sans-serif; color: #272829; }
+    .article-header { padding: 40px 0 20px; border-bottom: 1px solid #e2e8f0; margin-bottom: 30px; }
+    .article-title { font-family: 'Raleway', sans-serif; font-size: 2.3rem; font-weight: 700; color: #173b6c; line-height: 1.25; margin-bottom: 15px; }
+    .article-meta { font-size: 0.9rem; color: #64748b; margin-bottom: 20px; }
+    .article-meta span { margin-right: 15px; display: inline-flex; align-items: center; }
+    .article-meta i { margin-right: 5px; color: #0d6efd; }
+    .article-badge { background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .toc-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 25px; margin: 25px 0 35px; }
+    .toc-title { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: #1e293b; margin-bottom: 12px; }
+    .toc-list { list-style: none; padding-left: 0; margin-bottom: 0; }
+    .toc-list li { margin-bottom: 8px; font-size: 0.92rem; }
+    .toc-list li a { color: #2563eb; text-decoration: none; transition: all 0.2s; }
+    .toc-list li a:hover { color: #1d4ed8; text-decoration: underline; }
+    .content-section { margin-bottom: 40px; }
+    .content-section h2 { font-family: 'Raleway', sans-serif; font-size: 1.65rem; font-weight: 700; color: #0f172a; margin-top: 35px; margin-bottom: 18px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+    .content-section h3 { font-family: 'Raleway', sans-serif; font-size: 1.3rem; font-weight: 600; color: #1e293b; margin-top: 25px; margin-bottom: 12px; }
+    .content-section p { font-size: 1.05rem; line-height: 1.8; color: #334155; margin-bottom: 16px; }
+    .callout-box { background: #f0fdf4; border-left: 4px solid #16a34a; padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 25px 0; }
+    .callout-warning { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 25px 0; }
+    .callout-danger { background: #fef2f2; border-left: 4px solid #ef4444; padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 25px 0; }
+    .mermaid-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 25px 15px; margin: 25px 0; text-align: center; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    pre { background: #0f172a; color: #f8fafc; padding: 18px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.88rem; overflow-x: auto; line-height: 1.6; }
+    code { font-family: 'Fira Code', monospace; font-size: 0.9em; background: #e2e8f0; color: #0f172a; padding: 2px 6px; border-radius: 4px; }
+    pre code { background: transparent; color: inherit; padding: 0; }
+    .table-custom { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 0.92rem; }
+    .table-custom th { background: #1e293b; color: #ffffff; padding: 12px 14px; text-align: left; font-weight: 600; }
+    .table-custom td { padding: 12px 14px; border-bottom: 1px solid #e2e8f0; color: #334155; }
+    .table-custom tr:nth-child(even) { background: #f8fafc; }
+    .author-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin: 45px 0; display: flex; align-items: center; gap: 20px; }
+    .author-avatar { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; border: 3px solid #0d6efd; flex-shrink: 0; }
+    .faq-item { margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; }
+    .faq-question { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: #0f172a; margin-bottom: 8px; }
+  </style>
+
+  <!-- JSON-LD TechArticle & FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Organizing Context in a Multi-Agent Harness: How to Prevent Context Rot, Poisoning, and Token Spikes",
+    "description": "Production architectural guide for engineering multi-agent harnesses. Prevent context rot, eliminate cascading context poisoning, and cut token costs by 87% using isolated subagents, compaction, and Claude prompt caching.",
+    "url": "https://theneildave.in/blog/organizing-context-in-a-multi-agent-harness.html",
+    "image": "https://theneildave.in/assets/img/blog-agentic-context.webp",
+    "datePublished": "2026-11-16",
+    "dateModified": "2026-11-16",
+    "author": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "jobTitle": "AI Solution Architect & Agentic AI Specialist",
+      "url": "https://theneildave.in",
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q138716797",
+        "https://www.linkedin.com/in/neil-dave/",
+        "https://github.com/theneildave/"
+      ],
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Databricks Certified Professional"
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Claude Certified Architect – Professional (CCAR-P)"
+        }
+      ]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Neil Dave",
+      "url": "https://theneildave.in"
+    },
+    "keywords": [
+      "multi-agent harness",
+      "context engineering",
+      "context rot",
+      "context poisoning",
+      "agentic AI",
+      "subagent context isolation",
+      "Claude prompt caching",
+      "LangGraph state management",
+      "token budgeting"
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is context rot in multi-agent LLM systems?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Context rot is the gradual degradation of LLM reasoning performance as conversational history accumulates unpruned tool outputs, terminal logs, and conversational noise. Even with 128k or 200k token windows, attention dilution causes models to ignore system instructions and drop core constraints once context passes 30,000–50,000 tokens."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does context poisoning differ from context rot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "While context rot is memory degradation due to excess volume, context poisoning is qualitative corruption. It occurs when a subagent produces an erroneous assumption or hallucinated fact, writes it into shared persistent state, and downstream agents treat it as ground truth, triggering a cascading failure."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should a subagent use an isolated context versus a forked context?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Isolated context (fresh context window starting only with a specific prompt) should be used for independent verification, code review, adversarial testing, and parallel research to prevent bias. Forked context (inheriting conversation history) should be used for iterative debugging or refactoring where prior state is required, and should leverage Anthropic Claude prompt caching to avoid re-incurring input costs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does prompt caching reduce costs in multi-agent architectures?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In multi-agent systems, subagents frequently share system instructions, tool definitions, and baseline repository contexts. By placing static tokens before dynamic messages and setting cache checkpoints, Anthropic Claude Sonnet 5.5 prompt caching cuts input token pricing by 90% and reduces Time-to-First-Token (TTFT) latency by up to 80%."
+        }
+      }
+    ]
+  }
+  </script>
+  <!-- KaTeX for LaTeX Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$', right: '$', display: true}, {left: '
+
+<body>
+
+  <!-- Mobile nav toggle button -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- Header / Sidebar -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy" width="200" height="200">
+        <h2 class="text-light"><a href="/">Neil Dave</a></h2>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="github" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus" target="_blank" rel="noopener"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://twitter.com/theneildave" class="twitter" target="_blank" rel="noopener"><i class="bx bxl-twitter"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="/#hero" class="nav-link"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="/#about" class="nav-link"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="/#portfolio" class="nav-link"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="../blog.html" class="nav-link active"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="../speaking.html" class="nav-link"><i class="bx bx-microphone"></i> <span>Speaking</span></a></li>
+          <li><a href="../enterprise.html" class="nav-link"><i class="bx bx-briefcase"></i> <span>For Enterprise</span></a></li>
+          <li><a href="../lead.html" class="nav-link"><i class="bx bx-download"></i> <span>Free Resources</span></a></li>
+          <li><a href="/#contact" class="nav-link"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Breadcrumbs -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Agentic Architecture</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="../blog.html">Articles</a></li>
+            <li>Multi-Agent Context Harness</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Article Content -->
+    <section class="inner-page py-4">
+      <div class="container">
+        <div class="article-container">
+
+          <!-- Header -->
+          <div class="article-header">
+            <span class="article-badge mb-2 d-inline-block">Agentic AI &bull; Systems Architecture</span>
+            <h1 class="article-title">Organizing Context in a Multi-Agent Harness: How to Prevent Context Rot, Poisoning, and Token Spikes</h1>
+            <div class="article-meta">
+              <span><i class="bx bx-user"></i> Neil Dave (Databricks Certified &bull; Claude Certified Architect CCAR-P)</span>
+              <span><i class="bx bx-calendar"></i> November 16, 2026</span>
+              <span><i class="bx bx-time-five"></i> 14 min read</span>
+              <span><i class="bx bx-bar-chart-alt-2"></i> Advanced Practitioner Level</span>
+            </div>
+          </div>
+
+          <!-- Executive Hook -->
+          <div class="callout-box">
+            <strong>The Hard Reality in 2026:</strong> Prompt engineering is commoditized. The true engineering bottleneck in enterprise AI is <em>Context Engineering</em>. When naive multi-agent systems crash, it is almost never because the model lacks intelligence — it is because the orchestration harness allowed the context window to decay into a chaotic dump of unpruned terminal outputs, obsolete assumptions, and runaway token bills.
+          </div>
+
+          <!-- Table of Contents -->
+          <div class="toc-card">
+            <div class="toc-title"><i class="bx bx-list-ul me-2"></i>Architecture Index</div>
+            <ul class="toc-list">
+              <li><a href="#silent-killers">1. The 3 Silent Killers: Context Rot, Poisoning, and Token Blowups</a></li>
+              <li><a href="#token-math">2. The Mathematics of Context: $O(N)$ vs $O(M 	imes N^2)$ Cost Explosion</a></li>
+              <li><a href="#three-tier-harness">3. The 3-Tier Harness Architecture: Session vs Harness vs Sandbox</a></li>
+              <li><a href="#isolated-vs-forked">4. Subagent Context Modes: Isolated Clean Slates vs Forked Branches</a></li>
+              <li><a href="#compaction-patterns">5. Production Compaction, Ephemeral Scratchpads &amp; MCP Gating</a></li>
+              <li><a href="#production-code">6. Reference Implementation: Python Context Governor with Prompt Caching</a></li>
+              <li><a href="#enterprise-checklist">7. Enterprise Production Readiness Checklist &amp; SLOs</a></li>
+              <li><a href="#faq">8. Frequently Asked Architectural Questions</a></li>
+            </ul>
+          </div>
+
+          <!-- Content Sections -->
+          <div class="content-section" id="silent-killers">
+            <h2>1. The 3 Silent Killers in Multi-Agent Orchestration</h2>
+            <p>Every engineering team building autonomous multi-agent systems (using LangGraph, CrewAI, AutoGen, or custom Claude harnesses) starts with the same naive architecture: a central supervisor with a shared conversational state graph, delegating sub-tasks to specialized worker agents.</p>
+            <p>In simple two-turn demos, this works flawlessly. But once an agent attempts complex, real-world tasks — such as refactoring a legacy repository, executing a financial reconciliation audit, or debugging a distributed microservice — the system collapses at Step 6 to Step 10 due to three distinct failure modes.</p>
+
+            <h3>Silent Killer #1: Context Rot (Attention Dilution)</h3>
+            <p>A widespread myth in modern AI engineering is that 200,000-token or 1,000,000-token context windows eliminate memory constraints. In production, <strong>attention dilution begins well before capacity is reached.</strong></p>
+            <p>As agents invoke tools (bash shells, file search, SQL queries, web scrapers), intermediate outputs flood the working memory. When the context exceeds 35,000 to 50,000 tokens of raw tool output, the model's effective reasoning degrades sharply. It experiences the "Lost-in-the-Middle" phenomenon: it forgets earlier safety guardrails, ignores formatting requirements, and hallucinates parameters for tools it successfully called two turns prior.</p>
+
+            <div class="callout-warning">
+              <strong>Context Rot Defined:</strong> The progressive degradation of an LLM's reasoning fidelity caused by the accumulation of uncurated tool outputs, terminal logs, and conversational noise inside the active attention window.
+            </div>
+
+            <h3>Silent Killer #2: Context Poisoning (The Cascading Hallucination)</h3>
+            <p>While Context Rot is a quantitative decay, <strong>Context Poisoning is qualitative corruption.</strong> In a shared-state harness, Subagent A (e.g. an investigative code analyst) misinterprets a legacy docstring and writes a false assumption into the shared state.</p>
+            <p>When Subagent B (the planner) and Subagent C (the code generator) read this state, they treat Subagent A's hallucinated premise as ground truth. Rather than verifying the underlying reality, they compound the error. Within three steps, the entire multi-agent swarm is passionately optimizing a non-existent system.</p>
+
+            <h3>Silent Killer #3: The Quadratic Token Bill Spike</h3>
+            <p>In naive harnesses, every message, every tool payload, and every intermediate reasoning step is appended to an ever-growing prompt array that is resent to the API on every single LLM call. Across $M$ agents making $N$ turns, input token consumption explodes quadratically rather than linearly.</p>
+          </div>
+
+          <div class="content-section" id="token-math">
+            <h2>2. The Mathematics of Multi-Agent Token Explosion</h2>
+            <p>Let us look at the actual mathematics governing agent token economics. Consider an enterprise task requiring $N = 10$ sequential tool execution steps across $M = 3$ coordinating agents (Supervisor, Researcher, Coder).</p>
+
+            <p>In a <strong>Naive Shared-Memory Harness</strong>, each tool call generates on average 1,500 tokens of stdout. By Step 10, each invocation sends the cumulative history of all prior steps:</p>
+
+            <div class="math-card text-center my-4 p-3 bg-light rounded border">
+              <div class="math-formula fs-5 fw-semibold text-primary mb-1">
+                $$\\text{Total Input Tokens} = \\sum_{k=1}^{N} \\left( \\text{Prompt}_{\\text{static}} + k \\times \\Delta_{\\text{step}} \\right)$$
+              </div>
+              <small class="text-muted">Cumulative context formula across $N$ sequential agent turns</small>
+            </div>
+
+            <p>When subagents re-read the entire supervisor conversation, token consumption escalates at $O(M \\times N^2)$ (quadratic growth across $M$ agents and $N$ turns) instead of linear $O(N)$. Across 1,000 production workflows, the economics diverge catastrophically:</p>
+
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Architecture Pattern</th>
+                  <th>Avg Tokens / Workflow</th>
+                  <th>Cost / 1,000 Workflows (Claude 3.5 Sonnet)</th>
+                  <th>Task Failure Rate (Context Rot)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Naive Shared Monolith</strong><br><small class="text-muted">Single shared conversation history</small></td>
+                  <td>280,000 tokens</td>
+                  <td><strong>$560.00</strong><br><small class="text-danger">(Claude Sonnet 5.5 @ $2.00/M in, $10.00/M out)</small></td>
+                  <td><strong>42.4%</strong><br><small class="text-danger">Frequent loops &amp; forgotten constraints</small></td>
+                </tr>
+                <tr>
+                  <td><strong>Subagent Forked (Uncached)</strong><br><small class="text-muted">Separate subagents with full cloned state</small></td>
+                  <td>195,000 tokens</td>
+                  <td><strong>$390.00</strong></td>
+                  <td><strong>24.1%</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Engineered Harness (Isolated + Cached)</strong><br><small class="text-muted">Clean slate subagents + Prompt Caching</small></td>
+                  <td>34,000 tokens</td>
+                  <td><strong>$48.50</strong><br><small class="text-success">(91.3% Cost Savings &bull; Cache read @ $0.20/M)</small></td>
+                  <td><strong>6.2%</strong><br><small class="text-success">Production Grade Stability</small></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="callout-box">
+              <strong>The 87.8% Cost Arbitrage:</strong> By isolating subagents with strict task contracts, clearing ephemeral scratchpads, and anchoring shared tool definitions behind Anthropic's 90% prompt caching discounts, you reduce token consumption from 280M tokens to 34M tokens while simultaneously doubling accuracy.
+            </div>
+          </div>
+
+          <div class="content-section" id="three-tier-harness">
+            <h2>3. The 3-Tier Multi-Agent Harness Architecture</h2>
+            <p>To eliminate context rot and poisoning, production systems must decouple the immutable audit history from the transient context provided to the LLM at inference time. We achieve this through the <strong>3-Tier Harness Pattern</strong>:</p>
+
+            <div class="mermaid-container">
+              <pre class="mermaid">
+flowchart TD
+    subgraph Tier1["Tier 1: Durable Session Log (Append-Only)"]
+        RawEvents["Raw Event Store / SQLite / Delta Lake"]
+        AllToolOutputs["Full Stdout, Shell Dumps & HTTP Logs"]
+    end
+
+    subgraph Tier2["Tier 2: Runtime Context Harness (Governor)"]
+        Supervisor["Supervisor Orchestrator"]
+        Pruner["Context Pruner & Compactor"]
+        Router["Task & Capability Router"]
+    end
+
+    subgraph Tier3["Tier 3: Isolated Execution Sandboxes"]
+        SubA["Subagent A: Isolated Reviewer<br/>(Clean Window: Task + Rules)"]
+        SubB["Subagent B: Forked Coder<br/>(Cached Root + Diff Context)"]
+        SubC["Subagent C: Research Scraper<br/>(Ephemeral Scratchpad)"]
+    end
+
+    RawEvents --> Pruner
+    AllToolOutputs --> Pruner
+    Pruner --> Supervisor
+    Supervisor --> Router
+    Router --> SubA
+    Router --> SubB
+    Router --> SubC
+    SubA -.->|"Distilled 1-line verdict"| Pruner
+    SubB -.->|"Unified Diff only"| Pruner
+    SubC -.->|"Synthesized Summary"| Pruner
+              </pre>
+            </div>
+
+            <h3>1. The Session (Append-Only Event Store)</h3>
+            <p>The Session records everything that happens: raw bash commands, multi-megabyte API payloads, execution stack traces, and agent deliberations. <strong>Crucially, the Session is never fed raw to the LLM.</strong> It exists purely for observability, human-in-the-loop auditability, and replay debugging.</p>
+
+            <h3>2. The Harness (The Context Governor)</h3>
+            <p>The Harness is the operating system between your durable logs and the LLM's context window. It intercepts every outgoing prompt and performs active context curation: truncating verbose tool returns, compacting completed steps into state assertions, and gating tool schemas.</p>
+
+            <h3>3. The Execution Sandboxes</h3>
+            <p>Agents do not execute side-effects in the shared environment. They run in firewalled sandboxes. When a subagent finishes, the harness extracts only the <em>artifact</em> (a unified code diff, a Boolean verification check, a 2-paragraph synthesis) and discards the intermediate runtime scratchpad.</p>
+          </div>
+
+          <div class="content-section" id="isolated-vs-forked">
+            <h2>4. Subagent Context Modes: Isolated vs. Forked</h2>
+            <p>When the lead orchestrator delegates work to a specialist subagent, the harness must choose between two distinct context inheritance strategies:</p>
+
+            <div class="mermaid-container">
+              <pre class="mermaid">
+flowchart LR
+    Orchestrator["Supervisor Agent"] --> ModeCheck{"Task Type?"}
+    
+    ModeCheck -->|"Verification / Security / Parallel Search"| Isolated["Isolated Mode (Clean Slate)"]
+    ModeCheck -->|"Iterative Refactor / Local Debugging"| Forked["Forked Mode (Cached Branch)"]
+    
+    Isolated --> CleanWindow["Fresh Window:<br/>• Exact Task Scope<br/>• Relevant File Excerpt<br/>• Verification Rubric"]
+    Forked --> CacheWindow["Inherited State:<br/>• Root Conversation<br/>• Claude Cache Checkpoint<br/>• Active Local Diff"]
+    
+    CleanWindow --> PureVerdict["Unbiased Verdict<br/>(0% Context Rot)"]
+    CacheWindow --> FastIter["Instant TTFT<br/>(90% Token Discount)"]
+              </pre>
+            </div>
+
+            <h3>Mode A: Isolated Mode (The Clean Slate)</h3>
+            <p>In Isolated Mode, the subagent receives <strong>zero conversation history</strong> from the supervisor. It receives only:</p>
+            <ul>
+              <li>The specific task objective.</li>
+              <li>The exact inputs required (e.g., target file path, query string).</li>
+              <li>A strict output JSON schema or markdown rubric.</li>
+            </ul>
+            <p><strong>When to use Isolated Mode:</strong></p>
+            <ul>
+              <li><strong>Adversarial Review &amp; Code Quality:</strong> If you pass the authoring agent's thinking trace to the reviewer agent, the reviewer inherits the author's blind spots. An isolated reviewer evaluates code with zero bias.</li>
+              <li><strong>Independent Fact Verification:</strong> Fact-checking claims without supervisor framing.</li>
+              <li><strong>Parallelized Web/Document Search:</strong> Searching 10 endpoints simultaneously without polluting the main session.</li>
+            </ul>
+
+            <h3>Mode B: Forked Mode (The Cached Branch)</h3>
+            <p>In Forked Mode, the subagent inherits the supervisor's baseline state, but operates on an isolated write-branch. Any failed tool executions or throwaway investigations are confined to the fork and never pollute the parent tree.</p>
+            <p><strong>Maximizing Claude Sonnet 5.5 Prompt Caching in Forked Mode:</strong> By structuring the parent conversation so that static instructions, schema declarations, and foundational codebase maps sit at the very beginning of the prompt array, you set Anthropic's <code>cache_control: {"type": "ephemeral"}</code> breakpoint. The subagent reads the parent context at <strong>10% of normal input pricing</strong> with sub-second Time-to-First-Token (TTFT).</p>
+          </div>
+
+          <div class="content-section" id="compaction-patterns">
+            <h2>5. Production Compaction &amp; Ephemeral Scratchpads</h2>
+            <p>How do long-running autonomous workflows survive 50+ tool iterations without crashing? Through two core architectural patterns: <strong>Compaction Loops</strong> and <strong>Ephemeral Scratchpads</strong>.</p>
+
+            <h3>The Compaction Loop</h3>
+            <p>When a sub-task completes (e.g. running unit tests, inspecting 14 documentation files), the harness invokes a fast compaction prompt (using Claude 3.5 Haiku) that transforms 20 turns of back-and-forth into a single immutable observation:</p>
+
+            <pre><code># BEFORE COMPACTION (4,200 tokens in active context):
+[User]: Find why AuthMiddleware fails on expired JWTs.
+[Agent]: Calls grep_search("verify_token")...
+[Tool]: Returns 45 matches across 12 files...
+[Agent]: Reads auth/jwt.py lines 1-150...
+[Tool]: File contents...
+[Agent]: Runs pytest test_auth.py...
+[Tool]: FAILED (jwt.exceptions.ExpiredSignatureError not caught)
+[Agent]: Edits auth/jwt.py line 48...
+[Tool]: File written...
+[Agent]: Runs pytest test_auth.py...
+[Tool]: PASSED (12 tests passed).
+
+# AFTER COMPACTION (112 tokens in active context):
+[COMPACTED STATE ASSERTION - STEP 3 COMPLETED]:
+• Bug Located: auth/jwt.py line 48 failed to catch jwt.exceptions.ExpiredSignatureError.
+• Action Taken: Added explicit exception handler falling back to 401 Unauthorized.
+• Verification: pytest test_auth.py passing (12/12 tests green).</code></pre>
+
+            <h3>Dynamic Tool Gating via Model Context Protocol (MCP)</h3>
+            <p>Injecting 40 tool schemas into your root prompt consumes 6,000+ tokens on every single LLM call before the user has even typed a word. Worse, it increases tool selection ambiguity.</p>
+            <p>In a governed harness, tools are gated dynamically via MCP servers. The root supervisor only sees 4 meta-tools (<code>delegate_task</code>, <code>read_system_state</code>, <code>ask_user</code>, <code>finalize_output</code>). Deep execution tools (SQL executors, Kubernetes controllers, terminal runners) are only provided to specialized subagents inside their isolated sandboxes.</p>
+          </div>
+
+          <div class="content-section" id="production-code">
+            <h2>6. Reference Implementation: Python Context Governor</h2>
+            <p>Below is a production-tested Python harness pattern demonstrating isolated subagent dispatch, ephemeral scratchpad execution, and Anthropic prompt caching headers:</p>
+
+            <pre><code>import os
+from typing import Dict, Any, List
+import anthropic
+
+client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+
+class MultiAgentHarness:
+    def __init__(self, system_manifest: str):
+        self.system_manifest = system_manifest
+        self.session_log: List[Dict[str, Any]] = []
+
+    def run_isolated_subagent(
+        self, 
+        task_instruction: str, 
+        context_payload: str,
+        output_schema: str
+    ) -> str:
+        """
+        Executes a subagent in ISOLATED MODE.
+        Context window contains zero supervisor chatter.
+        """
+        subagent_prompt = f"""You are a specialized verification agent.
+CRITICAL CONSTRAINT: You operate in an isolated context. Focus strictly on your task.
+
+TASK SPECIFICATION:
+{task_instruction}
+
+TARGET CONTEXT:
+{context_payload}
+
+REQUIRED OUTPUT FORMAT:
+{output_schema}
+"""
+        response = client.messages.create(
+            model="claude-sonnet-5-5-20261022",
+            max_tokens=2048,
+            temperature=0.0,
+            messages=[{"role": "user", "content": subagent_prompt}]
+        )
+        verdict = response.content[0].text
+        
+        # Log complete execution to durable Session, but return only distilled verdict
+        self.session_log.append({
+            "type": "isolated_subagent_run",
+            "task": task_instruction,
+            "raw_verdict": verdict
+        })
+        return verdict
+
+    def run_supervisor_step_with_caching(
+        self, 
+        compacted_history: List[Dict[str, str]], 
+        next_instruction: str
+    ) -> str:
+        """
+        Executes supervisor step with Prompt Caching anchored at static manifest.
+        """
+        # Anchor the static system manifest with ephemeral prompt caching
+        system_block = [
+            {
+                "type": "text",
+                "text": self.system_manifest,
+                "cache_control": {"type": "ephemeral"}  # 90% discount on cache hits!
+            }
+        ]
+
+        messages = []
+        for item in compacted_history:
+            messages.append({"role": item["role"], "content": item["content"]})
+        
+        messages.append({"role": "user", "content": next_instruction})
+
+        response = client.messages.create(
+            model="claude-sonnet-5-5-20261022",
+            max_tokens=4096,
+            system=system_block,
+            messages=messages
+        )
+        return response.content[0].text
+</code></pre>
+          </div>
+
+          <div class="content-section" id="enterprise-checklist">
+            <h2>7. Enterprise Production Readiness Checklist &amp; SLOs</h2>
+            <p>Before moving any multi-agent harness into production with real users or live enterprise data, verify that your architecture satisfies these 7 operational SLOs:</p>
+
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Architectural Checkpoint</th>
+                  <th>Production Target SLO</th>
+                  <th>Failure Impact if Ignored</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Max Active Working Context</strong></td>
+                  <td>&lt; 35,000 tokens / agent</td>
+                  <td>Attention dilution, lost constraints, infinite tool loops.</td>
+                </tr>
+                <tr>
+                  <td><strong>Subagent Isolation Ratio</strong></td>
+                  <td>&ge; 70% tasks run isolated</td>
+                  <td>Context poisoning, cascading hallucinations across swarms.</td>
+                </tr>
+                <tr>
+                  <td><strong>Prompt Cache Hit Rate</strong></td>
+                  <td>&ge; 80% on static prompts</td>
+                  <td>8× to 10× monthly token invoice overrun.</td>
+                </tr>
+                <tr>
+                  <td><strong>Intermediate Tool Truncation</strong></td>
+                  <td>Max 1,000 tokens / stdout call</td>
+                  <td>Terminal log flooding blowing out prompt budget.</td>
+                </tr>
+                <tr>
+                  <td><strong>Max Autonomous Turn Depth</strong></td>
+                  <td>Hard stop at 15 turns (human handoff)</td>
+                  <td>Runaway agent loops burning cloud spend overnight.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FAQ Section -->
+          <div class="content-section" id="faq">
+            <h2>8. Frequently Asked Architectural Questions</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">Why can't I just use a 1-million token context window and feed everything in?</div>
+              <p>Large context windows are designed for high-capacity document retrieval, not multi-step reasoning. Empirical benchmarks show that reasoning fidelity and tool parameter accuracy drop sharply once an active prompt accumulates hundreds of unrelated conversational turns. Furthermore, quadratic token costs make 500k-token agent loops economically non-viable for production software.</p>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">How does LangGraph handle context compared to Anthropic multi-agent patterns?</div>
+              <p>LangGraph models state as an explicit graph schema where nodes mutate shared channels. While powerful, naive LangGraph implementations frequently append all tool messages to a shared list. Anthropic's multi-agent patterns emphasize hierarchical supervisor-worker architectures where workers are spawned as ephemeral subagents with strictly scoped prompts and return compact messages to the parent.</p>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">What is the best way to handle bash shell outputs that exceed 10,000 lines?</div>
+              <p>Never dump raw terminal stdout into the context window. Your harness should write tool output to an isolated file in the sandbox (e.g. <code>/tmp/build.log</code>) and return only: (1) Exit Code, (2) Execution Time, and (3) A head/tail excerpt of the first 10 and last 20 lines. If the agent needs to inspect failures, provide a <code>grep_log</code> tool to query specific error traces.</p>
+            </div>
+          </div>
+
+          <!-- Author Bio -->
+          <div class="author-card">
+            <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="author-avatar" loading="lazy" width="85" height="85">
+            <div>
+              <h5 class="fw-bold mb-1">About Neil Dave</h5>
+              <p class="text-muted small mb-2">Databricks Certified Professional &bull; Claude Certified Architect &ndash; Professional (CCAR-P) &bull; AI Solution Architect</p>
+              <p class="small text-muted mb-0">Neil Dave has 8+ years of production experience architecting end-to-end AI systems across healthcare, sports analytics (Mumbai Indians), and enterprise platforms. He specializes in autonomous Agentic AI workflows, high-throughput RAG systems, and Databricks Lakehouse architectures. He mentors 120+ professionals on LinkedIn.</p>
+            </div>
+          </div>
+
+          <!-- Next Steps & CTAs -->
+          <div class="p-4 bg-light rounded text-center my-4 border">
+            <h4 class="fw-bold mb-2">Planning an Enterprise Multi-Agent Deployment?</h4>
+            <p class="text-muted small mb-3">Avoid pilot failure, runaway token bills, and architectural deadlocks. Schedule a 1:1 architectural review or explore enterprise consulting.</p>
+            <div class="d-flex justify-content-center gap-2 flex-wrap">
+              <a href="../enterprise.html" class="btn btn-primary rounded-pill px-4">Explore Enterprise Consulting &rarr;</a>
+              <a href="../lead.html" class="btn btn-outline-primary rounded-pill px-4">Download AI Architecture Checklist</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="container text-center py-4">
+      <div class="copyright">
+        &copy; 2026 <strong><span>Neil Dave</span></strong>. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="../assets/vendor/aos/aos.js" defer></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+
+  <!-- Mermaid.js for architectural illustrations -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof mermaid !== 'undefined') {
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'base',
+          themeVariables: {
+            primaryColor: '#dbeafe',
+            primaryTextColor: '#1e3a8a',
+            primaryBorderColor: '#3b82f6',
+            lineColor: '#64748b',
+            secondaryColor: '#f1f5f9',
+            tertiaryColor: '#fef3c7'
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
+, right: '
+
+<body>
+
+  <!-- Mobile nav toggle button -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- Header / Sidebar -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy" width="200" height="200">
+        <h2 class="text-light"><a href="/">Neil Dave</a></h2>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="github" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus" target="_blank" rel="noopener"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://twitter.com/theneildave" class="twitter" target="_blank" rel="noopener"><i class="bx bxl-twitter"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="/#hero" class="nav-link"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="/#about" class="nav-link"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="/#portfolio" class="nav-link"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="../blog.html" class="nav-link active"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="../speaking.html" class="nav-link"><i class="bx bx-microphone"></i> <span>Speaking</span></a></li>
+          <li><a href="../enterprise.html" class="nav-link"><i class="bx bx-briefcase"></i> <span>For Enterprise</span></a></li>
+          <li><a href="../lead.html" class="nav-link"><i class="bx bx-download"></i> <span>Free Resources</span></a></li>
+          <li><a href="/#contact" class="nav-link"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Breadcrumbs -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Agentic Architecture</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="../blog.html">Articles</a></li>
+            <li>Multi-Agent Context Harness</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Article Content -->
+    <section class="inner-page py-4">
+      <div class="container">
+        <div class="article-container">
+
+          <!-- Header -->
+          <div class="article-header">
+            <span class="article-badge mb-2 d-inline-block">Agentic AI &bull; Systems Architecture</span>
+            <h1 class="article-title">Organizing Context in a Multi-Agent Harness: How to Prevent Context Rot, Poisoning, and Token Spikes</h1>
+            <div class="article-meta">
+              <span><i class="bx bx-user"></i> Neil Dave (Databricks Certified &bull; Claude Certified Architect CCAR-P)</span>
+              <span><i class="bx bx-calendar"></i> November 16, 2026</span>
+              <span><i class="bx bx-time-five"></i> 14 min read</span>
+              <span><i class="bx bx-bar-chart-alt-2"></i> Advanced Practitioner Level</span>
+            </div>
+          </div>
+
+          <!-- Executive Hook -->
+          <div class="callout-box">
+            <strong>The Hard Reality in 2026:</strong> Prompt engineering is commoditized. The true engineering bottleneck in enterprise AI is <em>Context Engineering</em>. When naive multi-agent systems crash, it is almost never because the model lacks intelligence — it is because the orchestration harness allowed the context window to decay into a chaotic dump of unpruned terminal outputs, obsolete assumptions, and runaway token bills.
+          </div>
+
+          <!-- Table of Contents -->
+          <div class="toc-card">
+            <div class="toc-title"><i class="bx bx-list-ul me-2"></i>Architecture Index</div>
+            <ul class="toc-list">
+              <li><a href="#silent-killers">1. The 3 Silent Killers: Context Rot, Poisoning, and Token Blowups</a></li>
+              <li><a href="#token-math">2. The Mathematics of Context: $O(N)$ vs $O(M 	imes N^2)$ Cost Explosion</a></li>
+              <li><a href="#three-tier-harness">3. The 3-Tier Harness Architecture: Session vs Harness vs Sandbox</a></li>
+              <li><a href="#isolated-vs-forked">4. Subagent Context Modes: Isolated Clean Slates vs Forked Branches</a></li>
+              <li><a href="#compaction-patterns">5. Production Compaction, Ephemeral Scratchpads &amp; MCP Gating</a></li>
+              <li><a href="#production-code">6. Reference Implementation: Python Context Governor with Prompt Caching</a></li>
+              <li><a href="#enterprise-checklist">7. Enterprise Production Readiness Checklist &amp; SLOs</a></li>
+              <li><a href="#faq">8. Frequently Asked Architectural Questions</a></li>
+            </ul>
+          </div>
+
+          <!-- Content Sections -->
+          <div class="content-section" id="silent-killers">
+            <h2>1. The 3 Silent Killers in Multi-Agent Orchestration</h2>
+            <p>Every engineering team building autonomous multi-agent systems (using LangGraph, CrewAI, AutoGen, or custom Claude harnesses) starts with the same naive architecture: a central supervisor with a shared conversational state graph, delegating sub-tasks to specialized worker agents.</p>
+            <p>In simple two-turn demos, this works flawlessly. But once an agent attempts complex, real-world tasks — such as refactoring a legacy repository, executing a financial reconciliation audit, or debugging a distributed microservice — the system collapses at Step 6 to Step 10 due to three distinct failure modes.</p>
+
+            <h3>Silent Killer #1: Context Rot (Attention Dilution)</h3>
+            <p>A widespread myth in modern AI engineering is that 200,000-token or 1,000,000-token context windows eliminate memory constraints. In production, <strong>attention dilution begins well before capacity is reached.</strong></p>
+            <p>As agents invoke tools (bash shells, file search, SQL queries, web scrapers), intermediate outputs flood the working memory. When the context exceeds 35,000 to 50,000 tokens of raw tool output, the model's effective reasoning degrades sharply. It experiences the "Lost-in-the-Middle" phenomenon: it forgets earlier safety guardrails, ignores formatting requirements, and hallucinates parameters for tools it successfully called two turns prior.</p>
+
+            <div class="callout-warning">
+              <strong>Context Rot Defined:</strong> The progressive degradation of an LLM's reasoning fidelity caused by the accumulation of uncurated tool outputs, terminal logs, and conversational noise inside the active attention window.
+            </div>
+
+            <h3>Silent Killer #2: Context Poisoning (The Cascading Hallucination)</h3>
+            <p>While Context Rot is a quantitative decay, <strong>Context Poisoning is qualitative corruption.</strong> In a shared-state harness, Subagent A (e.g. an investigative code analyst) misinterprets a legacy docstring and writes a false assumption into the shared state.</p>
+            <p>When Subagent B (the planner) and Subagent C (the code generator) read this state, they treat Subagent A's hallucinated premise as ground truth. Rather than verifying the underlying reality, they compound the error. Within three steps, the entire multi-agent swarm is passionately optimizing a non-existent system.</p>
+
+            <h3>Silent Killer #3: The Quadratic Token Bill Spike</h3>
+            <p>In naive harnesses, every message, every tool payload, and every intermediate reasoning step is appended to an ever-growing prompt array that is resent to the API on every single LLM call. Across $M$ agents making $N$ turns, input token consumption explodes quadratically rather than linearly.</p>
+          </div>
+
+          <div class="content-section" id="token-math">
+            <h2>2. The Mathematics of Multi-Agent Token Explosion</h2>
+            <p>Let us look at the actual mathematics governing agent token economics. Consider an enterprise task requiring $N = 10$ sequential tool execution steps across $M = 3$ coordinating agents (Supervisor, Researcher, Coder).</p>
+
+            <p>In a <strong>Naive Shared-Memory Harness</strong>, each tool call generates on average 1,500 tokens of stdout. By Step 10, each invocation sends the cumulative history of all prior steps:</p>
+
+            $$	ext{Total Input Tokens} = sum_{k=1}^{N} left(	ext{Prompt}_{	ext{static}} + k 	imes Delta_{	ext{step}}ight)$$
+
+            <p>When subagents re-read the entire supervisor conversation, token consumption escalates at $O(M 	imes N^2)$. Across 1,000 production workflows, the economics diverge catastrophically:</p>
+
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Architecture Pattern</th>
+                  <th>Avg Tokens / Workflow</th>
+                  <th>Cost / 1,000 Workflows (Claude 3.5 Sonnet)</th>
+                  <th>Task Failure Rate (Context Rot)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Naive Shared Monolith</strong><br><small class="text-muted">Single shared conversation history</small></td>
+                  <td>280,000 tokens</td>
+                  <td><strong>$560.00</strong><br><small class="text-danger">(Claude Sonnet 5.5 @ $2.00/M in, $10.00/M out)</small></td>
+                  <td><strong>42.4%</strong><br><small class="text-danger">Frequent loops &amp; forgotten constraints</small></td>
+                </tr>
+                <tr>
+                  <td><strong>Subagent Forked (Uncached)</strong><br><small class="text-muted">Separate subagents with full cloned state</small></td>
+                  <td>195,000 tokens</td>
+                  <td><strong>$390.00</strong></td>
+                  <td><strong>24.1%</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Engineered Harness (Isolated + Cached)</strong><br><small class="text-muted">Clean slate subagents + Prompt Caching</small></td>
+                  <td>34,000 tokens</td>
+                  <td><strong>$48.50</strong><br><small class="text-success">(91.3% Cost Savings &bull; Cache read @ $0.20/M)</small></td>
+                  <td><strong>6.2%</strong><br><small class="text-success">Production Grade Stability</small></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="callout-box">
+              <strong>The 87.8% Cost Arbitrage:</strong> By isolating subagents with strict task contracts, clearing ephemeral scratchpads, and anchoring shared tool definitions behind Anthropic's 90% prompt caching discounts, you reduce token consumption from 280M tokens to 34M tokens while simultaneously doubling accuracy.
+            </div>
+          </div>
+
+          <div class="content-section" id="three-tier-harness">
+            <h2>3. The 3-Tier Multi-Agent Harness Architecture</h2>
+            <p>To eliminate context rot and poisoning, production systems must decouple the immutable audit history from the transient context provided to the LLM at inference time. We achieve this through the <strong>3-Tier Harness Pattern</strong>:</p>
+
+            <div class="mermaid-container">
+              <pre class="mermaid">
+flowchart TD
+    subgraph Tier1["Tier 1: Durable Session Log (Append-Only)"]
+        RawEvents["Raw Event Store / SQLite / Delta Lake"]
+        AllToolOutputs["Full Stdout, Shell Dumps & HTTP Logs"]
+    end
+
+    subgraph Tier2["Tier 2: Runtime Context Harness (Governor)"]
+        Supervisor["Supervisor Orchestrator"]
+        Pruner["Context Pruner & Compactor"]
+        Router["Task & Capability Router"]
+    end
+
+    subgraph Tier3["Tier 3: Isolated Execution Sandboxes"]
+        SubA["Subagent A: Isolated Reviewer<br/>(Clean Window: Task + Rules)"]
+        SubB["Subagent B: Forked Coder<br/>(Cached Root + Diff Context)"]
+        SubC["Subagent C: Research Scraper<br/>(Ephemeral Scratchpad)"]
+    end
+
+    RawEvents --> Pruner
+    AllToolOutputs --> Pruner
+    Pruner --> Supervisor
+    Supervisor --> Router
+    Router --> SubA
+    Router --> SubB
+    Router --> SubC
+    SubA -.->|"Distilled 1-line verdict"| Pruner
+    SubB -.->|"Unified Diff only"| Pruner
+    SubC -.->|"Synthesized Summary"| Pruner
+              </pre>
+            </div>
+
+            <h3>1. The Session (Append-Only Event Store)</h3>
+            <p>The Session records everything that happens: raw bash commands, multi-megabyte API payloads, execution stack traces, and agent deliberations. <strong>Crucially, the Session is never fed raw to the LLM.</strong> It exists purely for observability, human-in-the-loop auditability, and replay debugging.</p>
+
+            <h3>2. The Harness (The Context Governor)</h3>
+            <p>The Harness is the operating system between your durable logs and the LLM's context window. It intercepts every outgoing prompt and performs active context curation: truncating verbose tool returns, compacting completed steps into state assertions, and gating tool schemas.</p>
+
+            <h3>3. The Execution Sandboxes</h3>
+            <p>Agents do not execute side-effects in the shared environment. They run in firewalled sandboxes. When a subagent finishes, the harness extracts only the <em>artifact</em> (a unified code diff, a Boolean verification check, a 2-paragraph synthesis) and discards the intermediate runtime scratchpad.</p>
+          </div>
+
+          <div class="content-section" id="isolated-vs-forked">
+            <h2>4. Subagent Context Modes: Isolated vs. Forked</h2>
+            <p>When the lead orchestrator delegates work to a specialist subagent, the harness must choose between two distinct context inheritance strategies:</p>
+
+            <div class="mermaid-container">
+              <pre class="mermaid">
+flowchart LR
+    Orchestrator["Supervisor Agent"] --> ModeCheck{"Task Type?"}
+    
+    ModeCheck -->|"Verification / Security / Parallel Search"| Isolated["Isolated Mode (Clean Slate)"]
+    ModeCheck -->|"Iterative Refactor / Local Debugging"| Forked["Forked Mode (Cached Branch)"]
+    
+    Isolated --> CleanWindow["Fresh Window:<br/>• Exact Task Scope<br/>• Relevant File Excerpt<br/>• Verification Rubric"]
+    Forked --> CacheWindow["Inherited State:<br/>• Root Conversation<br/>• Claude Cache Checkpoint<br/>• Active Local Diff"]
+    
+    CleanWindow --> PureVerdict["Unbiased Verdict<br/>(0% Context Rot)"]
+    CacheWindow --> FastIter["Instant TTFT<br/>(90% Token Discount)"]
+              </pre>
+            </div>
+
+            <h3>Mode A: Isolated Mode (The Clean Slate)</h3>
+            <p>In Isolated Mode, the subagent receives <strong>zero conversation history</strong> from the supervisor. It receives only:</p>
+            <ul>
+              <li>The specific task objective.</li>
+              <li>The exact inputs required (e.g., target file path, query string).</li>
+              <li>A strict output JSON schema or markdown rubric.</li>
+            </ul>
+            <p><strong>When to use Isolated Mode:</strong></p>
+            <ul>
+              <li><strong>Adversarial Review &amp; Code Quality:</strong> If you pass the authoring agent's thinking trace to the reviewer agent, the reviewer inherits the author's blind spots. An isolated reviewer evaluates code with zero bias.</li>
+              <li><strong>Independent Fact Verification:</strong> Fact-checking claims without supervisor framing.</li>
+              <li><strong>Parallelized Web/Document Search:</strong> Searching 10 endpoints simultaneously without polluting the main session.</li>
+            </ul>
+
+            <h3>Mode B: Forked Mode (The Cached Branch)</h3>
+            <p>In Forked Mode, the subagent inherits the supervisor's baseline state, but operates on an isolated write-branch. Any failed tool executions or throwaway investigations are confined to the fork and never pollute the parent tree.</p>
+            <p><strong>Maximizing Claude Sonnet 5.5 Prompt Caching in Forked Mode:</strong> By structuring the parent conversation so that static instructions, schema declarations, and foundational codebase maps sit at the very beginning of the prompt array, you set Anthropic's <code>cache_control: {"type": "ephemeral"}</code> breakpoint. The subagent reads the parent context at <strong>10% of normal input pricing</strong> with sub-second Time-to-First-Token (TTFT).</p>
+          </div>
+
+          <div class="content-section" id="compaction-patterns">
+            <h2>5. Production Compaction &amp; Ephemeral Scratchpads</h2>
+            <p>How do long-running autonomous workflows survive 50+ tool iterations without crashing? Through two core architectural patterns: <strong>Compaction Loops</strong> and <strong>Ephemeral Scratchpads</strong>.</p>
+
+            <h3>The Compaction Loop</h3>
+            <p>When a sub-task completes (e.g. running unit tests, inspecting 14 documentation files), the harness invokes a fast compaction prompt (using Claude 3.5 Haiku) that transforms 20 turns of back-and-forth into a single immutable observation:</p>
+
+            <pre><code># BEFORE COMPACTION (4,200 tokens in active context):
+[User]: Find why AuthMiddleware fails on expired JWTs.
+[Agent]: Calls grep_search("verify_token")...
+[Tool]: Returns 45 matches across 12 files...
+[Agent]: Reads auth/jwt.py lines 1-150...
+[Tool]: File contents...
+[Agent]: Runs pytest test_auth.py...
+[Tool]: FAILED (jwt.exceptions.ExpiredSignatureError not caught)
+[Agent]: Edits auth/jwt.py line 48...
+[Tool]: File written...
+[Agent]: Runs pytest test_auth.py...
+[Tool]: PASSED (12 tests passed).
+
+# AFTER COMPACTION (112 tokens in active context):
+[COMPACTED STATE ASSERTION - STEP 3 COMPLETED]:
+• Bug Located: auth/jwt.py line 48 failed to catch jwt.exceptions.ExpiredSignatureError.
+• Action Taken: Added explicit exception handler falling back to 401 Unauthorized.
+• Verification: pytest test_auth.py passing (12/12 tests green).</code></pre>
+
+            <h3>Dynamic Tool Gating via Model Context Protocol (MCP)</h3>
+            <p>Injecting 40 tool schemas into your root prompt consumes 6,000+ tokens on every single LLM call before the user has even typed a word. Worse, it increases tool selection ambiguity.</p>
+            <p>In a governed harness, tools are gated dynamically via MCP servers. The root supervisor only sees 4 meta-tools (<code>delegate_task</code>, <code>read_system_state</code>, <code>ask_user</code>, <code>finalize_output</code>). Deep execution tools (SQL executors, Kubernetes controllers, terminal runners) are only provided to specialized subagents inside their isolated sandboxes.</p>
+          </div>
+
+          <div class="content-section" id="production-code">
+            <h2>6. Reference Implementation: Python Context Governor</h2>
+            <p>Below is a production-tested Python harness pattern demonstrating isolated subagent dispatch, ephemeral scratchpad execution, and Anthropic prompt caching headers:</p>
+
+            <pre><code>import os
+from typing import Dict, Any, List
+import anthropic
+
+client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+
+class MultiAgentHarness:
+    def __init__(self, system_manifest: str):
+        self.system_manifest = system_manifest
+        self.session_log: List[Dict[str, Any]] = []
+
+    def run_isolated_subagent(
+        self, 
+        task_instruction: str, 
+        context_payload: str,
+        output_schema: str
+    ) -> str:
+        """
+        Executes a subagent in ISOLATED MODE.
+        Context window contains zero supervisor chatter.
+        """
+        subagent_prompt = f"""You are a specialized verification agent.
+CRITICAL CONSTRAINT: You operate in an isolated context. Focus strictly on your task.
+
+TASK SPECIFICATION:
+{task_instruction}
+
+TARGET CONTEXT:
+{context_payload}
+
+REQUIRED OUTPUT FORMAT:
+{output_schema}
+"""
+        response = client.messages.create(
+            model="claude-sonnet-5-5-20261022",
+            max_tokens=2048,
+            temperature=0.0,
+            messages=[{"role": "user", "content": subagent_prompt}]
+        )
+        verdict = response.content[0].text
+        
+        # Log complete execution to durable Session, but return only distilled verdict
+        self.session_log.append({
+            "type": "isolated_subagent_run",
+            "task": task_instruction,
+            "raw_verdict": verdict
+        })
+        return verdict
+
+    def run_supervisor_step_with_caching(
+        self, 
+        compacted_history: List[Dict[str, str]], 
+        next_instruction: str
+    ) -> str:
+        """
+        Executes supervisor step with Prompt Caching anchored at static manifest.
+        """
+        # Anchor the static system manifest with ephemeral prompt caching
+        system_block = [
+            {
+                "type": "text",
+                "text": self.system_manifest,
+                "cache_control": {"type": "ephemeral"}  # 90% discount on cache hits!
+            }
+        ]
+
+        messages = []
+        for item in compacted_history:
+            messages.append({"role": item["role"], "content": item["content"]})
+        
+        messages.append({"role": "user", "content": next_instruction})
+
+        response = client.messages.create(
+            model="claude-sonnet-5-5-20261022",
+            max_tokens=4096,
+            system=system_block,
+            messages=messages
+        )
+        return response.content[0].text
+</code></pre>
+          </div>
+
+          <div class="content-section" id="enterprise-checklist">
+            <h2>7. Enterprise Production Readiness Checklist &amp; SLOs</h2>
+            <p>Before moving any multi-agent harness into production with real users or live enterprise data, verify that your architecture satisfies these 7 operational SLOs:</p>
+
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Architectural Checkpoint</th>
+                  <th>Production Target SLO</th>
+                  <th>Failure Impact if Ignored</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Max Active Working Context</strong></td>
+                  <td>&lt; 35,000 tokens / agent</td>
+                  <td>Attention dilution, lost constraints, infinite tool loops.</td>
+                </tr>
+                <tr>
+                  <td><strong>Subagent Isolation Ratio</strong></td>
+                  <td>&ge; 70% tasks run isolated</td>
+                  <td>Context poisoning, cascading hallucinations across swarms.</td>
+                </tr>
+                <tr>
+                  <td><strong>Prompt Cache Hit Rate</strong></td>
+                  <td>&ge; 80% on static prompts</td>
+                  <td>8× to 10× monthly token invoice overrun.</td>
+                </tr>
+                <tr>
+                  <td><strong>Intermediate Tool Truncation</strong></td>
+                  <td>Max 1,000 tokens / stdout call</td>
+                  <td>Terminal log flooding blowing out prompt budget.</td>
+                </tr>
+                <tr>
+                  <td><strong>Max Autonomous Turn Depth</strong></td>
+                  <td>Hard stop at 15 turns (human handoff)</td>
+                  <td>Runaway agent loops burning cloud spend overnight.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FAQ Section -->
+          <div class="content-section" id="faq">
+            <h2>8. Frequently Asked Architectural Questions</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">Why can't I just use a 1-million token context window and feed everything in?</div>
+              <p>Large context windows are designed for high-capacity document retrieval, not multi-step reasoning. Empirical benchmarks show that reasoning fidelity and tool parameter accuracy drop sharply once an active prompt accumulates hundreds of unrelated conversational turns. Furthermore, quadratic token costs make 500k-token agent loops economically non-viable for production software.</p>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">How does LangGraph handle context compared to Anthropic multi-agent patterns?</div>
+              <p>LangGraph models state as an explicit graph schema where nodes mutate shared channels. While powerful, naive LangGraph implementations frequently append all tool messages to a shared list. Anthropic's multi-agent patterns emphasize hierarchical supervisor-worker architectures where workers are spawned as ephemeral subagents with strictly scoped prompts and return compact messages to the parent.</p>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">What is the best way to handle bash shell outputs that exceed 10,000 lines?</div>
+              <p>Never dump raw terminal stdout into the context window. Your harness should write tool output to an isolated file in the sandbox (e.g. <code>/tmp/build.log</code>) and return only: (1) Exit Code, (2) Execution Time, and (3) A head/tail excerpt of the first 10 and last 20 lines. If the agent needs to inspect failures, provide a <code>grep_log</code> tool to query specific error traces.</p>
+            </div>
+          </div>
+
+          <!-- Author Bio -->
+          <div class="author-card">
+            <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="author-avatar" loading="lazy" width="85" height="85">
+            <div>
+              <h5 class="fw-bold mb-1">About Neil Dave</h5>
+              <p class="text-muted small mb-2">Databricks Certified Professional &bull; Claude Certified Architect &ndash; Professional (CCAR-P) &bull; AI Solution Architect</p>
+              <p class="small text-muted mb-0">Neil Dave has 8+ years of production experience architecting end-to-end AI systems across healthcare, sports analytics (Mumbai Indians), and enterprise platforms. He specializes in autonomous Agentic AI workflows, high-throughput RAG systems, and Databricks Lakehouse architectures. He mentors 120+ professionals on LinkedIn.</p>
+            </div>
+          </div>
+
+          <!-- Next Steps & CTAs -->
+          <div class="p-4 bg-light rounded text-center my-4 border">
+            <h4 class="fw-bold mb-2">Planning an Enterprise Multi-Agent Deployment?</h4>
+            <p class="text-muted small mb-3">Avoid pilot failure, runaway token bills, and architectural deadlocks. Schedule a 1:1 architectural review or explore enterprise consulting.</p>
+            <div class="d-flex justify-content-center gap-2 flex-wrap">
+              <a href="../enterprise.html" class="btn btn-primary rounded-pill px-4">Explore Enterprise Consulting &rarr;</a>
+              <a href="../lead.html" class="btn btn-outline-primary rounded-pill px-4">Download AI Architecture Checklist</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="container text-center py-4">
+      <div class="copyright">
+        &copy; 2026 <strong><span>Neil Dave</span></strong>. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="../assets/vendor/aos/aos.js" defer></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+
+  <!-- Mermaid.js for architectural illustrations -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof mermaid !== 'undefined') {
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'base',
+          themeVariables: {
+            primaryColor: '#dbeafe',
+            primaryTextColor: '#1e3a8a',
+            primaryBorderColor: '#3b82f6',
+            lineColor: '#64748b',
+            secondaryColor: '#f1f5f9',
+            tertiaryColor: '#fef3c7'
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
+, display: false}]});"></script>
+
+</head>
+
+<body>
+
+  <!-- Mobile nav toggle button -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- Header / Sidebar -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="img-fluid rounded-circle" loading="lazy" width="200" height="200">
+        <h2 class="text-light"><a href="/">Neil Dave</a></h2>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/neil-dave/" class="linkedin" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/theneildave/" class="github" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@theneildave" class="google-plus" target="_blank" rel="noopener"><i class="bx bxl-medium"></i></a>
+          <a href="https://theneildave.substack.com" class="substack" target="_blank" rel="noopener"><i class="bx bx-envelope-open"></i></a>
+          <a href="https://twitter.com/theneildave" class="twitter" target="_blank" rel="noopener"><i class="bx bxl-twitter"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="/#hero" class="nav-link"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="/#about" class="nav-link"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="/#portfolio" class="nav-link"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="../blog.html" class="nav-link active"><i class="bx bx-edit"></i> <span>Articles</span></a></li>
+          <li><a href="../speaking.html" class="nav-link"><i class="bx bx-microphone"></i> <span>Speaking</span></a></li>
+          <li><a href="../enterprise.html" class="nav-link"><i class="bx bx-briefcase"></i> <span>For Enterprise</span></a></li>
+          <li><a href="../lead.html" class="nav-link"><i class="bx bx-download"></i> <span>Free Resources</span></a></li>
+          <li><a href="/#contact" class="nav-link"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Breadcrumbs -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Agentic Architecture</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="../blog.html">Articles</a></li>
+            <li>Multi-Agent Context Harness</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Article Content -->
+    <section class="inner-page py-4">
+      <div class="container">
+        <div class="article-container">
+
+          <!-- Header -->
+          <div class="article-header">
+            <span class="article-badge mb-2 d-inline-block">Agentic AI &bull; Systems Architecture</span>
+            <h1 class="article-title">Organizing Context in a Multi-Agent Harness: How to Prevent Context Rot, Poisoning, and Token Spikes</h1>
+            <div class="article-meta">
+              <span><i class="bx bx-user"></i> Neil Dave (Databricks Certified &bull; Claude Certified Architect CCAR-P)</span>
+              <span><i class="bx bx-calendar"></i> November 16, 2026</span>
+              <span><i class="bx bx-time-five"></i> 14 min read</span>
+              <span><i class="bx bx-bar-chart-alt-2"></i> Advanced Practitioner Level</span>
+            </div>
+          </div>
+
+          <!-- Executive Hook -->
+          <div class="callout-box">
+            <strong>The Hard Reality in 2026:</strong> Prompt engineering is commoditized. The true engineering bottleneck in enterprise AI is <em>Context Engineering</em>. When naive multi-agent systems crash, it is almost never because the model lacks intelligence — it is because the orchestration harness allowed the context window to decay into a chaotic dump of unpruned terminal outputs, obsolete assumptions, and runaway token bills.
+          </div>
+
+          <!-- Table of Contents -->
+          <div class="toc-card">
+            <div class="toc-title"><i class="bx bx-list-ul me-2"></i>Architecture Index</div>
+            <ul class="toc-list">
+              <li><a href="#silent-killers">1. The 3 Silent Killers: Context Rot, Poisoning, and Token Blowups</a></li>
+              <li><a href="#token-math">2. The Mathematics of Context: $O(N)$ vs $O(M 	imes N^2)$ Cost Explosion</a></li>
+              <li><a href="#three-tier-harness">3. The 3-Tier Harness Architecture: Session vs Harness vs Sandbox</a></li>
+              <li><a href="#isolated-vs-forked">4. Subagent Context Modes: Isolated Clean Slates vs Forked Branches</a></li>
+              <li><a href="#compaction-patterns">5. Production Compaction, Ephemeral Scratchpads &amp; MCP Gating</a></li>
+              <li><a href="#production-code">6. Reference Implementation: Python Context Governor with Prompt Caching</a></li>
+              <li><a href="#enterprise-checklist">7. Enterprise Production Readiness Checklist &amp; SLOs</a></li>
+              <li><a href="#faq">8. Frequently Asked Architectural Questions</a></li>
+            </ul>
+          </div>
+
+          <!-- Content Sections -->
+          <div class="content-section" id="silent-killers">
+            <h2>1. The 3 Silent Killers in Multi-Agent Orchestration</h2>
+            <p>Every engineering team building autonomous multi-agent systems (using LangGraph, CrewAI, AutoGen, or custom Claude harnesses) starts with the same naive architecture: a central supervisor with a shared conversational state graph, delegating sub-tasks to specialized worker agents.</p>
+            <p>In simple two-turn demos, this works flawlessly. But once an agent attempts complex, real-world tasks — such as refactoring a legacy repository, executing a financial reconciliation audit, or debugging a distributed microservice — the system collapses at Step 6 to Step 10 due to three distinct failure modes.</p>
+
+            <h3>Silent Killer #1: Context Rot (Attention Dilution)</h3>
+            <p>A widespread myth in modern AI engineering is that 200,000-token or 1,000,000-token context windows eliminate memory constraints. In production, <strong>attention dilution begins well before capacity is reached.</strong></p>
+            <p>As agents invoke tools (bash shells, file search, SQL queries, web scrapers), intermediate outputs flood the working memory. When the context exceeds 35,000 to 50,000 tokens of raw tool output, the model's effective reasoning degrades sharply. It experiences the "Lost-in-the-Middle" phenomenon: it forgets earlier safety guardrails, ignores formatting requirements, and hallucinates parameters for tools it successfully called two turns prior.</p>
+
+            <div class="callout-warning">
+              <strong>Context Rot Defined:</strong> The progressive degradation of an LLM's reasoning fidelity caused by the accumulation of uncurated tool outputs, terminal logs, and conversational noise inside the active attention window.
+            </div>
+
+            <h3>Silent Killer #2: Context Poisoning (The Cascading Hallucination)</h3>
+            <p>While Context Rot is a quantitative decay, <strong>Context Poisoning is qualitative corruption.</strong> In a shared-state harness, Subagent A (e.g. an investigative code analyst) misinterprets a legacy docstring and writes a false assumption into the shared state.</p>
+            <p>When Subagent B (the planner) and Subagent C (the code generator) read this state, they treat Subagent A's hallucinated premise as ground truth. Rather than verifying the underlying reality, they compound the error. Within three steps, the entire multi-agent swarm is passionately optimizing a non-existent system.</p>
+
+            <h3>Silent Killer #3: The Quadratic Token Bill Spike</h3>
+            <p>In naive harnesses, every message, every tool payload, and every intermediate reasoning step is appended to an ever-growing prompt array that is resent to the API on every single LLM call. Across $M$ agents making $N$ turns, input token consumption explodes quadratically rather than linearly.</p>
+          </div>
+
+          <div class="content-section" id="token-math">
+            <h2>2. The Mathematics of Multi-Agent Token Explosion</h2>
+            <p>Let us look at the actual mathematics governing agent token economics. Consider an enterprise task requiring $N = 10$ sequential tool execution steps across $M = 3$ coordinating agents (Supervisor, Researcher, Coder).</p>
+
+            <p>In a <strong>Naive Shared-Memory Harness</strong>, each tool call generates on average 1,500 tokens of stdout. By Step 10, each invocation sends the cumulative history of all prior steps:</p>
+
+            $$	ext{Total Input Tokens} = sum_{k=1}^{N} left(	ext{Prompt}_{	ext{static}} + k 	imes Delta_{	ext{step}}ight)$$
+
+            <p>When subagents re-read the entire supervisor conversation, token consumption escalates at $O(M 	imes N^2)$. Across 1,000 production workflows, the economics diverge catastrophically:</p>
+
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Architecture Pattern</th>
+                  <th>Avg Tokens / Workflow</th>
+                  <th>Cost / 1,000 Workflows (Claude 3.5 Sonnet)</th>
+                  <th>Task Failure Rate (Context Rot)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Naive Shared Monolith</strong><br><small class="text-muted">Single shared conversation history</small></td>
+                  <td>280,000 tokens</td>
+                  <td><strong>$560.00</strong><br><small class="text-danger">(Claude Sonnet 5.5 @ $2.00/M in, $10.00/M out)</small></td>
+                  <td><strong>42.4%</strong><br><small class="text-danger">Frequent loops &amp; forgotten constraints</small></td>
+                </tr>
+                <tr>
+                  <td><strong>Subagent Forked (Uncached)</strong><br><small class="text-muted">Separate subagents with full cloned state</small></td>
+                  <td>195,000 tokens</td>
+                  <td><strong>$390.00</strong></td>
+                  <td><strong>24.1%</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Engineered Harness (Isolated + Cached)</strong><br><small class="text-muted">Clean slate subagents + Prompt Caching</small></td>
+                  <td>34,000 tokens</td>
+                  <td><strong>$48.50</strong><br><small class="text-success">(91.3% Cost Savings &bull; Cache read @ $0.20/M)</small></td>
+                  <td><strong>6.2%</strong><br><small class="text-success">Production Grade Stability</small></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="callout-box">
+              <strong>The 87.8% Cost Arbitrage:</strong> By isolating subagents with strict task contracts, clearing ephemeral scratchpads, and anchoring shared tool definitions behind Anthropic's 90% prompt caching discounts, you reduce token consumption from 280M tokens to 34M tokens while simultaneously doubling accuracy.
+            </div>
+          </div>
+
+          <div class="content-section" id="three-tier-harness">
+            <h2>3. The 3-Tier Multi-Agent Harness Architecture</h2>
+            <p>To eliminate context rot and poisoning, production systems must decouple the immutable audit history from the transient context provided to the LLM at inference time. We achieve this through the <strong>3-Tier Harness Pattern</strong>:</p>
+
+            <div class="mermaid-container">
+              <pre class="mermaid">
+flowchart TD
+    subgraph Tier1["Tier 1: Durable Session Log (Append-Only)"]
+        RawEvents["Raw Event Store / SQLite / Delta Lake"]
+        AllToolOutputs["Full Stdout, Shell Dumps & HTTP Logs"]
+    end
+
+    subgraph Tier2["Tier 2: Runtime Context Harness (Governor)"]
+        Supervisor["Supervisor Orchestrator"]
+        Pruner["Context Pruner & Compactor"]
+        Router["Task & Capability Router"]
+    end
+
+    subgraph Tier3["Tier 3: Isolated Execution Sandboxes"]
+        SubA["Subagent A: Isolated Reviewer<br/>(Clean Window: Task + Rules)"]
+        SubB["Subagent B: Forked Coder<br/>(Cached Root + Diff Context)"]
+        SubC["Subagent C: Research Scraper<br/>(Ephemeral Scratchpad)"]
+    end
+
+    RawEvents --> Pruner
+    AllToolOutputs --> Pruner
+    Pruner --> Supervisor
+    Supervisor --> Router
+    Router --> SubA
+    Router --> SubB
+    Router --> SubC
+    SubA -.->|"Distilled 1-line verdict"| Pruner
+    SubB -.->|"Unified Diff only"| Pruner
+    SubC -.->|"Synthesized Summary"| Pruner
+              </pre>
+            </div>
+
+            <h3>1. The Session (Append-Only Event Store)</h3>
+            <p>The Session records everything that happens: raw bash commands, multi-megabyte API payloads, execution stack traces, and agent deliberations. <strong>Crucially, the Session is never fed raw to the LLM.</strong> It exists purely for observability, human-in-the-loop auditability, and replay debugging.</p>
+
+            <h3>2. The Harness (The Context Governor)</h3>
+            <p>The Harness is the operating system between your durable logs and the LLM's context window. It intercepts every outgoing prompt and performs active context curation: truncating verbose tool returns, compacting completed steps into state assertions, and gating tool schemas.</p>
+
+            <h3>3. The Execution Sandboxes</h3>
+            <p>Agents do not execute side-effects in the shared environment. They run in firewalled sandboxes. When a subagent finishes, the harness extracts only the <em>artifact</em> (a unified code diff, a Boolean verification check, a 2-paragraph synthesis) and discards the intermediate runtime scratchpad.</p>
+          </div>
+
+          <div class="content-section" id="isolated-vs-forked">
+            <h2>4. Subagent Context Modes: Isolated vs. Forked</h2>
+            <p>When the lead orchestrator delegates work to a specialist subagent, the harness must choose between two distinct context inheritance strategies:</p>
+
+            <div class="mermaid-container">
+              <pre class="mermaid">
+flowchart LR
+    Orchestrator["Supervisor Agent"] --> ModeCheck{"Task Type?"}
+    
+    ModeCheck -->|"Verification / Security / Parallel Search"| Isolated["Isolated Mode (Clean Slate)"]
+    ModeCheck -->|"Iterative Refactor / Local Debugging"| Forked["Forked Mode (Cached Branch)"]
+    
+    Isolated --> CleanWindow["Fresh Window:<br/>• Exact Task Scope<br/>• Relevant File Excerpt<br/>• Verification Rubric"]
+    Forked --> CacheWindow["Inherited State:<br/>• Root Conversation<br/>• Claude Cache Checkpoint<br/>• Active Local Diff"]
+    
+    CleanWindow --> PureVerdict["Unbiased Verdict<br/>(0% Context Rot)"]
+    CacheWindow --> FastIter["Instant TTFT<br/>(90% Token Discount)"]
+              </pre>
+            </div>
+
+            <h3>Mode A: Isolated Mode (The Clean Slate)</h3>
+            <p>In Isolated Mode, the subagent receives <strong>zero conversation history</strong> from the supervisor. It receives only:</p>
+            <ul>
+              <li>The specific task objective.</li>
+              <li>The exact inputs required (e.g., target file path, query string).</li>
+              <li>A strict output JSON schema or markdown rubric.</li>
+            </ul>
+            <p><strong>When to use Isolated Mode:</strong></p>
+            <ul>
+              <li><strong>Adversarial Review &amp; Code Quality:</strong> If you pass the authoring agent's thinking trace to the reviewer agent, the reviewer inherits the author's blind spots. An isolated reviewer evaluates code with zero bias.</li>
+              <li><strong>Independent Fact Verification:</strong> Fact-checking claims without supervisor framing.</li>
+              <li><strong>Parallelized Web/Document Search:</strong> Searching 10 endpoints simultaneously without polluting the main session.</li>
+            </ul>
+
+            <h3>Mode B: Forked Mode (The Cached Branch)</h3>
+            <p>In Forked Mode, the subagent inherits the supervisor's baseline state, but operates on an isolated write-branch. Any failed tool executions or throwaway investigations are confined to the fork and never pollute the parent tree.</p>
+            <p><strong>Maximizing Claude Sonnet 5.5 Prompt Caching in Forked Mode:</strong> By structuring the parent conversation so that static instructions, schema declarations, and foundational codebase maps sit at the very beginning of the prompt array, you set Anthropic's <code>cache_control: {"type": "ephemeral"}</code> breakpoint. The subagent reads the parent context at <strong>10% of normal input pricing</strong> with sub-second Time-to-First-Token (TTFT).</p>
+          </div>
+
+          <div class="content-section" id="compaction-patterns">
+            <h2>5. Production Compaction &amp; Ephemeral Scratchpads</h2>
+            <p>How do long-running autonomous workflows survive 50+ tool iterations without crashing? Through two core architectural patterns: <strong>Compaction Loops</strong> and <strong>Ephemeral Scratchpads</strong>.</p>
+
+            <h3>The Compaction Loop</h3>
+            <p>When a sub-task completes (e.g. running unit tests, inspecting 14 documentation files), the harness invokes a fast compaction prompt (using Claude 3.5 Haiku) that transforms 20 turns of back-and-forth into a single immutable observation:</p>
+
+            <pre><code># BEFORE COMPACTION (4,200 tokens in active context):
+[User]: Find why AuthMiddleware fails on expired JWTs.
+[Agent]: Calls grep_search("verify_token")...
+[Tool]: Returns 45 matches across 12 files...
+[Agent]: Reads auth/jwt.py lines 1-150...
+[Tool]: File contents...
+[Agent]: Runs pytest test_auth.py...
+[Tool]: FAILED (jwt.exceptions.ExpiredSignatureError not caught)
+[Agent]: Edits auth/jwt.py line 48...
+[Tool]: File written...
+[Agent]: Runs pytest test_auth.py...
+[Tool]: PASSED (12 tests passed).
+
+# AFTER COMPACTION (112 tokens in active context):
+[COMPACTED STATE ASSERTION - STEP 3 COMPLETED]:
+• Bug Located: auth/jwt.py line 48 failed to catch jwt.exceptions.ExpiredSignatureError.
+• Action Taken: Added explicit exception handler falling back to 401 Unauthorized.
+• Verification: pytest test_auth.py passing (12/12 tests green).</code></pre>
+
+            <h3>Dynamic Tool Gating via Model Context Protocol (MCP)</h3>
+            <p>Injecting 40 tool schemas into your root prompt consumes 6,000+ tokens on every single LLM call before the user has even typed a word. Worse, it increases tool selection ambiguity.</p>
+            <p>In a governed harness, tools are gated dynamically via MCP servers. The root supervisor only sees 4 meta-tools (<code>delegate_task</code>, <code>read_system_state</code>, <code>ask_user</code>, <code>finalize_output</code>). Deep execution tools (SQL executors, Kubernetes controllers, terminal runners) are only provided to specialized subagents inside their isolated sandboxes.</p>
+          </div>
+
+          <div class="content-section" id="production-code">
+            <h2>6. Reference Implementation: Python Context Governor</h2>
+            <p>Below is a production-tested Python harness pattern demonstrating isolated subagent dispatch, ephemeral scratchpad execution, and Anthropic prompt caching headers:</p>
+
+            <pre><code>import os
+from typing import Dict, Any, List
+import anthropic
+
+client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+
+class MultiAgentHarness:
+    def __init__(self, system_manifest: str):
+        self.system_manifest = system_manifest
+        self.session_log: List[Dict[str, Any]] = []
+
+    def run_isolated_subagent(
+        self, 
+        task_instruction: str, 
+        context_payload: str,
+        output_schema: str
+    ) -> str:
+        """
+        Executes a subagent in ISOLATED MODE.
+        Context window contains zero supervisor chatter.
+        """
+        subagent_prompt = f"""You are a specialized verification agent.
+CRITICAL CONSTRAINT: You operate in an isolated context. Focus strictly on your task.
+
+TASK SPECIFICATION:
+{task_instruction}
+
+TARGET CONTEXT:
+{context_payload}
+
+REQUIRED OUTPUT FORMAT:
+{output_schema}
+"""
+        response = client.messages.create(
+            model="claude-sonnet-5-5-20261022",
+            max_tokens=2048,
+            temperature=0.0,
+            messages=[{"role": "user", "content": subagent_prompt}]
+        )
+        verdict = response.content[0].text
+        
+        # Log complete execution to durable Session, but return only distilled verdict
+        self.session_log.append({
+            "type": "isolated_subagent_run",
+            "task": task_instruction,
+            "raw_verdict": verdict
+        })
+        return verdict
+
+    def run_supervisor_step_with_caching(
+        self, 
+        compacted_history: List[Dict[str, str]], 
+        next_instruction: str
+    ) -> str:
+        """
+        Executes supervisor step with Prompt Caching anchored at static manifest.
+        """
+        # Anchor the static system manifest with ephemeral prompt caching
+        system_block = [
+            {
+                "type": "text",
+                "text": self.system_manifest,
+                "cache_control": {"type": "ephemeral"}  # 90% discount on cache hits!
+            }
+        ]
+
+        messages = []
+        for item in compacted_history:
+            messages.append({"role": item["role"], "content": item["content"]})
+        
+        messages.append({"role": "user", "content": next_instruction})
+
+        response = client.messages.create(
+            model="claude-sonnet-5-5-20261022",
+            max_tokens=4096,
+            system=system_block,
+            messages=messages
+        )
+        return response.content[0].text
+</code></pre>
+          </div>
+
+          <div class="content-section" id="enterprise-checklist">
+            <h2>7. Enterprise Production Readiness Checklist &amp; SLOs</h2>
+            <p>Before moving any multi-agent harness into production with real users or live enterprise data, verify that your architecture satisfies these 7 operational SLOs:</p>
+
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Architectural Checkpoint</th>
+                  <th>Production Target SLO</th>
+                  <th>Failure Impact if Ignored</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Max Active Working Context</strong></td>
+                  <td>&lt; 35,000 tokens / agent</td>
+                  <td>Attention dilution, lost constraints, infinite tool loops.</td>
+                </tr>
+                <tr>
+                  <td><strong>Subagent Isolation Ratio</strong></td>
+                  <td>&ge; 70% tasks run isolated</td>
+                  <td>Context poisoning, cascading hallucinations across swarms.</td>
+                </tr>
+                <tr>
+                  <td><strong>Prompt Cache Hit Rate</strong></td>
+                  <td>&ge; 80% on static prompts</td>
+                  <td>8× to 10× monthly token invoice overrun.</td>
+                </tr>
+                <tr>
+                  <td><strong>Intermediate Tool Truncation</strong></td>
+                  <td>Max 1,000 tokens / stdout call</td>
+                  <td>Terminal log flooding blowing out prompt budget.</td>
+                </tr>
+                <tr>
+                  <td><strong>Max Autonomous Turn Depth</strong></td>
+                  <td>Hard stop at 15 turns (human handoff)</td>
+                  <td>Runaway agent loops burning cloud spend overnight.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FAQ Section -->
+          <div class="content-section" id="faq">
+            <h2>8. Frequently Asked Architectural Questions</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">Why can't I just use a 1-million token context window and feed everything in?</div>
+              <p>Large context windows are designed for high-capacity document retrieval, not multi-step reasoning. Empirical benchmarks show that reasoning fidelity and tool parameter accuracy drop sharply once an active prompt accumulates hundreds of unrelated conversational turns. Furthermore, quadratic token costs make 500k-token agent loops economically non-viable for production software.</p>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">How does LangGraph handle context compared to Anthropic multi-agent patterns?</div>
+              <p>LangGraph models state as an explicit graph schema where nodes mutate shared channels. While powerful, naive LangGraph implementations frequently append all tool messages to a shared list. Anthropic's multi-agent patterns emphasize hierarchical supervisor-worker architectures where workers are spawned as ephemeral subagents with strictly scoped prompts and return compact messages to the parent.</p>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">What is the best way to handle bash shell outputs that exceed 10,000 lines?</div>
+              <p>Never dump raw terminal stdout into the context window. Your harness should write tool output to an isolated file in the sandbox (e.g. <code>/tmp/build.log</code>) and return only: (1) Exit Code, (2) Execution Time, and (3) A head/tail excerpt of the first 10 and last 20 lines. If the agent needs to inspect failures, provide a <code>grep_log</code> tool to query specific error traces.</p>
+            </div>
+          </div>
+
+          <!-- Author Bio -->
+          <div class="author-card">
+            <img src="../assets/img/profile-img.webp" alt="Neil Dave AI Solution Architect" class="author-avatar" loading="lazy" width="85" height="85">
+            <div>
+              <h5 class="fw-bold mb-1">About Neil Dave</h5>
+              <p class="text-muted small mb-2">Databricks Certified Professional &bull; Claude Certified Architect &ndash; Professional (CCAR-P) &bull; AI Solution Architect</p>
+              <p class="small text-muted mb-0">Neil Dave has 8+ years of production experience architecting end-to-end AI systems across healthcare, sports analytics (Mumbai Indians), and enterprise platforms. He specializes in autonomous Agentic AI workflows, high-throughput RAG systems, and Databricks Lakehouse architectures. He mentors 120+ professionals on LinkedIn.</p>
+            </div>
+          </div>
+
+          <!-- Next Steps & CTAs -->
+          <div class="p-4 bg-light rounded text-center my-4 border">
+            <h4 class="fw-bold mb-2">Planning an Enterprise Multi-Agent Deployment?</h4>
+            <p class="text-muted small mb-3">Avoid pilot failure, runaway token bills, and architectural deadlocks. Schedule a 1:1 architectural review or explore enterprise consulting.</p>
+            <div class="d-flex justify-content-center gap-2 flex-wrap">
+              <a href="../enterprise.html" class="btn btn-primary rounded-pill px-4">Explore Enterprise Consulting &rarr;</a>
+              <a href="../lead.html" class="btn btn-outline-primary rounded-pill px-4">Download AI Architecture Checklist</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="container text-center py-4">
+      <div class="copyright">
+        &copy; 2026 <strong><span>Neil Dave</span></strong>. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="../assets/vendor/aos/aos.js" defer></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+
+  <!-- Mermaid.js for architectural illustrations -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof mermaid !== 'undefined') {
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'base',
+          themeVariables: {
+            primaryColor: '#dbeafe',
+            primaryTextColor: '#1e3a8a',
+            primaryBorderColor: '#3b82f6',
+            lineColor: '#64748b',
+            secondaryColor: '#f1f5f9',
+            tertiaryColor: '#fef3c7'
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

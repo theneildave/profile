@@ -40,46 +40,79 @@
 
   <!-- BreadcrumbList Schema -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theneildave.in/"},
-      {"@type": "ListItem", "position": 2, "name": "Speaking", "item": "https://theneildave.in/speaking.html"}
-    ]
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://theneildave.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Speaking",
+      "item": "https://theneildave.in/speaking.html"
+    }
+  ]
+}
   </script>
 
   <!-- Speaker Schema -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Neil Dave",
-    "url": "https://theneildave.in",
-    "image": "https://theneildave.in/assets/img/profile-img.webp",
-    "sameAs": [
-      "https://www.wikidata.org/wiki/Q138716797",
-      "https://www.linkedin.com/in/neil-dave/",
-      "https://www.youtube.com/@theneildave"
-    ],
-    "jobTitle": "AI Solution Architect",
-    "hasOccupation": {
-      "@type": "Occupation",
-      "name": "Speaker",
-      "description": "AI keynote speaker and workshop facilitator specialising in enterprise AI implementation, LLMOps, responsible AI, and computer vision."
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Neil Dave",
+  "url": "https://theneildave.in",
+  "image": "https://theneildave.in/assets/img/profile-img.webp",
+  "sameAs": [
+    "https://www.wikidata.org/wiki/Q138716797",
+    "https://www.linkedin.com/in/neil-dave/",
+    "https://www.youtube.com/@theneildave"
+  ],
+  "jobTitle": "AI Solution Architect",
+  "hasOccupation": {
+    "@type": "Occupation",
+    "name": "Speaker",
+    "description": "AI keynote speaker and workshop facilitator specialising in enterprise AI implementation, LLMOps, responsible AI, and computer vision."
+  },
+  "knowsAbout": [
+    "Enterprise AI Implementation",
+    "LLM Engineering",
+    "LLMOps",
+    "Responsible AI",
+    "Computer Vision",
+    "Generative AI",
+    "AI Strategy",
+    "Agentic AI",
+    "Multi-Agent Systems",
+    "Model Context Protocol (MCP)",
+    "Databricks Lakehouse",
+    "Claude Architecture"
+  ],
+  "email": "hello@theneildave.in",
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Databricks Certified Professional",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Databricks"
+      }
     },
-    "knowsAbout": [
-      "Enterprise AI Implementation",
-      "LLM Engineering",
-      "LLMOps",
-      "Responsible AI",
-      "Computer Vision",
-      "Generative AI",
-      "AI Strategy"
-    ],
-    "email": "hello@theneildave.in"
-  }
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Claude Certified Architect – Professional (CCAR-P)",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Anthropic"
+      }
+    }
+  ]
+}
   </script>
 
   <!-- Favicons -->
@@ -245,8 +278,8 @@
                   <span class="blog-tag">Generative AI</span>
                   <small class="text-muted">45 min · Keynote</small>
                 </div>
-                <h5 class="card-title fw-bold">Generative AI for the Enterprise: What Actually Works in 2026</h5>
-                <p class="text-muted small mb-3">For: C-Suite, Board Audiences, Business Leaders</p>
+                <h5 class="card-title fw-bold">Agentic AI &amp; Autonomous Multi-Agent Systems in Production</h5>
+                <p class="text-muted small mb-3">For: CTOs, VPs of Engineering, Chief AI Officers</p>
                 <details>
                   <summary class="btn btn-outline-primary btn-sm rounded-pill" aria-label="View talk brief for Generative AI for the Enterprise">View Talk Brief</summary>
                   <div class="mt-3 pt-2 border-top">
@@ -290,7 +323,7 @@
       <div class="container">
         <div class="row text-center g-3" data-aos="fade-up">
           <div class="col-6 col-md-3">
-            <div class="fw-bold fs-4 text-primary">7+</div>
+            <div class="fw-bold fs-4 text-primary">8+</div>
             <div class="text-muted small">Years deploying<br>enterprise AI</div>
           </div>
           <div class="col-6 col-md-3">
@@ -318,9 +351,9 @@
           </div>
           <div class="col-lg-9">
             <h3 class="mb-3">About Neil Dave</h3>
-            <p class="fw-semibold mb-2">AI Solution Architect · 8+ years · Bangalore, India</p>
+            <p class="fw-semibold mb-2">AI Solution Architect &bull; Databricks Certified &bull; Claude Certified Architect &ndash; Professional (CCAR-P) &bull; 8+ Years</p>
             <!-- Short bio (always visible) -->
-            <p>Neil Dave is an AI Solution Architect who has shipped production AI systems for healthcare, sports analytics, and enterprise clients — including Mumbai Indians. He mentors 120+ professionals on LinkedIn and holds 3 peer-reviewed publications across IEEE and Springer.</p>
+            <p>Neil Dave is an AI Solution Architect, Databricks Certified Professional, and Claude Certified Architect &ndash; Professional (CCAR-P) who has shipped production AI systems across healthcare, sports analytics, and enterprise clients — including Mumbai Indians. Specializing in autonomous Agentic AI systems, enterprise RAG, and Lakehouse architectures, he mentors 120+ professionals on LinkedIn and holds 3 peer-reviewed publications across IEEE and Springer.</p>
             <!-- Full bio (expandable) -->
             <details>
               <summary class="btn btn-outline-secondary btn-sm rounded-pill mt-1">Read full speaker bio</summary>
@@ -357,44 +390,44 @@
 
   <!-- FAQPage Schema — AI extraction for speaking queries -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How do I book Neil Dave as a speaker?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "You can invite Neil Dave to speak at your event by emailing hello@theneildave.in with your event details — topic, audience size, date, and format. He is available for keynotes, workshops, and panel sessions both in-person (Bangalore and globally) and virtually."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What topics does Neil Dave speak about?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Neil Dave speaks on enterprise AI implementation, LLM Engineering and LLMOps, Responsible AI and ethics, Generative AI for business, Computer Vision ROI, and AI career development. All talks draw from real production deployments across healthcare, sports analytics, and enterprise technology."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is Neil Dave available for international speaking engagements?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Neil Dave is based in Bangalore, India, and is available for in-person events globally as well as virtual keynotes and workshops. He has experience presenting to international audiences across 21 nationalities."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What makes Neil Dave different as an AI speaker?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Neil Dave brings practitioner credibility — all content is grounded in real production systems, not theoretical frameworks. He has 3 peer-reviewed IEEE and Springer publications, has mentored 120+ AI professionals, and has delivered AI systems for clients including Mumbai Indians."
-        }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I book Neil Dave as a speaker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can invite Neil Dave to speak at your event by emailing hello@theneildave.in with your event details — topic, audience size, date, and format. He is available for keynotes, workshops, and panel sessions both in-person (Bangalore and globally) and virtually."
       }
-    ]
-  }
+    },
+    {
+      "@type": "Question",
+      "name": "What topics does Neil Dave speak about?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Neil Dave speaks on enterprise AI implementation, LLM Engineering and LLMOps, Responsible AI and ethics, Generative AI for business, Computer Vision ROI, and AI career development. All talks draw from real production deployments across healthcare, sports analytics, and enterprise technology."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Neil Dave available for international speaking engagements?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Neil Dave is based in Bangalore, India, and is available for in-person events globally as well as virtual keynotes and workshops. He has experience presenting to international audiences across 21 nationalities."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes Neil Dave different as an AI speaker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Neil Dave brings practitioner credibility — all content is grounded in real production systems, not theoretical frameworks. He has 3 peer-reviewed IEEE and Springer publications, has mentored 120+ AI professionals, and has delivered AI systems for clients including Mumbai Indians."
+      }
+    }
+  ]
+}
   </script>
 
   <!-- ======= Footer ======= -->

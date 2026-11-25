@@ -52,36 +52,101 @@
 
   <!-- ProfessionalService Schema -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Neil Dave — Enterprise AI Consulting",
-    "url": "https://theneildave.in/enterprise.html",
-    "logo": "https://theneildave.in/assets/img/profile-img.webp",
-    "description": "Enterprise AI consulting by Neil Dave. Specialising in LLM/RAG systems, computer vision, and AI strategy for organisations that need AI that works in production.",
-    "founder": {
-      "@type": "Person",
-      "name": "Neil Dave",
-      "url": "https://theneildave.in",
-      "sameAs": ["https://www.wikidata.org/wiki/Q138716797", "https://www.youtube.com/@theneildave"]
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Bangalore",
-      "addressRegion": "Karnataka",
-      "addressCountry": "IN"
-    },
-    "email": "hello@theneildave.in",
-    "areaServed": "Worldwide",
-    "makesOffer": [
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "LLM Engineering and RAG Systems"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Computer Vision Solutions"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI Strategy and Roadmap"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "MLOps and LLMOps"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Responsible AI Audits"}}
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Neil Dave — Enterprise AI Consulting",
+  "url": "https://theneildave.in/enterprise.html",
+  "logo": "https://theneildave.in/assets/img/profile-img.webp",
+  "description": "Enterprise AI consulting by Neil Dave. Specialising in Agentic AI, Autonomous Multi-Agent Systems, Databricks Lakehouse, Claude Architecture, and LLM/RAG systems for organisations that need AI that works in production.",
+  "founder": {
+    "@type": "Person",
+    "name": "Neil Dave",
+    "url": "https://theneildave.in",
+    "sameAs": [
+      "https://www.wikidata.org/wiki/Q138716797",
+      "https://www.youtube.com/@theneildave"
     ],
-    "priceRange": "$$"
-  }
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Databricks Certified Professional",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "Databricks"
+        }
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Claude Certified Architect – Professional (CCAR-P)",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "Anthropic"
+        }
+      }
+    ]
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bangalore",
+    "addressRegion": "Karnataka",
+    "addressCountry": "IN"
+  },
+  "email": "hello@theneildave.in",
+  "areaServed": "Worldwide",
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Agentic AI & Multi-Agent Autonomous Systems"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "LLM Engineering and RAG Systems"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Computer Vision Solutions"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "AI Strategy and Roadmap"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "MLOps and LLMOps"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Responsible AI Audits"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Databricks Lakehouse & Claude Architecture"
+      }
+    }
+  ],
+  "priceRange": "$"
+}
   </script>
 
   <!-- Favicons -->
@@ -178,12 +243,17 @@
           <div class="col-lg-8">
             <h2 class="fw-bold mb-3">Deploy AI That Actually Works at Scale</h2>
             <p class="lead text-muted mb-3">8+ years. 3 industries. 0 shelf-ware projects.</p>
-            <p>Most enterprise AI initiatives spend 12–18 months and significant budget building things that never reach production. Neil has spent 8 years solving exactly that problem — from healthcare ICUs to cricket stadiums to enterprise knowledge systems. If your organisation needs AI that runs in production, not on slides, start here.</p>
+            <p>Most enterprise AI initiatives spend 12–18 months and significant budget building things that never reach production. As a <strong>Databricks Certified Professional</strong> and <strong>Claude Architect Professional</strong>, Neil specializes in cutting through pilot paralysis — delivering autonomous Agentic AI workflows, enterprise RAG systems, and robust Lakehouse ML architectures that run reliably in production.</p>
           </div>
           <div class="col-lg-4 text-center">
             <img src="assets/img/profile-img.webp" alt="Neil Dave Enterprise AI Consultant" class="img-fluid rounded-circle shadow" style="max-width:160px;">
             <p class="mt-2 mb-0 fw-semibold">Neil Dave</p>
-            <p class="text-muted small">AI Solution Architect · Bangalore, India</p>
+            <p class="text-muted small mb-2">AI Solution Architect &bull; Bangalore, India</p>
+            <div>
+              <span class="badge bg-light text-primary border rounded-pill me-1 mb-1">Databricks Certified</span>
+              <span class="badge bg-light text-primary border rounded-pill me-1 mb-1">Claude Certified Architect &ndash; Professional</span>
+              <span class="badge bg-light text-primary border rounded-pill mb-1">Agentic AI Architect</span>
+            </div>
           </div>
         </div>
       </div>
@@ -200,34 +270,57 @@
         <div class="row g-4" data-aos="fade-up">
 
           <!-- Pillar 1 -->
-          <div class="col-lg-4">
-            <div class="card h-100 shadow-sm service-pillar-card ps-3">
+          <div class="col-lg-6">
+            <div class="card h-100 shadow-sm service-pillar-card ps-3 border-0">
               <div class="card-body">
-                <p class="fw-bold mb-1">Your teams are drowning in documents they can't search.</p>
-                <p class="text-muted small mb-2">Enterprise knowledge retrieval via LLM/RAG systems — semantic search over internal documents, policies, and knowledge bases that actually returns the right answer.</p>
-                <p class="small text-muted mb-0"><em>CricketGPT, built for a global franchise, outperformed SOTA models on inference speed, memory efficiency, and retrieval accuracy.</em></p>
+                <div class="d-flex align-items-center mb-2">
+                  <i class="bx bx-bot text-primary fs-3 me-2"></i>
+                  <h5 class="fw-bold mb-0">Autonomous Agentic AI &amp; Multi-Agent Systems</h5>
+                </div>
+                <p class="text-muted small mb-2">Transition from static prompt-response chat to autonomous tool-calling agents. Architecting multi-agent swarms with LangGraph, CrewAI, and the Model Context Protocol (MCP) with robust human-in-the-loop guardrails.</p>
+                <p class="small text-muted mb-0"><em>Enable agents to autonomously query enterprise databases, invoke APIs, synthesize research, and execute complex workflows without manual babysitting.</em></p>
               </div>
             </div>
           </div>
 
           <!-- Pillar 2 -->
-          <div class="col-lg-4">
-            <div class="card h-100 shadow-sm service-pillar-card ps-3">
+          <div class="col-lg-6">
+            <div class="card h-100 shadow-sm service-pillar-card ps-3 border-0">
               <div class="card-body">
-                <p class="fw-bold mb-1">Manual visual inspection is slowing your operations and missing defects.</p>
-                <p class="text-muted small mb-2">Computer vision systems that automate quality control, detect anomalies, and process images at scale — zero added headcount required.</p>
-                <p class="small text-muted mb-0"><em>Built thermal imaging AI for medical diagnosis and visual analytics systems for live sports — two very different domains, same production discipline.</em></p>
+                <div class="d-flex align-items-center mb-2">
+                  <i class="bx bx-search-alt text-primary fs-3 me-2"></i>
+                  <h5 class="fw-bold mb-0">Enterprise Knowledge Retrieval &amp; RAG Pipelines</h5>
+                </div>
+                <p class="text-muted small mb-2">Enterprise knowledge retrieval over complex internal documents, schemas, and live operational data with hybrid search, re-ranking, and contextual compression.</p>
+                <p class="small text-muted mb-0"><em>CricketGPT (Mumbai Indians) achieved 18&times; throughput speedup and &lt;120ms latency with 99.4% factual precision over sports domain data.</em></p>
               </div>
             </div>
           </div>
 
           <!-- Pillar 3 -->
-          <div class="col-lg-4">
-            <div class="card h-100 shadow-sm service-pillar-card ps-3">
+          <div class="col-lg-6">
+            <div class="card h-100 shadow-sm service-pillar-card ps-3 border-0">
               <div class="card-body">
-                <p class="fw-bold mb-1">Your AI pilot is stuck in a loop and your stakeholders are losing confidence.</p>
-                <p class="text-muted small mb-2">AI strategy and roadmap — a structured path from pilot to production in 90 days. Includes ML team structure, build vs buy decisions, and an MLOps foundation that actually holds.</p>
-                <p class="small text-muted mb-0"><em>According to McKinsey, organisations deploying AI at scale report a 20–30% reduction in operational costs. The bottleneck is almost never the technology.</em></p>
+                <div class="d-flex align-items-center mb-2">
+                  <i class="bx bx-data text-primary fs-3 me-2"></i>
+                  <h5 class="fw-bold mb-0">Databricks Lakehouse &amp; Production MLOps</h5>
+                </div>
+                <p class="text-muted small mb-2">Certified Databricks architecture unifying enterprise data engineering and production AI: Delta Lake pipelines, Unity Catalog governance, MLflow lifecycle management, and Mosaic AI model serving.</p>
+                <p class="small text-muted mb-0"><em>Eliminate fragmented data silos and deliver reproducible, secure ML pipelines with enterprise compliance built-in.</em></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="col-lg-6">
+            <div class="card h-100 shadow-sm service-pillar-card ps-3 border-0">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-2">
+                  <i class="bx bx-brain text-primary fs-3 me-2"></i>
+                  <h5 class="fw-bold mb-0">Claude Architecture &amp; 90-Day AI Roadmaps</h5>
+                </div>
+                <p class="text-muted small mb-2">Claude Certified Architect &ndash; Professional (CCAR-P): Production Anthropic Claude Sonnet 5.5 ($2.00/M in, $10.00/M out) &amp; Opus 5.5 architectures, Extended Thinking, 1M context windows, and Prompt Caching ($0.20/M cache hits). Structured 90-day pilot-to-production roadmap.</p>
+                <p class="small text-muted mb-0"><em>Clear build vs. buy evaluations, latency SLOs, and Responsible AI audits to ensure boardroom and regulatory confidence.</em></p>
               </div>
             </div>
           </div>
@@ -246,26 +339,44 @@
 
         <div class="row g-4" data-aos="fade-up">
 
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body">
-                <span class="blog-tag mb-2">Healthcare</span>
+              <div class="card-body d-flex flex-column">
+                <span class="blog-tag mb-2">Healthcare AI</span>
                 <h5 class="card-title">Early Sepsis Detection in ICUs</h5>
-                <p class="text-muted small mb-2">Sepsis kills 270,000+ patients per year in the US alone — largely because it's detected too late. Built an ML model that identifies high-risk patients from ICU sensor data in real time, enabling earlier clinical intervention.</p>
-                <p class="small mb-3"><strong>Outcome:</strong> Production system with interpretable predictions designed to meet clinical audit requirements.</p>
-                <a href="sepsis.html" class="btn btn-outline-primary btn-sm rounded-pill">View case study →</a>
+                <p class="text-muted small mb-2 flex-grow-1">Sepsis causes 270,000+ US deaths annually. Engineered a 6-hour predictive warning system on MIMIC-III vital telemetry with AutoML and TreeSHAP explainability for ICU clinical triage.</p>
+                <p class="small mb-3"><strong>Outcome:</strong> 0.887 ROC-AUC, 81.2% sensitivity, sub-second inference, full HIPAA/clinical compliance.</p>
+                <div>
+                  <a href="sepsis.html" class="btn btn-outline-primary btn-sm rounded-pill">View case study &rarr;</a>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body">
-                <span class="blog-tag mb-2">Sports Analytics</span>
-                <h5 class="card-title">CricketGPT — LLM for a Global Franchise</h5>
-                <p class="text-muted small mb-2">A global cricket franchise needed domain-specific search over player, team, and venue data — and existing models didn't understand cricket terminology. Built an LLM-based search system trained on domain-specific data.</p>
-                <p class="small mb-3"><strong>Outcome:</strong> Custom LLM with 18× faster inference than SOTA baseline, deployed end-to-end with LLMOps pipeline.</p>
-                <a href="gen-ai.html" class="btn btn-outline-primary btn-sm rounded-pill">View case study →</a>
+              <div class="card-body d-flex flex-column">
+                <span class="blog-tag mb-2">Enterprise LLMs</span>
+                <h5 class="card-title">CricketGPT &mdash; Mumbai Indians Analytics</h5>
+                <p class="text-muted small mb-2 flex-grow-1">Domain-specific RAG architecture & quantized LLM fine-tuning for match ball-by-ball analysis, player biomechanics, and match-up strategy intelligence.</p>
+                <p class="small mb-3"><strong>Outcome:</strong> 18&times; throughput gain via vLLM PagedAttention, &lt;120ms p95 latency, 99.4% factual precision.</p>
+                <div>
+                  <a href="gen-ai.html" class="btn btn-outline-primary btn-sm rounded-pill">View case study &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body d-flex flex-column">
+                <span class="blog-tag mb-2">FinTech &amp; Governance</span>
+                <h5 class="card-title">Responsible AI Credit Risk Audit</h5>
+                <p class="text-muted small mb-2 flex-grow-1">Algorithmic fairness remediation and adverse action explanation framework for a credit scoring pipeline processing $42M+ in monthly underwriting volume.</p>
+                <p class="small mb-3"><strong>Outcome:</strong> Disparate impact mitigated (&lt;1.2% gap), FCRA/ECOA compliant, 0% default rate increase.</p>
+                <div>
+                  <a href="rai.html" class="btn btn-outline-primary btn-sm rounded-pill">View case study &rarr;</a>
+                </div>
               </div>
             </div>
           </div>

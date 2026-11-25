@@ -6,3 +6,6 @@
 /seo-audit-output
 .codex-bin
 .gstack/
+codex-seo
+node_modules
+.agent
